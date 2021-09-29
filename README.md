@@ -5,7 +5,7 @@ HEACS is a set of Python modules for modeling catalysis on high-entropy alloys.
 Requirements
 ------------
 [ase](https://wiki.fysik.dtu.dk/ase/index.html)
-
+[scikit-learn](https://scikit-learn.org/stable/)
 
 Constructing a system
 ---------------------
@@ -20,10 +20,17 @@ slabs.add_adsorbate(OH, location='default')
 slabs.save_to_database('hea_slabs.db')
 ```
 
-Doing DFT simulations
----------------------
+Calculating surface properties
+------------------------------
 
-Probably easiest with GPAW.
+```python
+from someDFTprogram import DFTCalculator
+from heacs.calculate import AdsorptionEnergy
+energies = DFTCalculator('hea_slabs.db')
+slabs = read('hea_slabs.db')
+properties = AdsorptionEnergy().get(slabs, energies, ref='Pt111')
+slabs.add_property(properties)
+```
 
 Extrapolating properties
 ------------------------
@@ -31,9 +38,22 @@ Extrapolating properties
 ```python
 from heacs.extrapolate import LinearRegression
 from heacs.features import NeighborCounting
-from heacs.build import read, all_surfaces
+from heacs.io import read
 known_data = read('hea_slabs.db')
-unknown_data = known_data.all_surfaces()
+unknown_data = known_data.get_all_surfaces()
 reg = LinearRegression(known_data, NeighborCounting).predict(unknown_data)
 reg.parity_plot('parity_plot.png')
+reg.save_regressor('regressor.pickle')
+```
+
+Optimizing alloy composition
+----------------------------
+
+```python
+from heacs.optimize import BayesianOptimizer
+from heacs.io import read
+known_data = read('hea_slabs.db')
+reg = read('regressor.pickle')
+opt = BayesianOptimizer(known_data, reg)
+optimum = opt.find_optimum(acquisition_function='expected improvement')
 ```
