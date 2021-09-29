@@ -4,9 +4,8 @@ HEACS is a set of Python modules for modeling catalysis on high-entropy alloys.
 
 Requirements
 ------------
-[ase](https://wiki.fysik.dtu.dk/ase/index.html)
-
-[scikit-learn](https://scikit-learn.org/stable/)
+* [ase](https://wiki.fysik.dtu.dk/ase/index.html)
+* [scikit-learn](https://scikit-learn.org/stable/)
 
 Constructing a system
 ---------------------
