@@ -1,6 +1,7 @@
 # High-Entropy Alloy Catalysis Simulation
 HEACS is a set of Python modules for modeling catalysis on high-entropy alloys.
 
+## subheader
 
 Requirements
 ------------
