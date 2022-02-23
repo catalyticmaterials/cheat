@@ -1,26 +1,24 @@
 # Made by Christian Møgelberg Clausen
-
-import sys
-import os
+import os, sys
 from ase.db import connect
 import numpy as np
-from utils.sampling import write_slab, relax_slab_script, relax_ads_script, SLURM_script
+from utils import write_slab, relax_slab_script, relax_ads_script, SLURM_script
 import subprocess
 from time import sleep
 
 ### see readme.txt for documentation of flags and parameters
 
 ### Filename
-project_name = 'fcc111_2AIO2P3R'
+project_name = 'example_project'
 
 ### Ids of unique slabs to generate
-start_id = 10
-end_id = 49
-stop
+start_id = 0
+end_id = 2
+
 ### Slab parameters
 facet = 'fcc111'
 size = (3,3,5)
-elements = ['Ag','Au','Ir','Os','Pd','Pt','Re','Rh','Ru']
+elements = ['Ag','Au','Cu','Pd','Pt']
 lattice = 'surface_adjusted'
 comp_sampling = 'dirichlet'
 vacuum = 10
@@ -31,7 +29,7 @@ distort_limit = None
 adsorbates = ['OH','O']
 sites = ['ontop','fcc']
 init_bonds = [2.0,1.3]
-ads_per_slab = 9
+ads_per_slab = 2
 multiple_adsId = None
 
 # GPAW parameters
@@ -58,7 +56,7 @@ os.system("mkdir txt")
 os.system("mkdir err")
 os.system("mkdir log")
 
-preview_db = connect('preview.db')
+preview_db = connect(f'{project_name}_preview.db')
 
 for i in np.arange(start_id,end_id+1):
 	np.random.seed(i)
@@ -117,6 +115,7 @@ for i in np.arange(start_id,end_id+1):
 						ads_id_str = "+".join([str(Id) for Id in id_set])		
 						hea_aux.SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{ads_id_str}.sl)")
+
 
 
 

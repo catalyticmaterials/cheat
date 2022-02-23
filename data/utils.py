@@ -63,7 +63,7 @@ def get_mag_mom(elements):
     mag_mom = [mag_mom_dict[metal] for metal in elements]
     return mag_mom
 
-def write_hea_slab(facet, elements, composition, size, lattice = 'surface_adjusted', vacuum = 10, fix_bottom = 2):
+def write_slab(facet, elements, composition, size, lattice = 'surface_adjusted', vacuum = 10, fix_bottom = 2):
     if facet not in ['fcc100','fcc110','fcc111','bcc100','bcc110','bcc111','hcp0001']:
         print("Please choose from the following facets: ['fcc100','fcc110','fcc111','bcc100','bcc110','bcc111','hcp0001']")
         raise NameError("Unsupported facet chosen.")
@@ -105,7 +105,7 @@ def relax_slab_script(filename, slabId, distort_lim, max_force, ecut, kpts, xc):
 
         file.write("while True:\n" \
                    "    try:\n" \
-                   f"        atoms = connect('../preview.db').get_atoms(slabId={slabId})\n" \
+                   f"        atoms = connect('../{filename}_preview.db').get_atoms(slabId={slabId})\n" \
                    "        break\n" \
                    "    except:\n" \
                    "        sleep(1)\n" \
@@ -115,7 +115,7 @@ def relax_slab_script(filename, slabId, distort_lim, max_force, ecut, kpts, xc):
                    f"dyn = QuasiNewton(atoms, trajectory='../traj/{filename}_slab.traj')\n" \
                    f"dyn.run(fmax = {max_force})\n" \
                    "atoms.get_potential_energy()\n" \
-                   f"connect('../slab.db').write(atoms, slabId={slabId})\n" \
+                   f"connect('../{filename}_slab.db').write(atoms, slabId={slabId})\n" \
                    "\n")
 
         if distort_lim != None:
@@ -186,9 +186,9 @@ def relax_ads_script(filename, slabId, adsId, facet, size, site, adsorbate, init
                    f"dyn.run(fmax = {max_force})\n"\
                    "atoms.get_potential_energy()\n")
         if len(adsId) == 1:
-            file.write(f"connect('../{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId={ads_id_str})\n")
+            file.write(f"connect('../{filename}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId={ads_id_str})\n")
         else:
-            file.write(f"connect('../{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId='{ads_id_str}')\n")
+            file.write(f"connect('../{filename}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId='{ads_id_str}')\n")
 
 def get_site_ids(facet, site, size):
     ads_id_sets = []
