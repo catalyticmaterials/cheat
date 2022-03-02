@@ -69,8 +69,9 @@ def write_slab(facet, elements, composition, size, lattice = 'surface_adjusted',
         raise NameError("Unsupported facet chosen.")
 
     lattice_parameters = [lat_param_dict[metal] for metal in elements]
+    weighted_lat = np.sum(np.multiply(lattice_parameters,composition))
 
-    atoms = globals()[facet]('Au', size=size, vacuum=vacuum, a=np.sum(np.multiply(lattice_parameters,composition)))
+    atoms = globals()[facet]('Au', size=size, vacuum=vacuum, a=weighted_lat)
     rnd_symbols = np.random.choice(elements,np.product(size), p=composition)
     atoms.set_chemical_symbols(rnd_symbols)
     atoms.set_constraint(FixAtoms(indices=[atom.index for atom in atoms if atom.tag not in np.arange(size[2])[:-fix_bottom+1]]))
@@ -79,7 +80,7 @@ def write_slab(facet, elements, composition, size, lattice = 'surface_adjusted',
         temp = []
         for symbol in [atom.symbol for atom in atoms if atom.tag == 1]:
             temp.append(np.array(lattice_parameters)[symbol == np.array(elements)][0])
-        lat_scale = np.mean(temp)/np.mean(lattice_parameters)
+        lat_scale = np.mean(temp)/weighted_lat
         atoms.set_cell([atoms.get_cell()[0]*lat_scale,atoms.get_cell()[1]*lat_scale,atoms.get_cell()[2]])
 
     if np.any(np.isin(list(mag_mom_dict.keys()),elements)):
