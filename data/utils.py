@@ -106,7 +106,7 @@ def relax_slab_script(filename, slabId, distort_lim, max_force, ecut, kpts, xc):
 
         file.write("while True:\n" \
                    "    try:\n" \
-                   f"        atoms = connect('../{filename}_preview.db').get_atoms(slabId={slabId})\n" \
+                   f"        atoms = connect('../{filename[:-5]}_preview.db').get_atoms(slabId={slabId})\n" \
                    "        break\n" \
                    "    except:\n" \
                    "        sleep(1)\n" \
@@ -116,7 +116,7 @@ def relax_slab_script(filename, slabId, distort_lim, max_force, ecut, kpts, xc):
                    f"dyn = QuasiNewton(atoms, trajectory='../traj/{filename}_slab.traj')\n" \
                    f"dyn.run(fmax = {max_force})\n" \
                    "atoms.get_potential_energy()\n" \
-                   f"connect('../{filename}_slab.db').write(atoms, slabId={slabId})\n" \
+                   f"connect('../{filename[:-5]}_slab.db').write(atoms, slabId={slabId})\n" \
                    "\n")
 
         if distort_lim != None:
@@ -187,9 +187,9 @@ def relax_ads_script(filename, slabId, adsId, facet, size, site, adsorbate, init
                    f"dyn.run(fmax = {max_force})\n"\
                    "atoms.get_potential_energy()\n")
         if len(adsId) == 1:
-            file.write(f"connect('../{filename}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId={ads_id_str})\n")
+            file.write(f"connect('../{filename[:-5]}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId={ads_id_str})\n")
         else:
-            file.write(f"connect('../{filename}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId='{ads_id_str}')\n")
+            file.write(f"connect('../{filename[:-5]}_{site}_{adsorbate}.db').write(atoms, slabId={slabId}, adsId='{ads_id_str}')\n")
 
 def get_site_ids(facet, site, size):
     ads_id_sets = []
