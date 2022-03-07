@@ -108,12 +108,12 @@ for i in np.arange(start_id,end_id+1):
 			for j, ads in enumerate(adsorbates):
 				if multiple_adsId == None:
 					for k in range(ads_per_slab):
-						hea_aux.SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
+						SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{k}.sl)")
 				elif isinstance(multiple_adsId, list):
 					for id_set in multiple_adsId:
 						ads_id_str = "+".join([str(Id) for Id in id_set])		
-						hea_aux.SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
+						SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{ads_id_str}.sl)")
 
 
