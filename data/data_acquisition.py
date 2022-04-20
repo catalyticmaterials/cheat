@@ -1,15 +1,17 @@
 # Made by Christian Møgelberg Clausen
-import os, sys
-from ase.db import connect
+
+import sys
+import os
 import numpy as np
-from utils import write_slab, relax_slab_script, relax_ads_script, SLURM_script
 import subprocess
+import utils
 from time import sleep
+from ase.db import connect
 
 ### see readme.txt for documentation of flags and parameters
 
 ### Filename
-project_name = 'example_project'
+project_name = 'agirpdptru'
 
 ### Ids of unique slabs to generate
 start_id = 0
@@ -18,7 +20,7 @@ end_id = 2
 ### Slab parameters
 facet = 'fcc111'
 size = (3,3,5)
-elements = ['Ag','Au','Cu','Pd','Pt']
+elements = ['Ag','Ir','Pd','Pt','Ru']
 lattice = 'surface_adjusted'
 comp_sampling = 'dirichlet'
 vacuum = 10
@@ -29,7 +31,7 @@ distort_limit = None
 adsorbates = ['OH','O']
 sites = ['ontop','fcc']
 init_bonds = [2.0,1.3]
-ads_per_slab = 2
+ads_per_slab = 9
 multiple_adsId = None
 
 # GPAW parameters
@@ -39,7 +41,7 @@ GPAW_kwargs = {'xc':'RPBE',
 			   'max_force':0.1}
 
 # Cluster parameters
-SLURM_kwargs = {'partition': 'katla_day',
+SLURM_kwargs = {'partition': 'katla_short',
 				'nodes': '1-2',
 				'ntasks': 16,
 				'ntasks_per_core': 2,
@@ -67,12 +69,12 @@ for i in np.arange(start_id,end_id+1):
 	elif isinstance(comp_sampling,list):
 		rnd_comp = comp_sampling
 
-	atoms = write_slab(facet, elements, rnd_comp, size, lattice, vacuum, fix_bottom)
+	atoms = utils.write_hea_slab(facet, elements, rnd_comp, size, lattice, vacuum, fix_bottom)
 
 	while True:
 		try:
 			if len(list(preview_db.select(slabId=i))) != 0:
-				print(f'Skibbing slabId {i} already written to preview.db')
+				print(f'Skibbing slabId {i} already written to {project_name}_preview.db')
 				break
 			else:
 				preview_db.write(atoms, slabId=i)
@@ -82,19 +84,19 @@ for i in np.arange(start_id,end_id+1):
 
 	filename = project_name + '_' + str(i).zfill(4)
 
-	relax_slab_script(filename, i, distort_limit, **GPAW_kwargs)
+	utils.relax_slab_script(filename, i, distort_limit, **GPAW_kwargs)
 
 	for j, ads in enumerate(adsorbates):
 		if multiple_adsId == None:
 			for k in range(ads_per_slab):
-				relax_ads_script(filename, i, [k], facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
+				utils.relax_ads_script(filename, i, [k], facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
 		elif isinstance(multiple_adsId, list):
 			for id_set in multiple_adsId:
-				relax_ads_script(filename, i, id_set, facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
+				utils.relax_ads_script(filename, i, id_set, facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
 
 	try:
 		if sys.argv[1] == 'submit':
-			SLURM_script(filename + '_slab', **SLURM_kwargs, dependency=None)
+			utils.SLURM_script(filename + '_slab', **SLURM_kwargs, dependency=None)
 			os.system(f"(cd sl/ && sbatch {filename + '_slab.sl'})")
 			job_id = None
 			print('Fetching SLURM jobid of slab optimization. Please wait...')
@@ -108,14 +110,13 @@ for i in np.arange(start_id,end_id+1):
 			for j, ads in enumerate(adsorbates):
 				if multiple_adsId == None:
 					for k in range(ads_per_slab):
-						hea_aux.SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
+						utils.SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{k}.sl)")
 				elif isinstance(multiple_adsId, list):
 					for id_set in multiple_adsId:
 						ads_id_str = "+".join([str(Id) for Id in id_set])		
-						hea_aux.SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
+						utils.SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{ads_id_str}.sl)")
-
 
 
 

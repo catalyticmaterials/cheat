@@ -1,0 +1,459 @@
+node035.cluster:SCM:f5e9:c48deb80: 3978 us(3978 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 8539 us(8539 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 9657 us(9657 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 9682 us(9682 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 9701 us(9701 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dad:f0c13b80: 9718 us(9718 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 9854 us(9854 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 9861 us(9861 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 9845 us(9845 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 9866 us(9866 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 9912 us(9912 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 9880 us(9880 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dab:e97fcb80: 10060 us(10060 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da9:18308b80: 10405 us(10405 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 10900 us(10900 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 13845 us(5306 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 15443 us(5786 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 15497 us(5815 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 15652 us(5951 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dad:f0c13b80: 15906 us(6188 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 16259 us(6414 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 16287 us(6433 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 16318 us(6438 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 16378 us(6517 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dab:e97fcb80: 16379 us(6319 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 16781 us(6869 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 16850 us(6984 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da9:18308b80: 17779 us(7374 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 18450 us(7550 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 19478 us(5633 us):  open_hca: device mlx4_0 not found
+node033.cluster:CMA:1da3:78002b80: 82 us(82 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da3:78002b80: 127 us(45 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:SCM:1dac:668e6b80: 21665 us(6168 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 21842 us(6399 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dad:f0c13b80: 21991 us(6085 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 22270 us(6618 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 22309 us(5991 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dab:e97fcb80: 22333 us(5954 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 22421 us(6043 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 22455 us(6168 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 22444 us(5663 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 22463 us(5613 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 22654 us(6395 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 22716 us(3238 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da6:39d16b80: 85 us(85 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1dac:668e6b80: 88 us(88 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1dad:f0c13b80: 88 us(88 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da6:39d16b80: 131 us(46 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1dac:668e6b80: 131 us(43 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1dad:f0c13b80: 131 us(43 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da7:62a31b80: 55 us(55 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da7:62a31b80: 99 us(44 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1dab:e97fcb80: 60 us(60 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1daa:407dab80: 61 us(61 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1daa:407dab80: 99 us(38 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1dab:e97fcb80: 99 us(39 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da2:5f38fb80: 77 us(77 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da0:26884b80: 66 us(66 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da4:2a0d4b80: 56 us(56 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da5:c4a73b80: 67 us(67 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da2:5f38fb80: 115 us(38 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da0:26884b80: 110 us(44 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da1:36c68b80: 56 us(56 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da4:2a0d4b80: 100 us(44 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da5:c4a73b80: 111 us(44 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:CMA:1da1:36c68b80: 96 us(40 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:SCM:1da9:18308b80: 25414 us(7635 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 25843 us(7393 us):  open_hca: device mlx4_0 not found
+node033.cluster:CMA:1da9:18308b80: 63 us(63 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da9:18308b80: 107 us(44 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:SCM:1da3:78002b80: 26484 us(3768 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da8:38ce8b80: 50 us(50 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node033.cluster:CMA:1da8:38ce8b80: 266 us(216 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node033.cluster:SCM:1dad:f0c13b80: 27243 us(5252 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da6:39d16b80: 27390 us(5548 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dac:668e6b80: 27723 us(6058 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1daa:407dab80: 28782 us(6473 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da7:62a31b80: 28788 us(6518 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da2:5f38fb80: 29212 us(6757 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dab:e97fcb80: 29294 us(6961 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 29392 us(6948 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da0:26884b80: 29499 us(7078 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da1:36c68b80: 29495 us(6841 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da5:c4a73b80: 29668 us(7205 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da3:78002b80: 32863 us(6379 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dad:f0c13b80: 33312 us(6069 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da6:39d16b80: 33613 us(6223 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dac:668e6b80: 34025 us(6302 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da9:18308b80: 34411 us(8997 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da7:62a31b80: 34770 us(5982 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da2:5f38fb80: 35401 us(6189 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da1:36c68b80: 35519 us(6024 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1daa:407dab80: 35667 us(6885 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 35895 us(6503 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da8:38ce8b80: 35779 us(9936 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da0:26884b80: 36386 us(6887 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da5:c4a73b80: 36484 us(6816 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dab:e97fcb80: 36469 us(7175 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e8:5357ab80: 3978 us(3978 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e9:c48deb80: 4569 us(591 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e9:c48deb80: 4925 us(356 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 39279 us(6416 us):  open_hca: device ipath0 not found
+node035.cluster:SCM:f5e8:5357ab80: 4894 us(916 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 5429 us(535 us):  open_hca: device mlx4_0 not found
+node035.cluster:CMA:f5e9:c48deb80: 130 us(130 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node035.cluster:CMA:f5e9:c48deb80: 201 us(71 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node035.cluster:CMA:f5e8:5357ab80: 130 us(130 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib0 configured?
+node035.cluster:CMA:f5e8:5357ab80: 416 us(286 us):  open_hca: getaddr_netdev ERROR:No such device. Is ib1 configured?
+node035.cluster:SCM:f5e9:c48deb80: 6857 us(1932 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e9:c48deb80: 7257 us(400 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e8:5357ab80: 7345 us(1916 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e9:c48deb80: 7560 us(303 us):  open_hca: device ipath0 not found
+node035.cluster:SCM:f5e9:c48deb80: 7888 us(328 us):  open_hca: device ipath0 not found
+node035.cluster:SCM:f5e8:5357ab80: 8014 us(669 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e9:c48deb80: 8203 us(315 us):  open_hca: device ehca0 not found
+node035.cluster:CMA:f5e9:c48deb80: 2024 us(1823 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node035.cluster:SCM:f5e8:5357ab80: 8644 us(630 us):  open_hca: device ipath0 not found
+node035.cluster:SCM:f5e8:5357ab80: 9165 us(521 us):  open_hca: device ipath0 not found
+node035.cluster:UCM:f5e9:c48deb80: 363 us(363 us):  open_hca: device mlx4_0 not found
+node035.cluster:UCM:f5e9:c48deb80: 751 us(388 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 9765 us(600 us):  open_hca: device ehca0 not found
+node035.cluster:UCM:f5e9:c48deb80: 1058 us(307 us):  open_hca: device mthca0 not found
+node035.cluster:CMA:f5e8:5357ab80: 3769 us(3353 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node035.cluster:UCM:f5e9:c48deb80: 1352 us(294 us):  open_hca: device mthca0 not found
+node035.cluster:CMA:f5e9:c48deb80: 4177 us(2153 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node035.cluster:CMA:f5e9:c48deb80: 4201 us(24 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node035.cluster:SCM:f5e9:c48deb80: 10745 us(2542 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e9:c48deb80: 11048 us(303 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e9:c48deb80: 11711 us(663 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1dad:f0c13b80: 39644 us(6332 us):  open_hca: device ipath0 not found
+node035.cluster:UCM:f5e8:5357ab80: 388 us(388 us):  open_hca: device mlx4_0 not found
+node035.cluster:UCM:f5e9:c48deb80: 3046 us(1694 us):  open_hca: device scif0 not found
+node035.cluster:CMA:f5e9:c48deb80: 5875 us(1674 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node035.cluster:SCM:f5e9:c48deb80: 12449 us(738 us):  open_hca: device mlx4_0 not found
+node035.cluster:UCM:f5e8:5357ab80: 1138 us(750 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e9:c48deb80: 12763 us(314 us):  open_hca: device mlx4_0 not found
+node035.cluster:UCM:f5e8:5357ab80: 1803 us(665 us):  open_hca: device mthca0 not found
+node035.cluster:SCM:f5e9:c48deb80: 13148 us(385 us):  open_hca: device mlx4_1 not found
+node035.cluster:SCM:f5e9:c48deb80: 13476 us(328 us):  open_hca: device mlx4_1 not found
+node035.cluster:UCM:f5e8:5357ab80: 2425 us(622 us):  open_hca: device mthca0 not found
+node035.cluster:UCM:f5e9:c48deb80: 4777 us(1731 us):  open_hca: device mlx4_1 not found
+node035.cluster:CMA:f5e8:5357ab80: 7684 us(3915 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node035.cluster:UCM:f5e9:c48deb80: 5074 us(297 us):  open_hca: device mlx4_1 not found
+node035.cluster:CMA:f5e8:5357ab80: 7947 us(263 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node035.cluster:SCM:f5e8:5357ab80: 14712 us(4947 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 15252 us(540 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 15699 us(447 us):  open_hca: device scif0 not found
+node035.cluster:UCM:f5e8:5357ab80: 4693 us(2268 us):  open_hca: device scif0 not found
+node035.cluster:CMA:f5e8:5357ab80: 9754 us(1807 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node035.cluster:SCM:f5e8:5357ab80: 16231 us(532 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 16482 us(251 us):  open_hca: device mlx4_0 not found
+node035.cluster:SCM:f5e8:5357ab80: 16723 us(241 us):  open_hca: device mlx4_1 not found
+node035.cluster:SCM:f5e8:5357ab80: 17067 us(344 us):  open_hca: device mlx4_1 not found
+node035.cluster:UCM:f5e8:5357ab80: 6129 us(1436 us):  open_hca: device mlx4_1 not found
+node035.cluster:UCM:f5e8:5357ab80: 6438 us(309 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da2:5f38fb80: 40144 us(4743 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da6:39d16b80: 40654 us(7041 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da5:c4a73b80: 41253 us(4769 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da7:62a31b80: 41624 us(6854 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dac:668e6b80: 42207 us(8182 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da1:36c68b80: 42983 us(7464 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 43029 us(7134 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da0:26884b80: 43240 us(6854 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da9:18308b80: 43656 us(9245 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1daa:407dab80: 43722 us(8055 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dab:e97fcb80: 44413 us(7944 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da8:38ce8b80: 45015 us(9236 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dad:f0c13b80: 45533 us(5889 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da2:5f38fb80: 46415 us(6271 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da3:78002b80: 46733 us(7454 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da3:78002b80: 26462 us(26335 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da5:c4a73b80: 47761 us(6508 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da7:62a31b80: 48785 us(7161 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da6:39d16b80: 49347 us(8693 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 49432 us(6403 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dac:668e6b80: 49461 us(7254 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da0:26884b80: 49651 us(6411 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da1:36c68b80: 49699 us(6716 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da9:18308b80: 50406 us(6750 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1daa:407dab80: 50452 us(6730 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dab:e97fcb80: 51141 us(6728 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1dad:f0c13b80: 52021 us(6488 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1dad:f0c13b80: 29466 us(29335 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da2:5f38fb80: 53118 us(6703 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da2:5f38fb80: 30002 us(29887 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da8:38ce8b80: 53669 us(8654 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1da5:c4a73b80: 54006 us(6245 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da5:c4a73b80: 30851 us(30740 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1da3:78002b80: 6752 us(6752 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 55296 us(6511 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da7:62a31b80: 32444 us(32345 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da4:2a0d4b80: 55662 us(6230 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da4:2a0d4b80: 32494 us(32394 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da1:36c68b80: 56016 us(6317 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da1:36c68b80: 32813 us(32717 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da0:26884b80: 56246 us(6595 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da0:26884b80: 33096 us(32986 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1dac:668e6b80: 56340 us(6879 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1dac:668e6b80: 33804 us(33673 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da9:18308b80: 56840 us(6434 us):  open_hca: device ipath0 not found
+node033.cluster:SCM:1daa:407dab80: 56843 us(6391 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1daa:407dab80: 33875 us(33776 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1da6:39d16b80: 57416 us(8069 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da6:39d16b80: 34978 us(34847 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:SCM:1dab:e97fcb80: 57613 us(6472 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1dab:e97fcb80: 34659 us(34560 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1dad:f0c13b80: 6600 us(6600 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da2:5f38fb80: 6096 us(6096 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da3:78002b80: 12734 us(5982 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da5:c4a73b80: 6234 us(6234 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da4:2a0d4b80: 6438 us(6438 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da7:62a31b80: 7045 us(7045 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da0:26884b80: 6402 us(6402 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da1:36c68b80: 6587 us(6587 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 62875 us(9206 us):  open_hca: device ipath0 not found
+node033.cluster:UCM:1dac:668e6b80: 7212 us(7212 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1daa:407dab80: 6927 us(6927 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da9:18308b80: 64606 us(7766 us):  open_hca: device ehca0 not found
+node033.cluster:CMA:1da9:18308b80: 38417 us(38310 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1dab:e97fcb80: 7062 us(7062 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da6:39d16b80: 8061 us(8061 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da2:5f38fb80: 12634 us(6538 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dad:f0c13b80: 13730 us(7130 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da3:78002b80: 19324 us(6590 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da5:c4a73b80: 13470 us(7236 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da4:2a0d4b80: 12927 us(6489 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da0:26884b80: 13139 us(6737 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da1:36c68b80: 13311 us(6724 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da7:62a31b80: 14666 us(7621 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1daa:407dab80: 13759 us(6832 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 71784 us(8909 us):  open_hca: device ehca0 not found
+node033.cluster:UCM:1da9:18308b80: 6508 us(6508 us):  open_hca: device mlx4_0 not found
+node033.cluster:CMA:1da8:38ce8b80: 45342 us(45076 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1dab:e97fcb80: 14231 us(7169 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da6:39d16b80: 14613 us(6552 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dac:668e6b80: 15811 us(8599 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da3:78002b80: 25414 us(6090 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da3:78002b80: 52783 us(26321 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1da2:5f38fb80: 19540 us(6906 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da3:78002b80: 52808 us(25 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1dad:f0c13b80: 20881 us(7151 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da5:c4a73b80: 19647 us(6177 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da4:2a0d4b80: 19116 us(6189 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da1:36c68b80: 19410 us(6099 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da0:26884b80: 19487 us(6348 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da7:62a31b80: 21091 us(6425 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1daa:407dab80: 20463 us(6704 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da9:18308b80: 13322 us(6814 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da6:39d16b80: 21161 us(6548 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1da3:78002b80: 79905 us(33172 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dab:e97fcb80: 21988 us(7757 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1dac:668e6b80: 23226 us(7415 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da2:5f38fb80: 26266 us(6726 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da2:5f38fb80: 57209 us(27207 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da2:5f38fb80: 57420 us(211 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1da5:c4a73b80: 26372 us(6725 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da5:c4a73b80: 57687 us(26836 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da5:c4a73b80: 57710 us(23 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1dad:f0c13b80: 29006 us(8125 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1dad:f0c13b80: 59189 us(29723 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:UCM:1da4:2a0d4b80: 25833 us(6717 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1dad:f0c13b80: 59215 us(26 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:CMA:1da4:2a0d4b80: 58707 us(26213 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da4:2a0d4b80: 58729 us(22 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1da8:38ce8b80: 8712 us(8712 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da1:36c68b80: 25934 us(6524 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da1:36c68b80: 59146 us(26333 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da1:36c68b80: 59171 us(25 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1da0:26884b80: 25976 us(6489 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da0:26884b80: 59408 us(26312 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da0:26884b80: 59431 us(23 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1da7:62a31b80: 27776 us(6685 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da7:62a31b80: 60777 us(28333 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da7:62a31b80: 60799 us(22 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1daa:407dab80: 26975 us(6512 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1daa:407dab80: 61279 us(27404 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1daa:407dab80: 61300 us(21 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:UCM:1da9:18308b80: 20016 us(6694 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1da6:39d16b80: 27994 us(6833 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da6:39d16b80: 63489 us(28511 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da6:39d16b80: 63510 us(21 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:SCM:1da3:78002b80: 86249 us(6344 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dac:668e6b80: 29784 us(6558 us):  open_hca: device mthca0 not found
+node033.cluster:UCM:1dab:e97fcb80: 28679 us(6691 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1dab:e97fcb80: 63703 us(29044 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1dac:668e6b80: 64100 us(30296 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1dab:e97fcb80: 63726 us(23 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:CMA:1dac:668e6b80: 64129 us(29 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:SCM:1da2:5f38fb80: 87310 us(34192 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 87437 us(33431 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 88820 us(32574 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 88843 us(32827 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 89143 us(33481 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dad:f0c13b80: 89915 us(37894 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 90450 us(35154 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 90800 us(33957 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da8:38ce8b80: 17746 us(9034 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 92342 us(34926 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da9:18308b80: 27215 us(7199 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da9:18308b80: 66438 us(28021 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da9:18308b80: 66466 us(28 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:SCM:1da3:78002b80: 93018 us(6769 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1dac:668e6b80: 93357 us(37017 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dab:e97fcb80: 93395 us(35782 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 94030 us(6593 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 94362 us(7052 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 95035 us(6215 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 95269 us(6426 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 96295 us(7152 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 96903 us(6453 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 97971 us(7171 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da8:38ce8b80: 25376 us(7630 us):  open_hca: device mthca0 not found
+node033.cluster:SCM:1dad:f0c13b80: 99076 us(9161 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 99590 us(7248 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da3:78002b80: 52093 us(26679 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da3:78002b80: 79444 us(26636 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1dab:e97fcb80: 100460 us(7065 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 100559 us(7202 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 101020 us(6658 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da5:c4a73b80: 101218 us(7188 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da1:36c68b80: 101549 us(6280 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da0:26884b80: 101639 us(6604 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da9:18308b80: 102138 us(37532 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 102684 us(6389 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da7:62a31b80: 103625 us(6722 us):  open_hca: device scif0 not found
+node033.cluster:UCM:1da8:38ce8b80: 31801 us(6425 us):  open_hca: device mthca0 not found
+node033.cluster:CMA:1da8:38ce8b80: 78054 us(32712 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth2 configured?
+node033.cluster:CMA:1da8:38ce8b80: 78075 us(21 us):  open_hca: getaddr_netdev ERROR:No such device. Is eth3 configured?
+node033.cluster:SCM:1daa:407dab80: 105426 us(7455 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da3:78002b80: 106340 us(13322 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da6:39d16b80: 106471 us(6881 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1dab:e97fcb80: 106911 us(6451 us):  open_hca: device scif0 not found
+node033.cluster:UCM:1da5:c4a73b80: 52933 us(26561 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da5:c4a73b80: 84238 us(26528 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:UCM:1da2:5f38fb80: 53874 us(27608 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da2:5f38fb80: 84359 us(26939 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1dac:668e6b80: 107523 us(6964 us):  open_hca: device scif0 not found
+node033.cluster:UCM:1da0:26884b80: 51109 us(25133 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da0:26884b80: 84535 us(25104 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:UCM:1da1:36c68b80: 51385 us(25451 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da1:36c68b80: 84577 us(25406 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1dad:f0c13b80: 108213 us(9137 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da9:18308b80: 108614 us(6476 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da4:2a0d4b80: 52728 us(26895 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da4:2a0d4b80: 85603 us(26874 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:UCM:1da7:62a31b80: 53745 us(25969 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da7:62a31b80: 86741 us(25942 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1da8:38ce8b80: 111398 us(39614 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 113027 us(6687 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da6:39d16b80: 55539 us(27545 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da6:39d16b80: 91032 us(27522 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:UCM:1dab:e97fcb80: 55736 us(27057 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1dab:e97fcb80: 90769 us(27043 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1da1:36c68b80: 114174 us(12625 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 114183 us(13163 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 114542 us(13324 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 114659 us(13020 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dac:668e6b80: 57813 us(28029 us):  open_hca: device scif0 not found
+node033.cluster:UCM:1daa:407dab80: 57433 us(30458 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1dac:668e6b80: 92139 us(28010 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:CMA:1daa:407dab80: 91759 us(30459 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1da9:18308b80: 116011 us(7397 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 116096 us(13412 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 116163 us(12538 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1dad:f0c13b80: 64379 us(35373 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1dad:f0c13b80: 94655 us(35440 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1da8:38ce8b80: 118490 us(7092 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 119445 us(6418 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da6:39d16b80: 120248 us(13777 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dab:e97fcb80: 120392 us(13481 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da1:36c68b80: 120959 us(6785 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 121205 us(6663 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1daa:407dab80: 121539 us(16113 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 121722 us(7063 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 122149 us(14626 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da9:18308b80: 57338 us(30123 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da9:18308b80: 96548 us(30082 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:SCM:1da4:2a0d4b80: 122917 us(6821 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 123172 us(7009 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 124005 us(9822 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da8:38ce8b80: 125181 us(6691 us):  open_hca: device scif0 not found
+node033.cluster:SCM:1dad:f0c13b80: 125545 us(17332 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da3:78002b80: 125914 us(6469 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da6:39d16b80: 126443 us(6195 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da5:c4a73b80: 127476 us(6271 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dab:e97fcb80: 127607 us(7215 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da0:26884b80: 127774 us(6052 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da1:36c68b80: 127632 us(6673 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1daa:407dab80: 128387 us(6848 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da4:2a0d4b80: 129592 us(6675 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da9:18308b80: 129621 us(13610 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 129627 us(7478 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da7:62a31b80: 129836 us(6664 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da8:38ce8b80: 59055 us(27254 us):  open_hca: device scif0 not found
+node033.cluster:CMA:1da8:38ce8b80: 105297 us(27222 us):  open_hca: getaddr_netdev ERROR:No such device. Is mic0:ib configured?
+node033.cluster:UCM:1da3:78002b80: 84786 us(32693 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dad:f0c13b80: 132644 us(7099 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1da2:5f38fb80: 132951 us(8946 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da6:39d16b80: 133371 us(6928 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da5:c4a73b80: 134104 us(6628 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dab:e97fcb80: 134985 us(7378 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1daa:407dab80: 135151 us(6764 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da0:26884b80: 135240 us(7466 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da1:36c68b80: 135944 us(8312 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da4:2a0d4b80: 136072 us(6480 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da7:62a31b80: 136242 us(6406 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da9:18308b80: 136331 us(6710 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dac:668e6b80: 137083 us(7456 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dad:f0c13b80: 139380 us(6736 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da8:38ce8b80: 139523 us(14342 us):  open_hca: device mlx4_0 not found
+node033.cluster:UCM:1da3:78002b80: 92638 us(7852 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da2:5f38fb80: 140605 us(7654 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da6:39d16b80: 140687 us(7316 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da5:c4a73b80: 86786 us(33853 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dab:e97fcb80: 141613 us(6628 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da0:26884b80: 85134 us(34025 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1daa:407dab80: 142292 us(7141 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da1:36c68b80: 85985 us(34600 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da7:62a31b80: 86544 us(32799 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da9:18308b80: 142682 us(6351 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1dac:668e6b80: 143408 us(6325 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da4:2a0d4b80: 87541 us(34813 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da8:38ce8b80: 145755 us(6232 us):  open_hca: device mlx4_0 not found
+node033.cluster:SCM:1dad:f0c13b80: 146093 us(6713 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da6:39d16b80: 88802 us(33263 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da2:5f38fb80: 93519 us(39645 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da5:c4a73b80: 93337 us(6551 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da0:26884b80: 91530 us(6396 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dab:e97fcb80: 90710 us(34974 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da1:36c68b80: 92449 us(6464 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da7:62a31b80: 93004 us(6460 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1daa:407dab80: 91644 us(34211 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da9:18308b80: 149194 us(6512 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dac:668e6b80: 92924 us(35111 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da4:2a0d4b80: 95590 us(8049 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da8:38ce8b80: 151929 us(6174 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dad:f0c13b80: 99973 us(35594 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da6:39d16b80: 95081 us(6279 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da2:5f38fb80: 100026 us(6507 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1daa:407dab80: 97629 us(5985 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dab:e97fcb80: 96903 us(6193 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da9:18308b80: 89692 us(32354 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dac:668e6b80: 98578 us(5654 us):  open_hca: device mlx4_1 not found
+node033.cluster:SCM:1da8:38ce8b80: 155893 us(3964 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1dad:f0c13b80: 104510 us(4537 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da9:18308b80: 92687 us(2995 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da8:38ce8b80: 85381 us(26326 us):  open_hca: device mlx4_1 not found
+node033.cluster:UCM:1da8:38ce8b80: 85763 us(382 us):  open_hca: device mlx4_1 not found
+                Step[ FC]     Time          Energy          fmax
+*Force-consistent energies used in optimization.
+BFGSLineSearch:    0[  0] 20:42:58     -264.513280*       1.3995
+BFGSLineSearch:    1[  3] 22:00:42     -265.008485*       1.1893
+BFGSLineSearch:    2[  5] 22:48:50     -265.091016*       0.6960
+BFGSLineSearch:    3[  6] 23:13:18     -265.178740*       0.3463
+BFGSLineSearch:    4[  7] 23:34:09     -265.200229*       0.4064
+BFGSLineSearch:    5[  8] 23:54:12     -265.217077*       0.1257
+BFGSLineSearch:    6[  9] 00:12:27     -265.223088*       0.1264
+BFGSLineSearch:    7[ 10] 00:28:19     -265.226890*       0.1037
+BFGSLineSearch:    8[ 11] 00:47:21     -265.229892*       0.0798
