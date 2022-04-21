@@ -271,7 +271,7 @@ def db_to_graphs(surface_elements, adsorbate_elements, n_neighbors, fmax, db, re
 
 		# get ensemble (surface elements directly involved in the bond)
 		ensemble = np.array(labels_3x3)[[id for id in ens_ids]]
-		ensemble = {el: sum(ensemble == el) for el in ensemble}
+		ensemble = {el: sum(ensemble == el) for el in surface_elements}
 
 		graph_list.append(Data(x=torch_nodes, edge_index=torch_edges, y=torch.tensor([ads_energy], dtype=torch.float),
 				 site=row.site, ads=row.ads, ens=ensemble))

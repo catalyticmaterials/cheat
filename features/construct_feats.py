@@ -4,8 +4,8 @@ from utils import db_to_zonedfeats, db_to_graphs
 
 # Reference energies
 ref_dict = {'ontop_OH':ase.db.connect('../data/3x3x5_pt111_ontop_OH.db').get().energy,
-				'fcc_O':ase.db.connect('../data/3x3x5_pt111_fcc_O.db').get().energy,
-				'slab':ase.db.connect('../data/3x3x5_pt111_slab.db').get().energy
+			'fcc_O':ase.db.connect('../data/3x3x5_pt111_fcc_O.db').get().energy,
+			'slab':ase.db.connect('../data/3x3x5_pt111_slab.db').get().energy
 			 }
 
 site_list = ['ontop','fcc']

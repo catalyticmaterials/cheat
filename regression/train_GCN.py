@@ -94,7 +94,6 @@ with open(f'model_states/{filename}.state', 'wb') as output:
 
 # plot epoch curve
 fig, main_ax = plt.subplots(1, 1, figsize=(8, 5))
-#axins = main_ax.inset_axes([0.25, 0.25, 0.7, 0.7])
 color = ['steelblue','green']
 label = [r'Training set  L1Loss',r'Validation set L1Loss']
 
@@ -107,77 +106,75 @@ main_ax.set_xlabel(r'Epoch', fontsize=16)
 main_ax.set_ylabel(r'L1Loss [eV]', fontsize=16)
 main_ax.set(ylim=(0.025,0.125))
 main_ax.legend()
-"""
-x1, x2, y1, y2 = best_epoch - int(roll_val_width / 2), best_epoch + int(roll_val_width / 2), val_loss[
-best_epoch] * 0.9, val_loss[best_epoch] * 1.1
-axins.set_xlim(x1, x2)
-axins.set_ylim(y1, y2)
-main_ax.indicate_inset_zoom(axins, edgecolor="black")
+plt.savefig(f'epoch_curves/{filename}_curve.png')
 
-# val error at early stop
-best_model = load_GCN(kwargs, best_state)
-_, val_pred, val_true, val_site, val_ads = test(best_model, val_loader, len(val_graphs))
+## load trained state
+#regressor = load_GCN(kwargs,best_state)
+
+test_loader = DataLoader(test_graphs, batch_size=len(test_graphs))
+_, test_pred, test_true, test_site, test_ads = test(regressor, test_loader, len(test_graphs))
 
 start, stop = -2, 1.5
-ontop_mask = np.array(val_site) == 'ontop'
-fcc_mask = np.array(val_site) == 'fcc'
+ontop_mask = np.array(test_site) == 'ontop'
+fcc_mask = np.array(test_site) == 'fcc'
 
 colors = ['steelblue', 'maroon']
 color_list = []
-for entry in val_site:
+for entry in test_site:
 	if entry == 'ontop':
 		color_list.append(colors[0])
 	elif entry == 'fcc':
 		color_list.append(colors[1])
 
-axins.set_xlabel(
-	r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{ads}}-\Delta \mathrm{E}_{\mathrm{ads}}^\mathrm{Pt}}$ [eV]',
-	fontsize=12)
-axins.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{pred}}_{\mathrm{ads}} \, [\mathrm{eV}]$', fontsize=12)
-axins.set_xlim(start, stop)
-axins.set_ylim(start, stop)
-axins.scatter(val_true, val_pred, s=1, c=color_list, alpha=0.75)
+for i, site in enumerate(['*OH ontop', '*O fcc']):
+    fig, ax = plt.subplots(1, 1, figsize=(7, 7))
+    if i == 0:
+        ax.set_xlabel(r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{*OH}}-\Delta \mathrm{E}_{\mathrm{*OH}}^\mathrm{Pt}}$ [eV]',fontsize=16)
+        ax.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{pred}}_{\mathrm{*OH}} \, [\mathrm{eV}]$', fontsize=16)
+    elif i == 1:
+        ax.set_xlabel(r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{*O}}-\Delta \mathrm{E}_{\mathrm{*O}}^\mathrm{Pt}}$ [eV]',fontsize=16)
+        ax.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{pred}}_{\mathrm{*O}} \, [\mathrm{eV}]$', fontsize=16)
+    ax.set_xlim(start, stop)
+    ax.set_ylim(start, stop)
+    ax.text(0.01, 0.98, f'GCN model on testset', family='monospace', fontsize=18, transform=ax.transAxes,
+            verticalalignment='top', color='k')
+    if i == 0:
+        ax.scatter(np.array(test_true)[ontop_mask], np.array(test_pred)[ontop_mask], s=2, c='steelblue', alpha=0.75)
+    elif i == 1:
+        ax.scatter(np.array(test_true)[fcc_mask], np.array(test_pred)[fcc_mask], s=2, c='maroon', alpha=0.75)
 
-# plot solid diagonal line
-axins.plot([start, stop], [start, stop], 'k-', linewidth=1.0,
-		label=r'$\Delta \mathrm{E}^{\mathrm{pred}} = \Delta \mathrm{E}^{\mathrm{DFT}}$')
+    # plot solid diagonal line
+    ax.plot([start, stop], [start, stop], 'k-', linewidth=1.0,
+            label=r'$\Delta \mathrm{E}^{\mathrm{pred}} = \Delta \mathrm{E}^{\mathrm{DFT}}$')
 
-# plot dashed diagonal lines 0.1 eV above and below solid diagonal line
-pm = 0.1
-axins.plot([start, stop], [start + pm, stop + pm], 'k--', linewidth=1.0, label=r'$\pm %.2f \mathrm{eV}$' % pm)
-axins.plot([start + pm, stop], [start, stop - pm], 'k--', linewidth=1.0)
+    # plot dashed diagonal lines 0.1 eV above and below solid diagonal line
+    pm = 0.1
+    ax.plot([start, stop], [start + pm, stop + pm], 'k--', linewidth=1.0, label=r'$\pm %.2f \mathrm{eV}$' % pm)
+    ax.plot([start + pm, stop], [start, stop - pm], 'k--', linewidth=1.0)
+    if i == 0:
+        ontop_L1loss = np.array(test_pred)[ontop_mask] - np.array(test_true)[ontop_mask]
+        ax.text(0.01, 0.93,
+                f'ontop *OH MAE: {np.mean(np.abs(ontop_L1loss)):.3f} eV',
+                family='monospace', fontsize=18, transform=ax.transAxes,
+                verticalalignment='top', color='steelblue')
+    elif i == 1:
+        fcc_L1loss = np.array(test_pred)[fcc_mask] - np.array(test_true)[fcc_mask]
+        ax.text(0.01, 0.93,
+                f'fcc *O MAE:    {np.mean(np.abs(fcc_L1loss)):.3f} eV',
+                family='monospace', fontsize=18, transform=ax.transAxes,
+                verticalalignment='top', color='maroon')
 
-ontop_L1loss = np.array(val_pred)[ontop_mask] - np.array(val_true)[ontop_mask]
-axins.text(0.01, 0.98,
-		f'ontop OH L1loss: {np.mean(np.abs(ontop_L1loss)):.3f} eV',
-		family='monospace', fontsize=12, transform=axins.transAxes,
-		verticalalignment='top', color='steelblue')
-fcc_L1loss = np.array(val_pred)[fcc_mask] - np.array(val_true)[fcc_mask]
-axins.text(0.01, 0.91,
-		f'fcc O L1loss:    {np.mean(np.abs(fcc_L1loss)):.3f} eV',
-		family='monospace', fontsize=12, transform=axins.transAxes,
-		verticalalignment='top', color='maroon')
-
-total_L1loss = np.array(val_pred) - np.array(val_true)
-
-axins.text(0.01, 0.84, f'total L1loss:    {np.mean(np.abs(total_L1loss)):.3f} eV',
-		family='monospace', fontsize=12,
-		transform=axins.transAxes, verticalalignment='top', color='black')
-
-hist_ax = axins.inset_axes([0.65, 0.15, 0.3, 0.3])
-hist_ax.patch.set_alpha(0)
-hist_ax.hist(ontop_L1loss, bins=20, range=(-3 * pm, 3 * pm), color='steelblue', alpha=0.5)
-hist_ax.hist(fcc_L1loss, bins=20, range=(-3 * pm, 3 * pm), color='maroon', alpha=0.5)
-hist_ax.axvline(0.0, linestyle='-', linewidth=0.5, color='black')
-hist_ax.axvline(-pm, linestyle='--', linewidth=0.5, color='black')
-hist_ax.axvline(pm, linestyle='--', linewidth=0.5, color='black')
-hist_ax.tick_params(axis='x', labelsize=10)
-hist_ax.get_yaxis().set_visible(False)
-for spine in ['right', 'left', 'top']:
-	hist_ax.spines[spine].set_visible(False)
-"""
-plt.savefig(f'epoch_curves/{filename}_curve.png')
-
-
-
+    axins = ax.inset_axes([0.65, 0.1, 0.3, 0.3])
+    axins.patch.set_alpha(0)
+    if i == 0:
+        axins.hist(ontop_L1loss, bins=20, range=(-3 * pm, 3 * pm), color='steelblue', alpha=0.5)
+    elif i == 1:
+        axins.hist(fcc_L1loss, bins=20, range=(-3 * pm, 3 * pm), color='maroon', alpha=0.5)
+    axins.axvline(0.0, linestyle='-', linewidth=0.5, color='black')
+    axins.axvline(-pm, linestyle='--', linewidth=0.5, color='black')
+    axins.axvline(pm, linestyle='--', linewidth=0.5, color='black')
+    axins.get_yaxis().set_visible(False)
+    for spine in ['right', 'left', 'top']:
+        axins.spines[spine].set_visible(False)
+    plt.savefig(f'parity_{site[1:].replace(" ", "")}_GCN.png')
 

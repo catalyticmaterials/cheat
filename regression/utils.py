@@ -1,5 +1,7 @@
 import numpy as np
 import torch
+import itertools
+import copy
 from torch_geometric.nn import GatedGraphConv, GlobalAttention
 from torch.nn import Linear
 import torch.nn.functional as F
@@ -66,6 +68,7 @@ def train(model, loader, batch_size, optimizer):
 	pred, target = [], []
 
 	for data in loader:
+
 		optimizer.zero_grad()
 
 		# predict
@@ -114,3 +117,71 @@ def predict(model, loader, batch_size):
 		ads += data.ads
 
 		return pred, site, ads
+def split_ensembles(dataset,n_metals):
+	"""Splits dataset into ensembles.
+	Accepts numpy array of zone counts and
+	needs integer of number of different metals
+
+	Returns numpy array of arrays containing samples of each unique ensemble configuration"""
+
+	# Placeholder for unique ensemble vectors
+	ens_vector = []
+
+	# Find number of atoms in ensemble zone (ontop=1 / bridge=2 / fcc or hcp=3)
+	n_ens_atoms = sum(dataset[0, :][:n_metals])
+
+	# Find all possible combinations, remove vectors with more than n_ens_atoms, permutate and find unique vectors.
+	# This will give all unique ensemble zone configurations.
+	combs = np.array(list(itertools.combinations_with_replacement(np.arange(n_ens_atoms + 1), n_metals)))
+	mask = np.sum(combs, axis=1) == n_ens_atoms
+	for comb in combs[mask]:
+		for unique in np.unique(np.array(list(itertools.permutations(comb))), axis=0):
+			# Append to list of unique ensemble vectors for comparison
+			ens_vector.append(unique)
+	ens_vector = np.array(ens_vector)
+	ens_vector = ens_vector[np.argsort(ens_vector[:,0])]
+
+	# Prepare list of lists for sorted samples.
+	split_samples = [[] for _ in range(len(ens_vector))]
+
+	for row in dataset:
+		# Match the metal counts of the ensemble zone to the possible unique configurations.
+		for i, vector in enumerate(ens_vector):
+			if np.all(row[:n_metals] == vector):
+				# If succesfully matched it is appended to corresponding list
+				split_samples[i].append(row)
+
+	return ens_vector, split_samples
+def train_PWL(regr_object,ensemble_array,n_metals):
+	"""Trains SKLearn regressor object with the .fit() method to each ensemble
+	and subsequently saves the objects in a dict with ensemble vector tuples as keys
+	eg. (1,0,2) for a ternary alloy fcc-site composed of one atom metal 1 and two atom metal 3"""
+
+	# Prepare dict of trained regressor objects
+	regressor_dict = {}
+
+	# Iterate through ensembles
+	for ensemble in ensemble_array:
+		# Numpy conversion
+		array = np.array(ensemble)
+
+		# Placeholder for the ensemble vector
+		ens_vector = []
+
+		# Interpret feature columns that have identical entries as the ensemble features.
+		for i in range(n_metals):
+			if np.all(array[:,i] == array[0,i]):
+				# Append to ensemble vector
+				ens_vector.append(array[0,i])
+
+		# Define training features and targets (disposing row ids)
+		training_features = array[:,n_metals:-1]
+		training_targets = array[:,-1]
+
+		# Train regressor object
+		regr_object.fit(training_features,training_targets)
+
+		# Save trained copy of regressor in dict with ensemble vector tuple as key
+		regressor_dict[tuple(ens_vector)] = copy.deepcopy(regr_object)
+
+	return regressor_dict
