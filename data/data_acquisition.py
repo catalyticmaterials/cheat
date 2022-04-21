@@ -1,10 +1,9 @@
 # Made by Christian Møgelberg Clausen
-
 import sys
 import os
 import numpy as np
 import subprocess
-import utils
+from utils.data import write_hea_slab, relax_slab_script, relax_ads_script, SLURM_script
 from time import sleep
 from ase.db import connect
 
@@ -69,7 +68,7 @@ for i in np.arange(start_id,end_id+1):
 	elif isinstance(comp_sampling,list):
 		rnd_comp = comp_sampling
 
-	atoms = utils.write_hea_slab(facet, elements, rnd_comp, size, lattice, vacuum, fix_bottom)
+	atoms = write_hea_slab(facet, elements, rnd_comp, size, lattice, vacuum, fix_bottom)
 
 	while True:
 		try:
@@ -84,19 +83,19 @@ for i in np.arange(start_id,end_id+1):
 
 	filename = project_name + '_' + str(i).zfill(4)
 
-	utils.relax_slab_script(filename, i, distort_limit, **GPAW_kwargs)
+	relax_slab_script(filename, i, distort_limit, **GPAW_kwargs)
 
 	for j, ads in enumerate(adsorbates):
 		if multiple_adsId == None:
 			for k in range(ads_per_slab):
-				utils.relax_ads_script(filename, i, [k], facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
+				relax_ads_script(filename, i, [k], facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
 		elif isinstance(multiple_adsId, list):
 			for id_set in multiple_adsId:
-				utils.relax_ads_script(filename, i, id_set, facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
+				relax_ads_script(filename, i, id_set, facet, size, sites[j], ads, init_bonds[j], **GPAW_kwargs)
 
 	try:
 		if sys.argv[1] == 'submit':
-			utils.SLURM_script(filename + '_slab', **SLURM_kwargs, dependency=None)
+			SLURM_script(filename + '_slab', **SLURM_kwargs, dependency=None)
 			os.system(f"(cd sl/ && sbatch {filename + '_slab.sl'})")
 			job_id = None
 			print('Fetching SLURM jobid of slab optimization. Please wait...')
@@ -110,15 +109,13 @@ for i in np.arange(start_id,end_id+1):
 			for j, ads in enumerate(adsorbates):
 				if multiple_adsId == None:
 					for k in range(ads_per_slab):
-						utils.SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
+						SLURM_script(filename + f'_{sites[j]}_{ads}_{k}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{k}.sl)")
 				elif isinstance(multiple_adsId, list):
 					for id_set in multiple_adsId:
 						ads_id_str = "+".join([str(Id) for Id in id_set])		
-						utils.SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
+						SLURM_script(filename + f'_{sites[j]}_{ads}_{ads_id_str}', **SLURM_kwargs, dependency=job_id)
 						os.system(f"(cd sl/ && sbatch {filename}_{sites[j]}_{ads}_{ads_id_str}.sl)")
-
-
 
 	except IndexError:
 		pass

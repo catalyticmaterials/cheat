@@ -1,6 +1,6 @@
 import ase.db
 import pickle
-from utils import db_to_zonedfeats, db_to_graphs
+from utils.features import db_to_zonedfeats, db_to_graphs
 
 # Reference energies
 ref_dict = {'ontop_OH':ase.db.connect('../data/3x3x5_pt111_ontop_OH.db').get().energy,

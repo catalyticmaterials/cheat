@@ -1,4 +1,4 @@
-from utils import split_ensembles, train_PWL
+from utils.regression import split_ensembles, train_PWL
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression, Ridge
