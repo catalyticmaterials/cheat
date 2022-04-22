@@ -5,7 +5,7 @@ import numpy as np
 
 # set random seed and surface composition
 np.random.seed(42)
-composition = {'Ag': 0.20,'Ir': 0.20,'Pd': 0.20,'Pt': 0.20,'Ru': 0.20}
+composition = {'Ag': 0.2,'Ir': 0.2,'Pd': 0.2,'Pt': 0.2,'Ru': 0.2}
 
 # set adsorbate information
 ads_atoms = ['O','H']  # adsorbate elements included
@@ -39,6 +39,6 @@ surface_obj.get_net_energies()
 OH_ontop_energies = surface_obj.grid_dict_gross[('OH','ontop')][surface_obj.ads_dict[('OH','ontop')]]
 O_fcc_energies = surface_obj.grid_dict_gross[('O','fcc')][surface_obj.ads_dict[('O','fcc')]]
 
-# plot surface
+# plot hist
 fig = surface_obj.plot_hist()
 fig.savefig('Ehist_GCN.png')
