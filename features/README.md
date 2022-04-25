@@ -8,22 +8,17 @@ After obtaining a joined ASE database use *construct_feats.py* to prepare all sl
 'x': Node features
 'y': Adsorbtion energy
 'edge_index': Sparse edge matrix
+'site': Adsorbtion site
+'ads': Adsorbate
+'ens': Element composition of binding site
 
-
-Choosing a project name that will function as a prefix for all files.
+Reference energies are loaded from individual databases and all adsorbtion energies are normalized relative to adsorption on pure Pt(111).
 ```python
-project_name = 'agirpdptru'
-```
-import ase.db
-import pickle
-from utils.features import db_to_zonedfeats, db_to_graphs
-
-# Reference energies
 ref_dict = {'ontop_OH':ase.db.connect('../data/3x3x5_pt111_ontop_OH.db').get().energy,
 			'fcc_O':ase.db.connect('../data/3x3x5_pt111_fcc_O.db').get().energy,
 			'slab':ase.db.connect('../data/3x3x5_pt111_slab.db').get().energy
 			 }
-
+```
 site_list = ['ontop','fcc']
 ads_list = ['OH','O']
 
