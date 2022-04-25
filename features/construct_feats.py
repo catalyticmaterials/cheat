@@ -8,6 +8,8 @@ ref_dict = {'ontop_OH':ase.db.connect('../data/3x3x5_pt111_ontop_OH.db').get().e
 			'slab':ase.db.connect('../data/3x3x5_pt111_slab.db').get().energy
 			 }
 
+project_name = 'agirpdptru'
+
 site_list = ['ontop','fcc']
 ads_list = ['OH','O']
 
@@ -17,20 +19,20 @@ adsorbate_elements = ['O','H']
 for i in range(len(site_list)):
 
 	## load joined ASE datebase
-	db = ase.db.connect(f'../data/agirpdptru.db')
+	db = ase.db.connect(f'../data/{project_name}.db')
 
 	## filename used for pickling
-	filename = f'agirpdptru_{site_list[i]}_{ads_list[i]}'
+	filename = f'{project_name}_{site_list[i]}_{ads_list[i]}'
 
 	## Construct zoned features and pickle
-	print(f'Performing zonefeat construction of agirpdptru_{site_list[i]}_{ads_list[i]}')
+	print(f'Performing zonefeat construction of {project_name}_{site_list[i]}_{ads_list[i]}')
 	samples = db_to_zonedfeats(surface_elements, site_list[i], ads_list[i], 0.1, db, ref_dict)
 
 	with open(filename + '.zonefeats', 'wb') as output:
 		pickle.dump(samples, output)
 
 ## Construct graphs and pickle
-print(f'Performing graph construction of agirpdptru')
+print(f'Performing graph construction of {project_name}')
 samples = db_to_graphs(surface_elements, adsorbate_elements, 2, 0.1, db, ref_dict)
-with open(f'agirpdptru.graphs', 'wb') as output:
+with open(f'{project_name}.graphs', 'wb') as output:
 	pickle.dump(samples, output)
