@@ -1,6 +1,8 @@
 Construction of features for regression
 ---------------------
-After obtaining a joined ASE database use *construct_featues.py* to suit your task (see explanations below). After adjusting the parameters, run the script and preview the slabs in the *\*_preview.db*-file. Subsequently, the simulations are submitted by running the script from the terminal with the "submit" argument (e.g. "python3 data_acquisition.py submit").
+After obtaining a joined ASE database use *construct_feats.py* to prepare all slabs and corresponing adsorbates as features for regression of adsorption energies. Currently, two types of features are available:
+
+*Zonefeat* applies a template of counting the number of elements in each zone of equivalent atomic positions as described in previous publications(https://doi.org/10.1002/anie.202108116)
 
 A  *\*_slab.db*-file with relaxed slabs will be created as the slab optimizations finish and subsequently *\*_site_adsorbate.db*-files are created for each site adsorbate combination. Once calculations have edit *join_dbs.py* to suit the including combinations and run from the terminal with the project_name as argument (e.g. "python3 join_dbs project_name"). This will result in a joined ASE database which is subsequently used in feature construction.
 
