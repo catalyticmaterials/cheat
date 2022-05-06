@@ -692,7 +692,7 @@ class BruteForceSurface():
         ax[1].set_xlabel(r'$\Delta \mathrm{G} _{\mathrm{*OH}}$', fontsize=36, labelpad=20)
         plt.tight_layout()
 
-    def get_activity(self, G_opt=0.10, eU=0.82, T=298.15, j_d=1, j_D=1):
+    def get_activity(self, G_opt=0.10, eU=0.82, T=298.15, j_d=1):
         kb = 8.617e-5
         j_ki = np.array([])
         for i, key in enumerate(self.grid_dict_gross.keys()):
@@ -700,8 +700,6 @@ class BruteForceSurface():
             a = np.exp(-(np.abs(e - G_opt) + 0.86 - eU) / (kb*T))
             j_ki = np.concatenate([j_ki, a])
 
-        j_surf = 1/np.product(self.size) * np.sum(1 / (1/j_d + 1/j_ki))
-
-        j = 1 / (1/j_D + 1/j_surf)
+        j = 1/np.product(self.size) * np.sum(1 / (1/j_d + 1/j_ki))
 
         return j
