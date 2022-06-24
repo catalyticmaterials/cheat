@@ -638,7 +638,22 @@ class BruteForceSurface():
         ens_gross = self.grid[:, :, 0].flatten()
         net = self.grid_dict_net[('OH', 'ontop')].data[self.ads_dict[('OH', 'ontop')]]
         gross = self.grid_dict_gross[('OH', 'ontop')].flatten()
-
+        
+        # Define bin width
+        bin_width = 0.01
+        
+        # Define the maximum and minimum of all data. Also used for O.
+        all_max, all_min = None, None
+        for dist in [gross, net]:
+            if all_max != None and all_min != None:
+                if max(dist) > all_max:
+                    all_max = max(dist)
+                if min(dist) < all_min:
+                    all_min = min(dist)
+            else:
+                all_max, all_min = max(dist), min(dist)
+            all_max, all_min = all_max + 0.1, all_min - 0.1
+        
         # Construct an element dictionary of gross and net adsorption energies
         elements = np.array(['Ag', 'Ir', 'Pd', 'Pt', 'Ru'])
 
@@ -651,8 +666,11 @@ class BruteForceSurface():
             e_dict_gross[elements[ens_gross[i]]].append(ads_e)
 
         # Obtain the total energy counts.
-        counts_gross, _ = np.histogram(gross, bins=int((all_max - all_min) / bin_width),
+        counts_gross, bin_edges = np.histogram(gross, bins=int((all_max - all_min) / bin_width),
                                        range=(all_min, all_max), density=False)
+        
+        #Define bin centers
+        bin_centers = 0.5 * (bin_edges[1:] + bin_edges[:-1])        
 
         # Construct the ensemble specific adsorption energy histogram.
         for i, dict in enumerate([e_dict_gross, e_dict_net]):
@@ -690,7 +708,11 @@ class BruteForceSurface():
             ax[i].set_yticks([])
 
         ax[1].set_xlabel(r'$\Delta \mathrm{G} _{\mathrm{*OH}}$', fontsize=36, labelpad=20)
+        ax[1].set_ylabel('Density', fontsize=36, labelpad=20)
+
         plt.tight_layout()
+        
+        return fig2
 
     def get_activity(self, G_opt=0.10, eU=0.82, T=298.15, j_d=1):
         kb = 8.617e-5
