@@ -123,15 +123,15 @@ def relax_slab_script(filename, slabId, distort_lim, max_force, ecut, kpts, xc):
 
         if distort_lim != None:
             file.write(f"ur_atoms = Trajectory('../traj/{filename}_slab.traj')[0]\n"\
-                       "tags = np.unique([atom.tag for atom in atoms])\n"\
+                        "tags = np.unique([atom.tag for atom in atoms])\n"\
                         "max_dis = []\n"\
                         "for slab in [ur_atoms, atoms]:\n"\
                         "   bot_z = np.array([atom.position[2] for atom in slab if atom.tag == tags[-1]])\n" \
                         "   top_z = np.array([atom.position[2] for atom in slab if atom.tag == tags[0]])\n" \
                         "   del_z = top_z - bot_z\n"\
                         "   max_dis.append(np.max(del_z))\n"\
-                        "   if max_dis[1] > distort_limit * max_dis[0]:\n"\
-                        "       raise Exception('Relaxed slab distorted. Adsorbate calculations will not commence')\n")
+                        "if max_dis[1] > distort_limit * max_dis[0]:\n"\
+                        "   raise Exception('Relaxed slab distorted. Adsorbate calculations will not commence')\n")
 
         else:
             pass
