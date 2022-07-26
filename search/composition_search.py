@@ -21,7 +21,11 @@ def comp2act(comp):#, filename=None):
 
     # Get activity of the net distribution of *OH adsorption energies
     activity = surface.get_activity(G_opt=E_opt, eU=eU, T=298.15, j_d=1)
-
+    
+    # Print sampled composition
+    f_str = ' '.join(f"{k}({v + 1e-5:.2f})" for k, v in comp.items())
+    print(f'{f_str}     A = {activity / pt_act * 100:.0f} %')
+    
     return activity
 
 # set random seed
