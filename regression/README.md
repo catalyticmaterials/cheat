@@ -1,6 +1,6 @@
-# Traning and testing the adsorption energy regression algorithm
+## Traning and testing the adsorption energy regression algorithm
 ---------------------
-## Piecewise linear model
+#### Piecewise linear model
 In the piecewise linear regression(PWR) a multilinear regression algorithm is trained for each ensemble in the constructed zone features. To train the regressor state the number of elements in the surface, the desired linear regression model supported by scikit-learn and make sure that the adsorbate/site-combinations match the set of features:
 
 ```python
@@ -11,7 +11,7 @@ site_ads_list = ['ontop_OH','fcc_O']
 
 The PWR will be trained on 90% and tested on 10% of the available data. Samples are chosen randomly and are not split evenly among the ensembles. Extreme outliers in the predictions will be reported. A dict composed of regressors for all ensembles is saved in *model_states* along with parity plots showing test accuracy.
 
-## Graph convolutional neural network model
+#### Graph convolutional neural network model
 The graph convolutional neural network (GCN) is a single algorithm trained on the available graph features. The model has the following adjustable parameters:
 
 Batch size, learning rate and maximum number of training epochs.
