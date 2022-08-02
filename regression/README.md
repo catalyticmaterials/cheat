@@ -12,7 +12,7 @@ site_ads_list = ['ontop_OH','fcc_O']
 The PWR will be trained on 90% and tested on 10% of the available data. Samples are chosen randomly and are not split evenly among the ensembles. Extreme outliers in the predictions will be reported. A dict composed of regressors for all ensembles is saved in *model_states* along with parity plots showing test accuracy.
 
 #### Graph convolutional neural network model
-The graph convolutional neural network (GCN) is a single algorithm trained on the available graph features. The model has the following adjustable parameters:
+The graph convolutional neural network (GCN) is a single algorithm trained on the available graph features. The model has the following adjustable parameters that can be edited in edit *train_GCN.py*:
 
 Batch size, learning rate and maximum number of training epochs.
 ```python
