@@ -1,7 +1,7 @@
 ## Traning and testing the adsorption energy regression algorithm
 ---------------------
 #### Piecewise linear model
-In the piecewise linear regression(PWR) a multilinear regression algorithm is trained for each ensemble in the constructed zone features. To train the regressor state the number of elements in the surface, the desired linear regression model supported by scikit-learn and make sure that the adsorbate/site-combinations match the set of features:
+In the piecewise linear regression(PWR) a multilinear regression algorithm is trained for each ensemble in the constructed zone features. To train the regressor edit *train_PWR.py* with the the number of elements in the surface, the desired linear regression model supported by scikit-learn and make sure that the adsorbate/site-combinations match the set of features:
 
 ```python
 n_metals = 5
