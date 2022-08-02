@@ -31,10 +31,10 @@ report_every = 100
 Model architecture. Specify number of convolution layers, hidden layers, dimension(width) of the layers and activation function of the hidden layers.
 ```python
 kwargs = {'n_conv_layers': 3,
-		  'n_hidden_layers': 0,
-		  'conv_dim': 18,
-		  'act': 'relu',
-		  }
+	  'n_hidden_layers': 0,
+	  'conv_dim': 18,
+	  'act': 'relu'
+	  }
 ```
 
 The GCN will be trained with 80% of the data and use 10% for validation. The remaining 10% are used for testing. The best performing set of model parameters across all epochs are saved in *model_states* along with parity plots showing test accuracy.
