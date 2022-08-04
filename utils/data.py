@@ -232,7 +232,7 @@ def get_site_ids(facet, site, size):
                     ads_id_sets.append([id, id + 1, id + np.product(size) - size[0] * (size[1] - 1), id + np.product(size) - size[0] * (size[1] - 1) + 1])
 
                 elif (i + 1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id + size[0], id + size[0] + 2 * np.product(size) - 1])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id + size[0], id + 2 * np.product(size) + 1])
                 else:
                     ads_id_sets.append([id, id + 1, id + size[0], id + size[0] + 1])
 
