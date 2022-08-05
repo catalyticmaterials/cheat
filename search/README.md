@@ -4,7 +4,7 @@ In this section we employ the earlier surface simulation in an iterative manner 
 
 Input composition space and adsorbate details to match the trained regression model which is then loaded.
 
-´´´python
+```python
 elements = ['Ag', 'Ir', 'Pd', 'Pt', 'Ru']  # surface elements
 
 ads_atoms = ['O','H']  # adsorbate elements included
@@ -28,11 +28,11 @@ kwargs = {'n_conv_layers': 3,  # number of gated graph convolution layers
           'act': 'relu' # activation function in hidden layers.
          }
 regressor = load_GCN(kwargs,trained_state=trained_state
-´´´
+```
 
 Gaussian process regression will be used as surrogate function during the optimization procedure and the default acquisition function is expected improvement. Both can be adjusted accordingly.
 
-´´´python
+```python
 # Define kernel to use for Gaussian process regressors
 kernel = C(constant_value=0.05, constant_value_bounds=(1e-5, 1e1))\
         *RBF(length_scale=0.5, length_scale_bounds=(1e-5, 1e1))\
@@ -47,11 +47,11 @@ xi = 0.01
 
 # Number of steps to run the optimization for
 n_steps = 50
-´´´
+```
 
 Define size of the simulated surface, the optimum adsorption energy and potential at which the catalytic activity should be evaluated.
 
-´´´python
+```python
 # Define slab size (no. of atom x no. of atoms)
 surf_size = (96, 96)
 
@@ -60,4 +60,4 @@ E_opt = 0.100  # eV
 
 # Define potential at which to evaluate the activity
 eU = 0.820  # eV
-´´´
+```
