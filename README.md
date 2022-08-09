@@ -1,5 +1,14 @@
 # High-Entropy Alloy Catalysis Simulation
-HEACS is a set of Python modules for modeling catalysis on high-entropy alloys (HEAs).
+HEACS is a set of Python modules for modeling catalysis on high-entropy alloys (HEAs). <br />
+This repository is closely linked to the article <br />
+"Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
+DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
+
+If this repository is utilized please cite: <br />
+Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
+
+We hope you find this page helpful :)
+
 
 Requirements
 ------------
@@ -15,9 +24,16 @@ Requirements
 
 Setting up density functional theory geometry optimizations
 ---------------------
-In the **data** directory all calculations of DFT simulated slabs are set up. Each HEA slab can be used to sample multiple adsorption sites saving towards half of computational resources. All simulations are stores in ASE database-files for easy overview and subsequently joined into a single database to construct regression features. Instructions are found in the directory README.md-file.
+In the 
+[data](data)
+ directory all calculations of DFT simulated slabs are set up. Each HEA slab can be used to sample multiple adsorption sites saving towards half of computational resources. All simulations are stores in ASE database-files for easy overview and subsequently joined into a single database to construct regression features. Instructions are found in the 
+[data](data)
+ directory's 
+[README.md-file](data/README.md)
+.
 
-Calculating surface properties
+
+Initializating regression of  
 ------------------------------
 
 ```python
