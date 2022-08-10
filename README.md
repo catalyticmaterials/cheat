@@ -28,22 +28,22 @@ In the
 [data](data)
  directory all calculations of DFT simulated slabs are set up. Each HEA slab can be used to sample multiple adsorption sites saving towards half of computational resources. All simulations are stores in ASE database-files for easy overview and subsequently joined into a single database to construct regression features. Instructions are found in the 
 [data](data)
- directory's 
-[README.md-file](data/README.md)
-.
+ directory's README.md-file.
 
+Feature construction
+------------------------------
+In the 
+[features](features)
+ directory you can find already constructed features for a working example. 
+Furthermore, you can find a comprehensive guide in the 
+[features](features)
+ directory's README-file, for how to construct features for both our Piecewies Linear regression (PWL) as well as our Graph Convoluted network (GCN).
 
-Initializating regression of  
+The construction of features is needed for the regression step of the workflow. Therefore, ensure that the code provided is understood and that you have obtained features for your project before moving on.
+
+Regression of adsorption energies
 ------------------------------
 
-```python
-from someDFTprogram import DFTCalculator
-from heacs.calculate import AdsorptionEnergy
-energies = DFTCalculator('hea_slabs.db')
-slabs = read('hea_slabs.db')
-properties = AdsorptionEnergy().get(slabs, energies, ref='Pt111')
-slabs.add_property(properties)
-```
 
 Extrapolating properties
 ------------------------
