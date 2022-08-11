@@ -53,8 +53,9 @@ The regression requires features as well as at least a single database of adsorp
  directory.
 
 
-Extrapolating properties
+Extended surface investigation
 ------------------------
+
 
 
 Optimizing alloy composition
