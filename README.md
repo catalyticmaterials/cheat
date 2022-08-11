@@ -43,30 +43,20 @@ The construction of features is needed for the regression step of the workflow. 
 
 Regression of adsorption energies
 ------------------------------
+In the 
+[regression](regression)
+ folder you will find the neccessary code to utilize our proposed methods of regression (PWL and GCN). 
+The regression requires features as well as at least a single database of adsorption energies (see "Setting up DFT geometry optimization" or the 
+[data](data)
+ directory). As in all other steps of this repository you will also find a regression specific README-file containing code examples in the 
+[regression](regression)
+ directory.
 
 
 Extrapolating properties
 ------------------------
 
-```python
-from heacs.extrapolate import LinearRegression
-from heacs.features import NeighborCounting
-from heacs.io import read
-known_data = read('hea_slabs.db')
-unknown_data = known_data.get_all_surfaces()
-reg = LinearRegression(known_data, NeighborCounting).predict(unknown_data)
-reg.parity_plot('parity_plot.png')
-reg.save_regressor('regressor.pickle')
-```
 
 Optimizing alloy composition
 ----------------------------
 
-```python
-from heacs.optimize import BayesianOptimizer
-from heacs.io import read
-known_data = read('hea_slabs.db')
-reg = read('regressor.pickle')
-opt = BayesianOptimizer(known_data, reg)
-optimum = opt.find_optimum(acquisition_function='expected improvement')
-```
