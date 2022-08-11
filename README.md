@@ -55,9 +55,30 @@ The regression requires features as well as at least a single database of adsorp
 
 Extended surface investigation
 ------------------------
-
+To employ the bruteforce adsorption on the extended surface, please follow the README-file in the 
+[surface](surface)
+ directory. This guide enables you to simulate the competetive co-adsorption of *O and *OH on an extended HEA surface. The adsorption is bruteforcce in the manner, that the strongest binding adsorption site, regardless of nature, is occupied first, followed by an adsorption to the second strongest binding site. When an adsorption has happende a blocking scheme is utilized to ensure our proposed adsorption isotherm. For more information go to the 
+[surface](surface)
+ directory or take a look in our article (DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2) under the section "Net adsorption".
 
 
 Optimizing alloy composition
 ----------------------------
+After the completion of all above steps, you now have the tools to optimize the composition of the HEA through an Bayesian Optimization shceme.
+This is simply done by following the guide in the README-file, located in the 
+[optimization](optimization)
+ directory.
+ 
 
+Author's note
+---------------------------
+We hope you enjoyed this repository and have optained a better understanding of the infrastructure of our proposed workflow.
+If more information is needed we urge you to take a look in the individuel directories README-file or in our associated article: <br />
+"Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
+DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
+
+And once again, if this repository is utilized please cite: <br />
+Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
+
+Kind regards
+Authors
