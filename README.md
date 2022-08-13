@@ -1,5 +1,5 @@
-# High-Entropy Alloy Catalysis Simulation
-HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys.
+# Computational High-Entropy Alloy Tools
+CHEAT is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys.
 This modeling procedure is described in detail here:
 
 "Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
@@ -22,7 +22,7 @@ It is the hope of the authors that this repository will be used, copied and modi
 
 The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
 
-## HEACS modules
+## CHEAT modules
 All modules contain further explanation and instructions within each subdirectory. Data have been provides so that each module contains a working example.
 
 The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
