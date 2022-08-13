@@ -1,20 +1,16 @@
 # High-Entropy Alloy Catalysis Simulation
-HEACS is a set of Python modules for modeling catalysis on high-entropy alloys (HEAs). <br />
-This repository is closely linked to the article <br />
+HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys (HEAs). <br />
+This modeling procedure is described in detail here: <br />
 "Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
 DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
 
 If this repository is utilized please cite: <br />
 Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
 
-We hope you find this page helpful :)
-
-
-Requirements
+Required packages
 ------------
-* [ase](https://wiki.fysik.dtu.dk/ase/index.html)
+* [ase](https://wiki.fysik.dtu.dk/ase/index.html) 
 * [gpaw](https://wiki.fysik.dtu.dk/gpaw/)
-* [SLURM](https://slurm.schedmd.com)
 * [scikit-learn](https://scikit-learn.org/stable/)
 * [torch](https://pypi.org/project/torch/)
 * [torch-geometric](https://pypi.org/project/torch-geometric/)
@@ -22,13 +18,11 @@ Requirements
 * [torch-scatter](https://pypi.org/project/torch-scatter/)
 * [iteround](https://pypi.org/project/iteround/)
 
+The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
+
 Setting up density functional theory geometry optimizations
 ---------------------
-In the 
-[data](data)
- directory all calculations of DFT simulated slabs are set up. Each HEA slab can be used to sample multiple adsorption sites saving towards half of computational resources. All simulations are stores in ASE database-files for easy overview and subsequently joined into a single database to construct regression features. Instructions are found in the 
-[data](data)
- directory's README.md-file.
+The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features. Instructions are found in the [data](data) directory's README.md-file.
 
 Feature construction
 ------------------------------
