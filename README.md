@@ -20,7 +20,7 @@ Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab I
 
 The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
 
-#### HEACS modules
+## HEACS modules
 All modules contain further explanation and instructions within each subdirectory. 
 
 The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
@@ -59,7 +59,7 @@ This is simply done by following the guide in the README-file, located in the
  directory.
  
 
-#### Data
+## Data
 All DFT calculations required to reproduce the results of the paper is available [here]([https://pypi.org/project/iteround/](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/))
 
 
