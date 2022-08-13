@@ -1,14 +1,14 @@
 # High-Entropy Alloy Catalysis Simulation
-HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys (HEAs). <br />
-This modeling procedure is described in detail here: <br />
+HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys (HEAs).
+This modeling procedure is described in detail here:
+
 "Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
 DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
 
 If this repository is utilized please cite: <br />
 Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
 
-Required packages
-------------
+#### Required packages
 * [ase](https://wiki.fysik.dtu.dk/ase/index.html) 
 * [gpaw](https://wiki.fysik.dtu.dk/gpaw/)
 * [scikit-learn](https://scikit-learn.org/stable/)
@@ -20,18 +20,13 @@ Required packages
 
 The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
 
-Setting up density functional theory geometry optimizations
----------------------
-The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features. Instructions are found in the [data](data) directory's README.md-file.
+#### HEACS modules
+All modules contain further explanation and instructions within each subdirectory. 
 
-Feature construction
-------------------------------
-In the 
-[features](features)
- directory you can find already constructed features for a working example. 
-Furthermore, you can find a comprehensive guide in the 
-[features](features)
- directory's README-file, for how to construct features for both our Piecewies Linear regression (PWL) as well as our Graph Convoluted network (GCN).
+The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
+
+In the [features](features) directory you can find already constructed features for a working example. 
+Furthermore, you can find a comprehensive guide in the [features](features) directory's README-file, for how to construct features for both our Piecewies Linear regression (PWL) as well as our Graph Convoluted network (GCN).
 
 The construction of features is needed for the regression step of the workflow. Therefore, ensure that the code provided is understood and that you have obtained features for your project before moving on.
 
@@ -64,15 +59,12 @@ This is simply done by following the guide in the README-file, located in the
  directory.
  
 
-Author's note
----------------------------
-We hope you enjoyed this repository and have optained a better understanding of the infrastructure of our proposed workflow.
-If more information is needed we urge you to take a look in the individuel directories README-file or in our associated article: <br />
-"Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
-DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
+#### Data
+All DFT calculations required to reproduce the results of the paper is available [here]([https://pypi.org/project/iteround/](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/))
 
-And once again, if this repository is utilized please cite: <br />
-Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
+
+
+We hope you enjoyed this repository and have optained a better understanding of the infrastructure of our proposed workflow.
 
 Kind regards
 Authors
