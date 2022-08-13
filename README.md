@@ -23,35 +23,17 @@ It is the hope of the authors that this repository will be used, copied and modi
 The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
 
 ## HEACS modules
-All modules contain further explanation and instructions within each subdirectory. 
+All modules contain further explanation and instructions within each subdirectory. Data have been provides so that each module contains a working example.
 
 The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
 
-In the [features](features) directory you can find already constructed features for a working example. 
-Furthermore, you can find a comprehensive guide in the [features](features) directory's README-file, for how to construct features for both our Piecewies Linear regression (PWL) as well as our Graph Convoluted network (GCN).
+The [features](features) modules will reduce optimized geometries to features suitable for regression of adsorption energies. Currently to types of feature schemes are available: a zone-reduced schemed based on equivalent atomic positions relative to the adsorption site and a graph-based feature scheme.
 
-The construction of features is needed for the regression step of the workflow. Therefore, ensure that the code provided is understood and that you have obtained features for your project before moving on.
+The [regression](regression) modules trains the corrensponding regression model, Piecewise Linear regression (PWL) or Graph Convolutional Neural Network (GCN), depending on the chosen feature scheme and benchmarks adsorption energy prediction accuracy.
 
-Regression of adsorption energies
-------------------------------
-In the 
-[regression](regression)
- folder you will find the neccessary code to utilize our proposed methods of regression (PWL and GCN). 
-The regression requires features as well as at least a single database of adsorption energies (see "Setting up DFT geometry optimization" or the 
-[data](data)
- directory). As in all other steps of this repository you will also find a regression specific README-file containing code examples in the 
-[regression](regression)
- directory.
+The [surface](surface) module simulates a high-entropy alloy surface of a given size, predicts the available adsorption energies and simulates adsorbate coverage including competitive co-adsorption of \*O and \*OH.
 
-
-Extended surface investigation
-------------------------
-To employ the bruteforce adsorption on the extended surface, please follow the README-file in the 
-[surface](surface)
- directory. This guide enables you to simulate the competetive co-adsorption of *O and *OH on an extended HEA surface. The adsorption is bruteforcce in the manner, that the strongest binding adsorption site, regardless of nature, is occupied first, followed by an adsorption to the second strongest binding site. When an adsorption has happende a blocking scheme is utilized to ensure our proposed adsorption isotherm. For more information go to the 
-[surface](surface)
- directory or take a look in our article (DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2) under the section "Net adsorption".
-
+The [optimization](optimization) modules
 
 Optimizing alloy composition
 ----------------------------
