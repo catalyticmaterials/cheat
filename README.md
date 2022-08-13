@@ -31,17 +31,9 @@ The [features](features) modules will reduce optimized geometries to features su
 
 The [regression](regression) modules trains the corrensponding regression model, Piecewise Linear regression (PWL) or Graph Convolutional Neural Network (GCN), depending on the chosen feature scheme and benchmarks adsorption energy prediction accuracy.
 
-The [surface](surface) module simulates a high-entropy alloy surface of a given size, predicts the available adsorption energies and simulates adsorbate coverage including competitive co-adsorption of \*O and \*OH.
+The [surface](surface) module simulates a high-entropy alloy surface of a given size, predicts the available adsorption energies and simulates adsorbate coverage including competitive co-adsorption of \*O and \*OH. Based on established theory a catalytic activity can be estimated.
 
-The [optimization](optimization) modules
-
-Optimizing alloy composition
-----------------------------
-After the completion of all above steps, you now have the tools to optimize the composition of the HEA through an Bayesian Optimization shceme.
-This is simply done by following the guide in the README-file, located in the 
-[optimization](optimization)
- directory.
- 
+The [search](search) module apply the above step in a Bayesian optimization procedure to maximize the catalytic activity within the given composition space.
 
 ## Data
 All DFT calculations required to reproduce the results of the paper is available [here]([https://pypi.org/project/iteround/](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/))
