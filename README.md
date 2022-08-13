@@ -1,5 +1,5 @@
 # High-Entropy Alloy Catalysis Simulation
-HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys (HEAs).
+HEACS is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys.
 This modeling procedure is described in detail here:
 
 "Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
@@ -7,6 +7,8 @@ DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
 
 If this repository is utilized please cite: <br />
 Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
+
+It is the hope of the authors that this repository will be used, copied and modified by groups interested in doing computational studies on high-entropy alloys.
 
 #### Required packages
 * [ase](https://wiki.fysik.dtu.dk/ase/index.html) 
@@ -61,10 +63,3 @@ This is simply done by following the guide in the README-file, located in the
 
 ## Data
 All DFT calculations required to reproduce the results of the paper is available [here]([https://pypi.org/project/iteround/](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/))
-
-
-
-We hope you enjoyed this repository and have optained a better understanding of the infrastructure of our proposed workflow.
-
-Kind regards
-Authors
