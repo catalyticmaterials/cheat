@@ -36,4 +36,4 @@ The [surface](surface) module simulates a high-entropy alloy surface of a given 
 The [search](search) module apply the above step in a Bayesian optimization procedure to maximize the catalytic activity within the given composition space.
 
 ## Data
-All DFT calculations required to reproduce the results of the paper is available [here](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/))
+All DFT calculations required to reproduce the results of the paper is available [here](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/)
