@@ -27,7 +27,7 @@ All modules contain further explanation and instructions within each subdirector
 
 The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
 
-The [features](features) modules will reduce optimized geometries to features suitable for regression of adsorption energies. Currently to types of feature schemes are available: a zone-reduced schemed based on equivalent atomic positions relative to the adsorption site and a graph-based feature scheme.
+The [features](features) modules will reduce optimized geometries to features suitable for regression of adsorption energies. Currently two types of feature schemes are available: a zone-reduced schemed based on equivalent atomic positions relative to the adsorption site and a graph-based feature scheme.
 
 The [regression](regression) modules trains the corrensponding regression model, Piecewise Linear regression (PWL) or Graph Convolutional Neural Network (GCN), depending on the chosen feature scheme and benchmarks adsorption energy prediction accuracy.
 
