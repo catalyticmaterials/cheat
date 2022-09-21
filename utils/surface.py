@@ -719,7 +719,7 @@ class BruteForceSurface():
         j_ki = np.array([])
         for i, key in enumerate(self.grid_dict_gross.keys()):
             e = self.grid_dict_gross[key][self.ads_dict[key]]
-            a = np.exp(-(np.abs(e - G_opt) + 0.86 - eU) / (kb*T))
+            a = np.exp(-(np.abs(e - G_opt) - 0.86 + eU) / (kb*T))
             j_ki = np.concatenate([j_ki, a])
 
         j = 1/np.product(self.size) * np.sum(1 / (1/j_d + 1/j_ki))
