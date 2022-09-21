@@ -580,7 +580,7 @@ class BruteForceSurface():
                 hist_max = max(counts)
 
         kb = 8.617e-5
-        pt_act = 1 / (1 + 1 / (2 / 3 * np.sum(1 / (1 + 1 / np.exp(-(np.abs(-G_opt) + 0.86 - eU) / (kb * T))))))
+        pt_act = 1 / (1 + 1 / (2 / 3 * np.sum(1 / (1 + 1 / np.exp(-(np.abs(-G_opt) - 0.86 + eU) / (kb * T))))))
         act = (self.get_activity(G_opt,eU,T)-pt_act)/pt_act * 100
 
         fig, axes = plt.subplots(2, 1, figsize=(20, 16))
