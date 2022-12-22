@@ -91,7 +91,7 @@ with open(filename, 'w') as filetowrite:
 n_random = 5
 
 # Reference activity of 2/3 *OH coverage on pure Pt(111)
-j_ki = np.exp(-(np.abs(-E_opt) + 0.86 - eU) / (8.617e-5 * 298.15))
+j_ki = np.exp(-(np.abs(-E_opt) - 0.86 + eU) / (8.617e-5 * 298.15))
 pt_act = 2 / 3 * np.sum(1 / (1 + 1 / j_ki))
 
 # Initiate activities list
