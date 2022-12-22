@@ -580,8 +580,9 @@ class BruteForceSurface():
                 hist_max = max(counts)
 
         kb = 8.617e-5
-        pt_act = 1 / (1 + 1 / (2 / 3 * np.sum(1 / (1 + 1 / np.exp(-(np.abs(-G_opt) - 0.86 + eU) / (kb * T))))))
-        act = (self.get_activity(G_opt,eU,T)-pt_act)/pt_act * 100
+        j_ki = np.exp(-(np.abs(-G_opt) - 0.86 + eU) / (kb * T))
+        pt_act = 2 / 3 * np.sum(1 / (1 + 1 / j_ki))
+        act = self.get_activity(G_opt,eU,T)/pt_act * 100
 
         fig, axes = plt.subplots(2, 1, figsize=(20, 16))
         twin_axes = []
@@ -604,7 +605,7 @@ class BruteForceSurface():
             if j == 0:
                 s = f'{act:.0f}%'.rjust(4)
                 ax.text(0.01, 1.02,
-                        f'Activity increase over Pt(111): ' + s,
+                        f'Activity relative to Pt(111): ' + s,
                         family='monospace', fontsize=32, transform=ax.transAxes,
                         va='bottom', ha='left')
 
