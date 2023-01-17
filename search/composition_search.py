@@ -1,6 +1,6 @@
-from utils.bruteforcesurface import BruteForceSurface
-from utils.GCN_model import load_GCN
-from utils.bayesian import expected_improvement, append_to_file, random_comp
+from utils.surface import BruteForceSurface
+from utils.regression import load_GCN
+from utils.bayesian import expected_improvement, append_to_file, random_comp, opt_acquisition
 from sklearn.gaussian_process.kernels import ConstantKernel as C, RBF
 from sklearn.gaussian_process import GaussianProcessRegressor as GPR
 from time import time
