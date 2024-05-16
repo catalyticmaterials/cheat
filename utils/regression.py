@@ -116,7 +116,7 @@ def predict(model, loader, batch_size):
 		site += data.site
 		ads += data.ads
 
-		return pred, site, ads
+	return pred, site, ads
 def split_ensembles(dataset,n_metals):
 	"""Splits dataset into ensembles.
 	Accepts numpy array of zone counts and
