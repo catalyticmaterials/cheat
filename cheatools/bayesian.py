@@ -79,7 +79,7 @@ def get_molar_fractions_around(f, step_size, total=1., eps=1e-10):
 
     return np.array(fs)
 
-def optimize_molar_fraction(f, func, func_args=[], n_iter_max=1000, step_size=0.005):
+def optimize_molar_fraction(f, func, func_args=[], n_iter_max=1000, step_size=0.01):
     '''
     Return the molar fractions and their function value that locally
     maximizes the specified function starting from the molar fractions ´f´
@@ -178,7 +178,7 @@ def get_molar_fractions(step_size, elements, total=1., return_number_of_molar_fr
 
     return counts * step_size
 
-def opt_acquisition(X_known, gpr, elements, acq_func='EI', xi=0.01, n_iter_max=1000, n_random=1000, step_size=0.005):
+def opt_acquisition(X_known, gpr, elements, acq_func='EI', xi=0.01, n_iter_max=1000, n_random=1000, step_size=0.01):
     # Define the acquisition function
     if callable(acq_func):
         acquisition = acq_func
@@ -233,7 +233,7 @@ def opt_acquisition(X_known, gpr, elements, acq_func='EI', xi=0.01, n_iter_max=1
         acq_max_around = np.max(acq_vals)
 
         # If the new aquisition value is higher, then repeat for that molar fraction
-        if acq_max_around > acq_max and np.max(fs_around[np.argmax(acq_vals)]) <= 0.8 :
+        if acq_max_around > acq_max: # and np.max(fs_around[np.argmax(acq_vals)]) <= 0.8 :
 
             # Get the index of largest acquisition value
             idx_max = np.argmax(acq_vals)
