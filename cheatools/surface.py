@@ -4,8 +4,7 @@ import iteround
 import torch
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
-from .data import write_hea_slab, add_ads
-from .regression import predict
+#from .dftsampling import write_hea_slab, add_ads
 from .plot import get_color, get_dark_color
 from .graphtools import templater
 import matplotlib.pyplot as plt
@@ -13,7 +12,7 @@ import ase
 from copy import deepcopy
 from ocpmodels.preprocessing import AtomsToGraphs
 
-class BruteForceSurface():
+class SurrogateSurface():
     def __init__(self, composition, adsorbates, sites, regressor, template='ocp', facet='fcc111', size=(96,96), 
                  displace_e=None, scale_e=None, direct_e_input=None): #, surf_images=False):
         

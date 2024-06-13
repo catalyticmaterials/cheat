@@ -1,0 +1,337 @@
+
+  ___ ___ ___ _ _ _  
+ |   |   |_  | | | | 
+ | | | | | . | | | | 
+ |__ |  _|___|_____|  22.1.0
+ |___|_|             
+
+User:   clausen@node419.cluster
+Date:   Thu Jun 13 17:30:19 2024
+Arch:   x86_64
+Pid:    155771
+Python: 3.10.4
+gpaw:   /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/gpaw
+_gpaw:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/
+        _gpaw.cpython-310-x86_64-linux-gnu.so
+ase:    /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/ase (version 3.22.1)
+numpy:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/numpy (version 1.23.1)
+scipy:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/scipy (version 1.8.1)
+libxc:  5.2.3
+units:  Angstrom and eV
+cores: 24
+OpenMP: True
+OMP_NUM_THREADS: 1
+
+Input parameters:
+  eigensolver: {name: dav,
+                niter: 3}
+  kpts: [4 4 1]
+  mixer: {backend: pulay,
+          beta: 0.05,
+          method: difference,
+          nmaxold: 5,
+          weight: 50.0}
+  mode: {ecut: 400.0,
+         name: pw}
+  xc: RPBE
+
+System changes: positions, numbers, cell, pbc, initial_charges, initial_magmoms 
+
+Initialize ...
+
+Pd-setup:
+  name: Palladium
+  id: 6da19bfba079f22767af9506641940b9
+  Z: 46.0
+  valence: 16
+  core: 30
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/Pd.RPBE.gz
+  compensation charges: gauss, rc=0.38, lmax=2
+  cutoffs: 2.38(filt), 2.28(core),
+  valence states:
+                energy  radius
+    5s(0.00)    -3.225   1.228
+    4p(6.00)   -51.131   1.360
+    5p(0.00)    -0.373   1.360
+    4d(10.00)    -3.964   1.228
+    *s          23.987   1.228
+    *d          23.247   1.228
+
+  Using partial waves for Pd as LCAO basis
+
+Pt-setup:
+  name: Platinum
+  id: f04f522592575c47ad794f6b4a415b4b
+  Z: 78.0
+  valence: 16
+  core: 62
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/Pt.RPBE.gz
+  compensation charges: gauss, rc=0.41, lmax=2
+  cutoffs: 2.26(filt), 2.26(core),
+  valence states:
+                energy  radius
+    6s(1.00)    -5.516   1.307
+    5p(6.00)   -55.971   1.371
+    6p(0.00)    -0.856   1.371
+    5d(9.00)    -6.087   1.307
+    *s          21.695   1.307
+    *d          21.125   1.307
+
+  Using partial waves for Pt as LCAO basis
+
+Ru-setup:
+  name: Ruthenium
+  id: 76477906e28f51dc1b29884d53556fe9
+  Z: 44.0
+  valence: 16
+  core: 28
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/Ru.RPBE.gz
+  compensation charges: gauss, rc=0.39, lmax=2
+  cutoffs: 2.16(filt), 1.30(core),
+  valence states:
+                energy  radius
+    4s(2.00)   -76.255   1.281
+    5s(1.00)    -4.126   1.281
+    4p(6.00)   -46.371   1.286
+    5p(0.00)    -0.913   1.286
+    4d(7.00)    -5.146   1.254
+    *d          22.066   1.254
+
+  Using partial waves for Ru as LCAO basis
+
+Ag-setup:
+  name: Silver
+  id: c05e55bab2c3858b3f9398f6d75cb77c
+  Z: 47.0
+  valence: 17
+  core: 30
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/Ag.RPBE.gz
+  compensation charges: gauss, rc=0.40, lmax=2
+  cutoffs: 2.35(filt), 2.19(core),
+  valence states:
+                energy  radius
+    5s(1.00)    -4.277   1.286
+    4p(6.00)   -58.523   1.328
+    5p(0.00)    -0.755   1.328
+    4d(10.00)    -7.386   1.180
+    *s          22.934   1.286
+    *d          19.826   1.180
+
+  Using partial waves for Ag as LCAO basis
+
+Ir-setup:
+  name: Iridium
+  id: 73b603359d1d5397a85ae3c2440f9033
+  Z: 77.0
+  valence: 15
+  core: 62
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/Ir.RPBE.gz
+  compensation charges: gauss, rc=0.40, lmax=2
+  cutoffs: 2.40(filt), 2.36(core),
+  valence states:
+                energy  radius
+    6s(2.00)    -6.219   1.296
+    5p(6.00)   -54.684   1.328
+    6p(0.00)    -1.215   1.328
+    5d(7.00)    -7.118   1.286
+    *s          20.992   1.296
+    *d          20.093   1.286
+
+  Using partial waves for Ir as LCAO basis
+
+Reference energy: -14172735.478951
+
+Spin-paired calculation
+
+Convergence criteria:
+ Maximum [total energy] change in last 3 cyles: 0.0005 eV / electron
+ Maximum integral of absolute [dens]ity change: 0.0001 electrons / valence electron
+ Maximum integral of absolute [eigenst]ate change: 4e-08 eV^2 / valence electron
+ Maximum number of scf [iter]ations: 333
+ (Square brackets indicate name in SCF output, whereas a 'c' in
+ the SCF output indicates the quantity has converged.)
+
+Symmetries present (total): 1
+
+  ( 1  0  0)
+  ( 0  1  0)
+  ( 0  0  1)
+
+16 k-points: 4 x 4 x 1 Monkhorst-Pack grid
+8 k-points in the irreducible part of the Brillouin zone
+       k-points in crystal coordinates                weights
+   0:     0.12500000   -0.37500000    0.00000000          2/16
+   1:     0.12500000   -0.12500000    0.00000000          2/16
+   2:     0.12500000    0.12500000    0.00000000          2/16
+   3:     0.12500000    0.37500000    0.00000000          2/16
+   4:     0.37500000   -0.37500000    0.00000000          2/16
+   5:     0.37500000   -0.12500000    0.00000000          2/16
+   6:     0.37500000    0.12500000    0.00000000          2/16
+   7:     0.37500000    0.37500000    0.00000000          2/16
+
+Wave functions: Plane wave expansion
+  Cutoff energy: 400.000 eV
+  Number of coefficients (min, max): 33332, 33436
+  Pulay-stress correction: 0.000000 eV/Ang^3 (de/decut=0.000000)
+  Using FFTW library
+  ScaLapack parameters: grid=3x1, blocksize=64
+  Wavefunction extrapolation:
+    Improved wavefunction reuse through dual PAW basis 
+
+Occupation numbers: Fermi-Dirac: width=0.1000 eV
+ 
+
+Eigensolver
+   Davidson(niter=3) 
+
+Densities:
+  Coarse grid: 40*40*140 grid
+  Fine grid: 80*80*280 grid
+  Total Charge: 0.000000 
+
+Density mixing:
+  Method: separate
+  Backend: pulay
+  Linear mixing parameter: 0.05
+  Mixing with 5 old densities
+  Damping of long wave oscillations: 50 
+
+Hamiltonian:
+  XC and Coulomb potentials evaluated on a 80*80*280 grid
+  Using the RPBE Exchange-Correlation functional
+  External potential:
+    NoExternalPotential
+ 
+
+XC parameters: RPBE with 2 nearest neighbor stencil
+
+Memory estimate:
+  Process memory now: 195.73 MiB
+  Calculator: 549.92 MiB
+    Density: 44.44 MiB
+      Arrays: 14.92 MiB
+      Localized functions: 23.79 MiB
+      Mixer: 5.74 MiB
+    Hamiltonian: 10.47 MiB
+      Arrays: 9.75 MiB
+      XC: 0.00 MiB
+      Poisson: 0.00 MiB
+      vbar: 0.72 MiB
+    Wavefunctions: 495.00 MiB
+      Arrays psit_nG: 224.48 MiB
+      Eigensolver: 256.59 MiB
+      Projections: 1.81 MiB
+      Projectors: 3.32 MiB
+      PW-descriptor: 8.80 MiB
+
+Total number of cores used: 24
+Parallelization over k-points: 8
+Domain decomposition: 1 x 1 x 3
+                      2 x 2 x 6 (xc only)
+
+Number of atoms: 45
+Number of atomic orbitals: 542
+Number of bands in calculation: 440
+Number of valence electrons: 726
+Bands to converge: occupied
+
+... initialized
+
+Initializing position-dependent things.
+
+Density initialized from atomic densities
+Creating initial wave functions:
+  440 bands from LCAO basis set
+
+                                            
+                                            
+                                            
+                                            
+                 Pt     Ag     Pt           
+                                            
+            Pt    PPd    APd    Pt          
+       Pt     Pt     Pt                     
+             Ir     Pt     Pd               
+        Pt     Pd     Pd                    
+                     Ag     Pt     Ag       
+                Pt     Pd     Pt            
+           Pt     Pt     Ru                 
+                 Ag     Ag     Pt           
+            Pd     Pt     Ag                
+                  Pd     Pt     Ru          
+       Pd    PPt    PPd    Pt               
+                                            
+        Pd     Pt     Pt                    
+                                            
+                                            
+                                            
+                                            
+
+Positions:
+   0 Pd     0.000000    1.639149   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 Pt     2.839089    1.639149   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 Pt     5.678177    1.639149   10.000000    ( 0.0000,  0.0000,  0.0000)
+   3 Pd     1.419544    4.097872   10.000000    ( 0.0000,  0.0000,  0.0000)
+   4 Pd     4.258633    4.097872   10.000000    ( 0.0000,  0.0000,  0.0000)
+   5 Pt     7.097722    4.097872   10.000000    ( 0.0000,  0.0000,  0.0000)
+   6 Pd     2.839089    6.556595   10.000000    ( 0.0000,  0.0000,  0.0000)
+   7 Pt     5.678177    6.556595   10.000000    ( 0.0000,  0.0000,  0.0000)
+   8 Ru     8.517266    6.556595   10.000000    ( 0.0000,  0.0000,  0.0000)
+   9 Pd     0.000000    0.000000   12.317643    ( 0.0000,  0.0000,  0.0000)
+  10 Pt     2.839089    0.000000   12.317643    ( 0.0000,  0.0000,  0.0000)
+  11 Pd     5.678177    0.000000   12.317643    ( 0.0000,  0.0000,  0.0000)
+  12 Pd     1.419544    2.458723   12.317643    ( 0.0000,  0.0000,  0.0000)
+  13 Pt     4.258633    2.458723   12.317643    ( 0.0000,  0.0000,  0.0000)
+  14 Ag     7.097722    2.458723   12.317643    ( 0.0000,  0.0000,  0.0000)
+  15 Ag     2.839089    4.917446   12.317643    ( 0.0000,  0.0000,  0.0000)
+  16 Ag     5.678177    4.917446   12.317643    ( 0.0000,  0.0000,  0.0000)
+  17 Pt     8.517266    4.917446   12.317643    ( 0.0000,  0.0000,  0.0000)
+  18 Pt     1.419544    0.819574   14.635286    ( 0.0000,  0.0000,  0.0000)
+  19 Pt     4.258633    0.819574   14.635286    ( 0.0000,  0.0000,  0.0000)
+  20 Ru     7.097722    0.819574   14.635286    ( 0.0000,  0.0000,  0.0000)
+  21 Pt     2.839089    3.278297   14.635286    ( 0.0000,  0.0000,  0.0000)
+  22 Pd     5.678177    3.278297   14.635286    ( 0.0000,  0.0000,  0.0000)
+  23 Pt     8.517266    3.278297   14.635286    ( 0.0000,  0.0000,  0.0000)
+  24 Ag     4.258633    5.737020   14.635286    ( 0.0000,  0.0000,  0.0000)
+  25 Pt     7.097722    5.737020   14.635286    ( 0.0000,  0.0000,  0.0000)
+  26 Ag     9.936811    5.737020   14.635286    ( 0.0000,  0.0000,  0.0000)
+  27 Pt     0.000000    1.639149   16.952928    ( 0.0000,  0.0000,  0.0000)
+  28 Pd     2.839089    1.639149   16.952928    ( 0.0000,  0.0000,  0.0000)
+  29 Pd     5.678177    1.639149   16.952928    ( 0.0000,  0.0000,  0.0000)
+  30 Ir     1.419544    4.097872   16.952928    ( 0.0000,  0.0000,  0.0000)
+  31 Pt     4.258633    4.097872   16.952928    ( 0.0000,  0.0000,  0.0000)
+  32 Pd     7.097722    4.097872   16.952928    ( 0.0000,  0.0000,  0.0000)
+  33 Pd     2.839089    6.556595   16.952928    ( 0.0000,  0.0000,  0.0000)
+  34 Ag     5.678177    6.556595   16.952928    ( 0.0000,  0.0000,  0.0000)
+  35 Pt     8.517266    6.556595   16.952928    ( 0.0000,  0.0000,  0.0000)
+  36 Pt     0.000000    0.000000   19.270571    ( 0.0000,  0.0000,  0.0000)
+  37 Pt     2.839089    0.000000   19.270571    ( 0.0000,  0.0000,  0.0000)
+  38 Pt     5.678177    0.000000   19.270571    ( 0.0000,  0.0000,  0.0000)
+  39 Pt     1.419544    2.458723   19.270571    ( 0.0000,  0.0000,  0.0000)
+  40 Pd     4.258633    2.458723   19.270571    ( 0.0000,  0.0000,  0.0000)
+  41 Pd     7.097722    2.458723   19.270571    ( 0.0000,  0.0000,  0.0000)
+  42 Pt     2.839089    4.917446   19.270571    ( 0.0000,  0.0000,  0.0000)
+  43 Ag     5.678177    4.917446   19.270571    ( 0.0000,  0.0000,  0.0000)
+  44 Pt     8.517266    4.917446   19.270571    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    yes    8.517266    0.000000    0.000000    40     0.1844
+  2. axis:    yes    4.258633    7.376169    0.000000    40     0.1844
+  3. axis:    no     0.000000    0.000000   29.270571   140     0.2091
+
+  Lengths:   8.517266   8.517266  29.270571
+  Angles:   90.000000  90.000000  60.000000
+
+Effective grid spacing dv^(1/3) = 0.2017
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 17:33:36  -250.569205
+iter:   2 17:34:37  -215.978403  -1.65  -1.21
+iter:   3 17:35:40  -231.494961  -2.23  -1.37
