@@ -2,7 +2,7 @@ import torch, ase.build
 import numpy as np
 from ase.neighborlist import build_neighbor_list, natural_cutoffs
 from itertools import combinations
-from utils.data import add_ads
+from .dftsampling import add_ads
 from copy import deepcopy
 from collections import Counter
 from torch_geometric.data import Data
@@ -292,48 +292,8 @@ class templater():
         cell = deepcopy(self.template_dict[(adsorbate,site)])
         if 'ocp' in self.template:
             cell.atomic_numbers[:len(symbols)] = torch.tensor([ase.data.atomic_numbers[s] for s in symbols])
-            #cell.sid = 0 # UNCOMMENT THIS If TROUBLE
+            #cell.sid = 0 # TODO is sids necessary?
         elif self.template == 'lgnn':
             for i, s in enumerate(symbols):
                 cell.x[i, cell.onehot_labels.index(s)] = 1
         return cell
-"""
-def get_lgnn_templates(facet, adsorbates, sites, onehot_labels):
-    templates = {}
-    height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
-    atoms = ase.build.fcc111(onehot_labels[0], size=(3,3,5), vacuum=10, a=3.9)
-    for ads, site in zip(adsorbates,sites):
-        ads_id = 3 if site == 'hcp' else 4
-        temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
-        data_object = atoms2graph(temp_atoms, onehot_labels)
-        data_object.x[:,0] = 0
-        templates[(ads,site)] = data_object
-    return templates
-
-def get_ocp_templates(facet,adsorbates,sites):
-    templates = {}
-    height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
-    atoms = ase.build.fcc111('Au', size=(3,3,5), vacuum=10, a=3.9)
-    a2g = AtomsToGraphs()
-    for ads, site in zip(adsorbates,sites):
-        ads_id = 3 if site == 'hcp' else 4
-        temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
-        temp_atoms = ase2ocp_tags(temp_atoms)
-        data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
-        templates[(ads,site)] = data_object
-    return templates
-
-def get_shallow_ocp_templates(facet,adsorbates,sites):
-    templates = {}
-    height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
-    atoms = ase.build.fcc111('Au', size=(3,3,5), vacuum=10, a=3.9)
-    a2g = AtomsToGraphs()
-    for ads, site in zip(adsorbates,sites):
-        ads_id = 3 if site == 'hcp' else 4
-        tpl = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
-        del temp_atoms[[atom.index for atom in temp_atoms if atom.tag in [4,5]]]
-        temp_atoms = ase2ocp_tags(temp_atoms)
-        data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
-        templates[(ads,site)] = data_object
-    return templates
-"""

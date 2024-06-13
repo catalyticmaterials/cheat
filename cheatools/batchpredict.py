@@ -1,16 +1,17 @@
-# CREDIT TO OCP PROJECT
+"""
+This code is originally sourced from https://github.com/ulissigroup/catlas and the Open Catalyst Project (OCP). 
 
-import copy, logging
-import os
+Source code relating to OCP/FAIR-chem is licensed under the MIT license found in the
+LICENSE file in https://github.com/FAIR-Chem/fairchem/tree/main with copyright (c) Meta, Inc. and its affiliates.
+"""
+
+import copy, logging, os, torch, ocpmodels, yaml
 from collections import defaultdict
 import numpy as np
-import ocpmodels
-import torch
 from ase.calculators.singlepoint import SinglePointCalculator
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from typing import Dict, Optional
-import yaml
 from ocpmodels.common import distutils
 from ocpmodels.common.registry import registry
 from ocpmodels.common.relaxation import ml_relaxation
@@ -20,19 +21,6 @@ from ocpmodels.common.utils import (
     setup_logging,
     update_config,
 )
-
-#from ase import Atoms
-#from ase.calculators.calculator import Calculator
-#from ase.calculators.singlepoint import SinglePointCalculator as sp
-#from ase.constraints import FixAtoms
-
-#from ocpmodels.common.registry import registry
-#from ocpmodels.common.utils import (
-#    load_config,
-#    setup_imports,
-#    setup_logging,
-#    update_config,
-#)
 from ocpmodels.datasets import data_list_collater
 from ocpmodels.preprocessing import AtomsToGraphs
 
