@@ -1,123 +1,43 @@
-# Made by Christian Møgelberg Clausen
-
-# UPDATE 24/01 2022 - Adding adsorbates (CO)
-# UPDATE 16/11 2021 - Restructuring, multiple sites, multiple adsorbates and dependency-submission
-
+import os, json
 import numpy as np
-import os
+from ase import Atoms
 from ase.build import fcc100, fcc110, fcc111, bcc100, bcc110, bcc111, hcp0001, add_adsorbate
 from ase.constraints import FixAtoms
-from ase import Atoms
+from .utils import get_lattice, get_magmom, get_ads
 
-lat_param_dict = {'Ag':4.2113,
-                  'Al': 4.0674,
-                  'Au': 4.2149,
-                  'B': 2.8822,
-                  'Be': 3.2022,
-                  'Bi': 5.0699,
-                  'Cd': 4.5795,
-                  'Co': 3.5625,
-                  'Cr': 3.6466,
-                  'Cu': 3.6901,
-                  'Fe': 3.6951,
-                  'Ga': 4.2817,
-                  'Ge': 4.304,
-                  'Hf': 4.5321,
-                  'In': 4.8536,
-                  'Ir': 3.8841,
-                  'Mg': 4.5673,
-                  'Mn': 3.5371,
-                  'Mo': 4.0204,
-                  'Nb': 4.2378,
-                  'Ni': 3.565,
-                  'Os': 3.8645,
-                  'Pb': 5.0942,
-                  'Pd': 3.9814,
-                  'Pt': 3.9936,
-                  'Re': 3.9293,
-                  'Rh': 3.8648,
-                  'Ru': 3.8285,
-                  'Sc': 4.6809,
-                  'Si': 3.8935,
-                  'Sn': 4.8612,
-                  'Ta': 4.2504,
-                  'Ti': 4.158,
-                  'Tl': 5.0884,
-                  'V': 3.8573,
-                  'W': 4.0543,
-                  'Y': 5.1289,
-                  'Zn': 3.9871,
-                  'Zr': 4.562}
-
-mag_mom_dict = {'Co':1.7,
-                'Fe':2.8,
-                'Ni':0.7}
-
-adsorbate_dict = {'O':"Atoms('O', ([0, 0, 0],))",
-                  'H':"Atoms('H', ([0, 0, 0],))",
-                  'N':"Atoms('N', ([0, 0, 0],))",
-                  'C':"Atoms('C', ([0, 0, 0],))",
-                  'CO':"Atoms('CO', ([0, 0, 0], [0, 0, 1.16]))",
-                  'OH':"Atoms('OH', ([0, 0, 0], [0.65, 0.65, 0.40]))",
-                  'N2_standing':"Atoms('NN', ([0, 0, 0], [0, 0, 1.13]))",
-                  'N2_lying':"Atoms('NN', ([0, 0, 0], [1.13, 0, 0]))",
-                  'NO_standing':"Atoms('NO', ([0, 0, 0], [0, 0, 1.14]))"}
-
-ads_dict = {'O':Atoms('O', ([0, 0, 0],)),
-                  'H':Atoms('H', ([0, 0, 0],)),
-                  'N':Atoms('N', ([0, 0, 0],)),
-                  'C':Atoms('C', ([0, 0, 0],)),
-                  'CO':Atoms('CO', ([0, 0, 0], [0, 0, 1.16])),
-                  'OH':Atoms('OH', ([0, 0, 0], [0.65, 0.65, 0.40])),
-                  'N2_standing':Atoms('NN', ([0, 0, 0], [0, 0, 1.13])),
-                  'N2_lying':Atoms('NN', ([0, 0, 0], [1.13, 0, 0])),
-                  'NO':Atoms('NO', ([0, 0, 0], [0, 0, 1.14]))}
-
-def under_fmax(atoms,threshold):
-    f = atoms.get_forces()
-    fmax = np.max(np.sqrt(np.sum(f**2,axis=1)))
-    if fmax <= threshold:
-        return True
-    else:
-        return False
-
-def get_mag_mom(elements):
-    mag_mom_dict = dict(np.loadtxt('magnetic_moments.csv', dtype='U10,f4', delimiter=','))
-    mag_mom = [mag_mom_dict[metal] for metal in elements]
-    return mag_mom
-
-def make_slab(facet, elements, composition, size, lattice = 'surface_adjusted', vacuum = 10, fix_bottom = 2, skin=None, spin_polarized=False):
+def make_slab(facet, composition, size, lattice = 'surface_adjusted', vacuum = 10, fix_bottom = 2, skin=None, spin_polarized=False):
     if facet not in ['fcc100','fcc110','fcc111','bcc100','bcc110','bcc111','hcp0001']:
         print("Please choose from the following facets: ['fcc100','fcc110','fcc111','bcc100','bcc110','bcc111','hcp0001']")
         raise NameError("Unsupported facet chosen.")
-
-    lattice_parameters = [lat_param_dict[metal] for metal in elements]
-    weighted_lat = np.sum(np.multiply(lattice_parameters,composition))
-    atoms = globals()[facet]('Au', size=size, vacuum=vacuum, a=weighted_lat)
     
-    rnd_symbols = np.random.choice(elements,np.prod(size), p=composition)
+    # Vegards law determined lattice constant for the alloy composition
+    #lat_params = [lat_dict[e] for e in composition.keys()]
+    weighted_lat = np.sum([get_lattice(e) * f for e, f in composition.items()])
+
+    # initiate atoms object and randomize symbols
+    atoms = globals()[facet]('Au', size=size, vacuum=vacuum, a=weighted_lat)    
+    rnd_symbols = np.random.choice(list(composition.keys()), np.prod(size), p=list(composition.values()))
     atoms.set_chemical_symbols(rnd_symbols)
     
+    # fix bottom layers
     atoms.set_constraint(FixAtoms(indices=[atom.index for atom in atoms if atom.tag not in np.arange(size[2])[:-fix_bottom+1]]))
-
-    if lattice == 'surface_adjusted':
-        temp = []
-        for symbol in [atom.symbol for atom in atoms if atom.tag == 1]:
-            temp.append(np.array(lattice_parameters)[symbol == np.array(elements)][0])
-        lat_scale = np.mean(temp)/weighted_lat
-        atoms.set_cell([atoms.get_cell()[0]*lat_scale,atoms.get_cell()[1]*lat_scale,atoms.get_cell()[2]], scale_atoms=True)
-
+    
+    # replace surface layer with specified skin element
     if skin != None:
         for j in [a.index for a in atoms if a.tag == 1]:
-            atoms[j].symbol = skin    
- 
+            atoms[j].symbol = skin
+
+    # adjust x,y dimension of cell if surface adjusted lattice is chosen
+    if lattice == 'surface_adjusted':
+        temp = []
+        lat_scale = np.mean([get_lattice(a.symbol) for a in atoms if a.tag == 1]) / weighted_lat
+        cell = atoms.get_cell()
+        atoms.set_cell([cell[0]*lat_scale,cell[1]*lat_scale,cell[2]], scale_atoms=True)
+
+    # set initial magnetic moments if spin polarization is chosen 
     if spin_polarized:
-        mag_moms = np.zeros(len(atoms))
-        for j, symbol in enumerate(rnd_symbols):
-            if symbol in list(mag_mom_dict.keys()):
-                mag_moms[j] = mag_mom_dict[symbol]
-            else: mag_moms[j] = 0.0
-        atoms.set_initial_magnetic_moments(mag_moms)
+        magmoms = [get_magmom(a.symbol) if a.symbol in ['Co','Fe','Ni'] else 0.0 for a in atoms]
+        atoms.set_initial_magnetic_moments(magmoms)
 
     return atoms
 
@@ -166,7 +86,7 @@ def relax_ads(filename, slabId, adsId, facet, size, site, adsorbate, initial_bon
                 "from ase.io import read\n"\
                 "from ase.db import connect\n"\
                 "from ase.optimize import LBFGS\n"\
-                "from utils.dftsampling import add_ads\n"\
+                "from cheatools.dftsampling import add_ads\n"\
                 "\n")
 
         file.write(f"atoms = read('../traj/{filename}_slab.traj',-1)\n"\
@@ -202,7 +122,7 @@ def add_ads(atoms, facet, size, site, adsorbate, initial_bond_length, adsId):
     x_pos = np.mean(positions[:,0])
     y_pos = np.mean(positions[:,1])
 
-    ads_object = ads_dict[adsorbate]
+    ads_object = get_ads(adsorbate)
     
     add_adsorbate(atoms,ads_object,initial_bond_length,position=(x_pos,y_pos))
 
@@ -300,7 +220,14 @@ def get_site_ids(facet, site, size):
 
     return ads_id_sets
 
+
 def SLURM_script(filename, partition, nodes, ntasks, ntasks_per_core, mem_per_cpu, constraint, nice, exclude, dependency, array_len=None):
+    """
+    Writes submission sbatch script for SLURM. 
+    -------
+    !DISCLAIMER!
+    This function is highly personalized and should be modified accordingly to fit your own HPC protocols.
+    """
     with open('sl/' + filename + '.sl', 'w') as f:
         f.write("#!/bin/bash\n"\
                 "\n"\
