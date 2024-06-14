@@ -10,17 +10,13 @@ from .graphtools import templater
 import matplotlib.pyplot as plt
 import ase
 from copy import deepcopy
-from ocpmodels.preprocessing import AtomsToGraphs
 
 class SurrogateSurface():
     def __init__(self, composition, adsorbates, sites, regressor, template='ocp', facet='fcc111', size=(96,96), 
-                 displace_e=None, scale_e=None, direct_e_input=None): #, surf_images=False):
+                 displace_e=None, scale_e=None, direct_e_input=None):
         
         if not isinstance(composition,list):
             composition = [composition] 
-
-        #self.surf_images = surf_images
-        #self.surf_image_list = []
 
         # Graph templates
         self.template = template
@@ -29,30 +25,16 @@ class SurrogateSurface():
                 ok = [m for m in regressor.onehot_labels if m not in ''.join(adsorbates)]
                 if len(list(set(comp.keys()) - set(ok))) != 0:
                     raise Exception(f"To match lGNN state the composition should contain only {ok}")
-            self.templater = templater(template,facet,adsorbates,sites,onehot_labels = regressor.onehot_labels)
+            from .graphtools import lGNNtemplater
+            self.templater = lGNNtemplater(facet,adsorbates,sites,regressor.onehot_labels)
        
-        else: 
-            self.templater = templater(template,facet,adsorbates,sites)
+        elif template == 'ocp':
+            from .ocp_utils import OCPtemplater 
+            self.templater = OCPtemplater(facet,adsorbates,sites)
         
-        #if template == 'ocp':
-        #    self.templates = get_ocp_templates(facet,adsorbates,sites)
-        #elif template == 'shallow_ocp':
-        #    self.templates = get_shallow_ocp_templates(facet,adsorbates,sites)
-        #elif template == 'lgnn':
-        #    #self.onehot_labels = regressor.onehot_labels
-        #    #print(facet,adsorbates,sites,self.onehot_labels)
-        #    self.templates = get_lgnn_templates(facet,adsorbates,sites,regressor.onehot_labels)
-        #    for comp in composition:
-        #        ok = [m for m in regressor.onehot_labels if m not in list(''.join(adsorbates))] 
-        #        if len(list(set(comp.keys()) - set(ok))) != 0:
-        #            raise Exception(f"To match lGNN state the composition should contain only {ok}")
-                
         # Metal parameters
         self.metals = list(set([k for k in comp.keys() for comp in composition]))
-        #self.metals = sorted(list(composition[0].keys()))
         self.n_metals = len(self.metals)
-        #self.alloy = ''.join(self.metals)
-        #self.composition = composition
 
         # Adsorbates parameters
         self.adsorbates = adsorbates
@@ -70,7 +52,7 @@ class SurrogateSurface():
         self.nrows, self.ncols = size
 
         # Number of layers scaled to what rank neighbors used in regression
-        self.n_layers = 5 if template == 'ocp' else 3 if template in ['shallow_ocp','lgnn'] else None
+        self.n_layers = 5 if template == 'ocp' else 3 if template == 'lgnn' else None
         
         # Assign elements to grid (New version)
         n_atoms_surface = np.prod(size)
@@ -272,15 +254,15 @@ class SurrogateSurface():
         cell = self.templater.fill_template(site_symbols,adsorbate,site)
         return cell
         
-
+    """
     def get_ocp_cell(self, sid, coords, adsorbate, site):
-        """Get the OCP-compatible graph of the requested site from the cell-templates
+        Get the OCP-compatible graph of the requested site from the cell-templates
 
         NB! Graphs use torch edge-templates from adjacency matrix of ASE model system.
         Hence site_ids are listed in the order matching the edge-template and will result in
         mismatch between node-list and edge-list if changed.
 
-        Coordinates are structured as (row,coloumn,layer) with surface layer being 0, subsurface 1 etc."""
+        Coordinates are structured as (row,coloumn,layer) with surface layer being 0, subsurface 1 etc.
         
         # Get ordered list of coordinates of atoms included in graph
         if self.facet == 'fcc111':
@@ -307,6 +289,7 @@ class SurrogateSurface():
         for i, label in enumerate(site_labels):
             cell.x[i, cell.onehot_labels.index(self.metals[label])] = 1
         return cell        
+    """
 
     def get_neighbor_ids(self, facet, site):
         """Return neighboring coordinates for blocking or for energy contribution"""

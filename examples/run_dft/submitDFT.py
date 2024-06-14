@@ -43,7 +43,6 @@ GPAW_kwargs = {'mode':"PW(400)",
                'xc':"'RPBE'",
                'kpts':(4,4,1),
                'eigensolver':'Davidson(3)',
-               'mixer':'MixerDif(beta=0.05, nmaxold=5, weight=50.0)', 
                'parallel':{'augment_grids':True,'sl_auto':True}
               }
 

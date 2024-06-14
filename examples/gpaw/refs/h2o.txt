@@ -1,0 +1,2462 @@
+
+  ___ ___ ___ _ _ _  
+ |   |   |_  | | | | 
+ | | | | | . | | | | 
+ |__ |  _|___|_____|  22.1.0
+ |___|_|             
+
+User:   clausen@node026.cluster
+Date:   Thu Jan 25 13:22:57 2024
+Arch:   x86_64
+Pid:    114256
+Python: 3.10.4
+gpaw:   /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/gpaw
+_gpaw:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/
+        _gpaw.cpython-310-x86_64-linux-gnu.so
+ase:    /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/ase (version 3.22.1)
+numpy:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/numpy (version 1.23.1)
+scipy:  /groups/kemi/clausen/miniconda3/envs/gpaw22/lib/python3.10/site-packages/scipy (version 1.8.1)
+libxc:  5.2.3
+units:  Angstrom and eV
+cores: 16
+OpenMP: True
+OMP_NUM_THREADS: 1
+
+Input parameters:
+  eigensolver: {name: dav,
+                niter: 3}
+  kpts: [1 1 1]
+  mode: {ecut: 400.0,
+         name: pw}
+  xc: RPBE
+
+System changes: positions, numbers, cell, pbc, initial_charges, initial_magmoms 
+
+Initialize ...
+
+H-setup:
+  name: Hydrogen
+  id: ea3f9156a1dc40d47a60fdce8f8bd75d
+  Z: 1.0
+  valence: 1
+  core: 0
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/H.RPBE.gz
+  compensation charges: gauss, rc=0.15, lmax=2
+  cutoffs: 0.85(filt), 0.53(core),
+  valence states:
+                energy  radius
+    1s(1.00)    -6.572   0.476
+    *s          20.639   0.476
+    *p           0.000   0.476
+
+  Using partial waves for H as LCAO basis
+
+O-setup:
+  name: Oxygen
+  id: 08071ca1eed670e7821b24b7eb4d558c
+  Z: 8.0
+  valence: 6
+  core: 2
+  charge: 0.0
+  file: /groups/kemi/clausen/miniconda3/envs/gpaw22/share/gpaw/O.RPBE.gz
+  compensation charges: gauss, rc=0.21, lmax=2
+  cutoffs: 1.17(filt), 0.83(core),
+  valence states:
+                energy  radius
+    2s(2.00)   -24.041   0.688
+    2p(4.00)    -8.984   0.598
+    *s           3.170   0.688
+    *p          18.228   0.598
+    *d           0.000   0.619
+
+  Using partial waves for O as LCAO basis
+
+Reference energy: -2068.317066
+
+Spin-paired calculation
+
+Convergence criteria:
+ Maximum [total energy] change in last 3 cyles: 0.0005 eV / electron
+ Maximum integral of absolute [dens]ity change: 0.0001 electrons / valence electron
+ Maximum integral of absolute [eigenst]ate change: 4e-08 eV^2 / valence electron
+ Maximum number of scf [iter]ations: 333
+ (Square brackets indicate name in SCF output, whereas a 'c' in
+ the SCF output indicates the quantity has converged.)
+
+Symmetries present (total): 2
+
+  ( 1  0  0)  ( 1  0  0)
+  ( 0  1  0)  ( 0  1  0)
+  ( 0  0  1)  ( 0  0 -1)
+
+1 k-point (Gamma)
+1 k-point in the irreducible part of the Brillouin zone
+       k-points in crystal coordinates                weights
+   0:     0.00000000    0.00000000    0.00000000          1/1
+
+Wave functions: Plane wave expansion
+  Cutoff energy: 400.000 eV
+  Number of coefficients: 145165 (reduced to 72583)
+  Pulay-stress correction: 0.000000 eV/Ang^3 (de/decut=0.000000)
+  Using FFTW library
+  ScaLapack parameters: grid=1x1, blocksize=None
+  Wavefunction extrapolation:
+    Improved wavefunction reuse through dual PAW basis 
+
+Occupation numbers: width=0.000 eV 
+
+Eigensolver
+   Davidson(niter=3) 
+
+Densities:
+  Coarse grid: 96*96*96 grid
+  Fine grid: 192*192*192 grid
+  Total Charge: 0.000000 
+
+Density mixing:
+  Method: separate
+  Backend: pulay
+  Linear mixing parameter: 0.05
+  Mixing with 5 old densities
+  Damping of long wave oscillations: 50 
+
+Hamiltonian:
+  XC and Coulomb potentials evaluated on a 192*192*192 grid
+  Using the RPBE Exchange-Correlation functional
+  External potential:
+    NoExternalPotential
+ 
+
+XC parameters: RPBE with 2 nearest neighbor stencil
+
+Memory estimate:
+  Process memory now: 544.33 MiB
+  Calculator: 71.54 MiB
+    Density: 27.24 MiB
+      Arrays: 10.97 MiB
+      Localized functions: 12.05 MiB
+      Mixer: 4.22 MiB
+    Hamiltonian: 7.47 MiB
+      Arrays: 7.17 MiB
+      XC: 0.00 MiB
+      Poisson: 0.00 MiB
+      vbar: 0.29 MiB
+    Wavefunctions: 36.83 MiB
+      Arrays psit_nG: 6.65 MiB
+      Eigensolver: 12.19 MiB
+      Projections: 0.00 MiB
+      Projectors: 0.59 MiB
+      PW-descriptor: 17.41 MiB
+
+Total number of cores used: 16
+Domain decomposition: 4 x 2 x 2
+
+Number of atoms: 3
+Number of atomic orbitals: 6
+Number of bands in calculation: 6
+Number of valence electrons: 8
+Bands to converge: occupied
+
+... initialized
+
+Initializing position-dependent things.
+
+Density initialized from atomic densities
+Creating initial wave functions:
+  6 bands from LCAO basis set
+
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H                              |  
+ |           |                 O  H                           |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.950000   10.000000   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.761978   10.919699   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O     10.000000   10.000000   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:23:17   -13.712263
+iter:   2 13:23:24   -13.370012  -2.45  -0.71
+iter:   3 13:23:29   -12.259071  -1.28  -0.75
+iter:   4 13:23:34   -12.309175  -2.38  -1.08
+iter:   5 13:23:41   -12.181763  -2.14  -1.09
+iter:   6 13:23:46   -12.180361  -2.79  -1.94
+iter:   7 13:23:51   -12.180637c -3.60  -2.10
+iter:   8 13:23:58   -12.179538c -4.59  -2.05
+iter:   9 13:24:06   -12.179128c -5.08  -2.30
+iter:  10 13:24:14   -12.179083c -5.87  -2.48
+iter:  11 13:24:22   -12.178751c -4.93  -2.51
+iter:  12 13:24:29   -12.178728c -5.84  -2.99
+iter:  13 13:24:39   -12.178705c -5.74  -3.17
+iter:  14 13:24:45   -12.178705c -6.45  -3.71
+iter:  15 13:24:50   -12.178705c -7.61c -3.71
+iter:  16 13:24:55   -12.178705c -8.34c -3.80
+iter:  17 13:25:01   -12.178706c -7.88c -3.84
+iter:  18 13:25:06   -12.178706c -8.58c -4.07c
+
+Converged after 18 iterations.
+
+Dipole moment: (0.221818, 0.286215, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +7.330598
+Potential:       -7.279118
+External:        +0.000000
+XC:             -12.119545
+Entropy (-ST):   +0.000000
+Local:           -0.110641
+--------------------------
+Free energy:    -12.178706
+Extrapolated:   -12.178706
+
+ Band  Eigenvalues  Occupancy
+    0    -25.82225    2.00000
+    1    -13.25479    2.00000
+    2     -9.36451    2.00000
+    3     -7.20864    2.00000
+    4     -0.99851    0.00000
+    5      0.03060    0.00000
+
+Fermi level: -4.10357
+
+Gap: 6.210 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     1.66539    0.02205    0.00000
+  1 H    -0.39521    1.62049    0.00000
+  2 O    -1.27224   -1.64542    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     11.110141   10.002121   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.723976   11.075523   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.877664    9.841779   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:25:13   -12.278280  -0.31
+iter:   2 13:25:20   -11.747756  -2.29  -0.72
+iter:   3 13:25:28   -10.948289  -0.77  -0.77
+iter:   4 13:25:33   -10.755804  -2.46  -0.95
+iter:   5 13:25:41   -10.717114  -3.80  -1.01
+iter:   6 13:25:48   -10.442470  -2.20  -1.03
+iter:   7 13:25:54   -10.374706  -2.43  -1.34
+iter:   8 13:26:02   -10.374993  -3.43  -1.88
+iter:   9 13:26:05   -10.378558c -3.57  -1.89
+iter:  10 13:26:13   -10.376078c -4.19  -2.01
+iter:  11 13:26:20   -10.375847c -4.58  -2.54
+iter:  12 13:26:25   -10.375860c -5.30  -2.66
+iter:  13 13:26:31   -10.375923c -5.28  -2.70
+iter:  14 13:26:38   -10.375897c -5.99  -3.13
+iter:  15 13:26:43   -10.375898c -6.46  -3.64
+iter:  16 13:26:49   -10.375897c -7.10  -3.57
+iter:  17 13:26:52   -10.375897c -8.03c -3.85
+iter:  18 13:27:00   -10.375897c -8.04c -3.90
+iter:  19 13:27:07   -10.375897c -8.48c -3.98
+iter:  20 13:27:15   -10.375897c -8.81c -4.08c
+
+Converged after 20 iterations.
+
+Dipole moment: (0.254260, 0.328665, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         -9.638969
+Potential:       +5.632062
+External:        +0.000000
+XC:              -6.299264
+Entropy (-ST):   +0.000000
+Local:           -0.069725
+--------------------------
+Free energy:    -10.375897
+Extrapolated:   -10.375897
+
+ Band  Eigenvalues  Occupancy
+    0    -23.63464    2.00000
+    1    -10.51254    2.00000
+    2     -9.70355    2.00000
+    3     -6.83789    2.00000
+    4     -2.26533    0.00000
+    5     -0.83522    0.00000
+
+Fermi level: -4.55161
+
+Gap: 4.573 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -5.29144   -0.95976    0.00000
+  1 H     0.39837   -5.36825    0.00000
+  2 O     4.86478    6.25335    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.970107   10.000266   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.757207   10.939264   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.984640    9.980134   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:27:24   -12.869512  -1.05
+iter:   2 13:27:31   -12.726440  -2.80  -1.00
+iter:   3 13:27:38   -12.291729  -1.34  -1.04
+iter:   4 13:27:42   -12.314607  -2.42  -1.45
+iter:   5 13:27:50   -12.272365  -3.26  -1.38
+iter:   6 13:27:55   -12.233494  -2.61  -1.49
+iter:   7 13:28:01   -12.235720  -4.03  -1.94
+iter:   8 13:28:09   -12.235181c -4.59  -1.94
+iter:   9 13:28:16   -12.232697c -3.56  -2.08
+iter:  10 13:28:23   -12.232649c -4.89  -2.78
+iter:  11 13:28:29   -12.232756c -4.66  -2.86
+iter:  12 13:28:35   -12.232612c -5.25  -2.74
+iter:  13 13:28:42   -12.232617c -6.75  -3.08
+iter:  14 13:28:49   -12.232624c -6.84  -3.08
+iter:  15 13:28:57   -12.232622c -7.62c -2.98
+iter:  16 13:29:04   -12.232600c -6.13  -3.02
+iter:  17 13:29:08   -12.232621c -6.27  -3.18
+iter:  18 13:29:13   -12.232604c -6.03  -3.06
+iter:  19 13:29:21   -12.232601c -6.58  -3.29
+iter:  20 13:29:27   -12.232605c -6.23  -3.40
+iter:  21 13:29:34   -12.232599c -6.56  -3.47
+iter:  22 13:29:43   -12.232599c -6.87  -3.92
+iter:  23 13:29:50   -12.232599c -6.75  -3.82
+iter:  24 13:29:56   -12.232598c -7.04  -3.92
+iter:  25 13:30:05   -12.232599c -7.85c -4.28c
+
+Converged after 25 iterations.
+
+Dipole moment: (0.227196, 0.292947, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.141257
+Potential:       -5.050652
+External:        +0.000000
+XC:             -11.221932
+Entropy (-ST):   +0.000000
+Local:           -0.101271
+--------------------------
+Free energy:    -12.232599
+Extrapolated:   -12.232599
+
+ Band  Eigenvalues  Occupancy
+    0    -25.46951    2.00000
+    1    -12.81874    2.00000
+    2     -9.43478    2.00000
+    3     -7.14625    2.00000
+    4     -1.10434    0.00000
+    5     -0.02762    0.00000
+
+Fermi level: -4.12529
+
+Gap: 6.042 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -0.06155   -0.04241    0.00000
+  1 H    -0.02479   -0.06879    0.00000
+  2 O     0.11593    0.15530    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H                              |  
+ |           |                 O  H                           |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.972963    9.996386   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.752818   10.941205   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.988949    9.986213   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:30:14   -12.233291  -3.72
+iter:   2 13:30:18   -12.233251  -5.44  -2.63
+iter:   3 13:30:27   -12.233161c -4.58  -2.66
+iter:   4 13:30:33   -12.233132c -6.01  -2.85
+iter:   5 13:30:39   -12.233173c -6.36  -2.87
+iter:   6 13:30:46   -12.233063c -5.05  -2.80
+iter:   7 13:30:52   -12.233062c -6.35  -3.72
+iter:   8 13:30:56   -12.233061c -7.05  -3.79
+iter:   9 13:31:07   -12.233062c -7.07  -3.93
+iter:  10 13:31:14   -12.233061c -7.60c -4.00c
+
+Converged after 10 iterations.
+
+Dipole moment: (0.225329, 0.290248, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.238731
+Potential:       -5.108985
+External:        +0.000000
+XC:             -11.261466
+Entropy (-ST):   +0.000000
+Local:           -0.101342
+--------------------------
+Free energy:    -12.233061
+Extrapolated:   -12.233061
+
+ Band  Eigenvalues  Occupancy
+    0    -25.46870    2.00000
+    1    -12.88866    2.00000
+    2     -9.37881    2.00000
+    3     -7.14380    2.00000
+    4     -1.09625    0.00000
+    5     -0.02740    0.00000
+
+Fermi level: -4.12002
+
+Gap: 6.048 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -0.02268    0.03935    0.00000
+  1 H     0.04016    0.00589    0.00000
+  2 O    -0.00020   -0.01451    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H                              |  
+ |           |                 O  H                           |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.971676    9.998981   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.755390   10.941970   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.989212    9.985532   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:31:21   -12.233196  -4.78
+iter:   2 13:31:28   -12.233191  -6.54  -3.01
+iter:   3 13:31:33   -12.233160c -5.72  -3.03
+iter:   4 13:31:40   -12.233159c -7.40c -3.67
+iter:   5 13:31:42   -12.233158c -7.89c -3.69
+iter:   6 13:31:49   -12.233158c -7.56c -3.87
+iter:   7 13:31:57   -12.233158c -9.31c -4.48c
+
+Converged after 7 iterations.
+
+Dipole moment: (0.225528, 0.291319, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.288387
+Potential:       -5.148914
+External:        +0.000000
+XC:             -11.271638
+Entropy (-ST):   +0.000000
+Local:           -0.100993
+--------------------------
+Free energy:    -12.233158
+Extrapolated:   -12.233158
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47785    2.00000
+    1    -12.87478    2.00000
+    2     -9.39658    2.00000
+    3     -7.14583    2.00000
+    4     -1.09601    0.00000
+    5     -0.02740    0.00000
+
+Fermi level: -4.12092
+
+Gap: 6.050 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.05702    0.01353    0.00000
+  1 H     0.02179   -0.03106    0.00000
+  2 O    -0.06072    0.04608    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.972176   10.007561   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.764716   10.941075   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.985181    9.987667   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:32:04   -12.232178  -3.65
+iter:   2 13:32:11   -12.232108  -5.44  -2.47
+iter:   3 13:32:15   -12.231696c -4.56  -2.49
+iter:   4 13:32:22   -12.231678c -6.44  -3.10
+iter:   5 13:32:28   -12.231663c -6.54  -3.14
+iter:   6 13:32:35   -12.231660c -6.62  -3.34
+iter:   7 13:32:42   -12.231660c -7.23  -3.74
+iter:   8 13:32:49   -12.231660c -8.46c -4.21c
+
+Converged after 8 iterations.
+
+Dipole moment: (0.229417, 0.292138, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.414612
+Potential:       -5.250699
+External:        +0.000000
+XC:             -11.294810
+Entropy (-ST):   +0.000000
+Local:           -0.100764
+--------------------------
+Free energy:    -12.231660
+Extrapolated:   -12.231660
+
+ Band  Eigenvalues  Occupancy
+    0    -25.50443    2.00000
+    1    -12.82757    2.00000
+    2     -9.45346    2.00000
+    3     -7.15236    2.00000
+    4     -1.09688    0.00000
+    5     -0.02746    0.00000
+
+Fermi level: -4.12462
+
+Gap: 6.055 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -0.12788   -0.07563    0.00000
+  1 H    -0.13388    0.25601    0.00000
+  2 O     0.28312   -0.15394    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.971756   10.000347   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.756875   10.941828   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.988570    9.985872   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:32:56   -12.233586  -3.80
+iter:   2 13:33:00   -12.233536  -5.58  -2.54
+iter:   3 13:33:06   -12.233239c -4.71  -2.56
+iter:   4 13:33:13   -12.233227c -6.57  -3.17
+iter:   5 13:33:19   -12.233217c -6.76  -3.21
+iter:   6 13:33:24   -12.233215c -6.76  -3.41
+iter:   7 13:33:30   -12.233215c -7.78c -3.94
+iter:   8 13:33:35   -12.233215c -8.47c -4.24c
+
+Converged after 8 iterations.
+
+Dipole moment: (0.226101, 0.291483, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.308497
+Potential:       -5.165038
+External:        +0.000000
+XC:             -11.275058
+Entropy (-ST):   +0.000000
+Local:           -0.101616
+--------------------------
+Free energy:    -12.233215
+Extrapolated:   -12.233215
+
+ Band  Eigenvalues  Occupancy
+    0    -25.48231    2.00000
+    1    -12.86765    2.00000
+    2     -9.40595    2.00000
+    3     -7.14718    2.00000
+    4     -1.09607    0.00000
+    5     -0.02740    0.00000
+
+Fermi level: -4.12163
+
+Gap: 6.051 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.02830   -0.00185    0.00000
+  1 H    -0.00488    0.01438    0.00000
+  2 O    -0.00101    0.01691    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.972986   10.001157   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.757470   10.943189   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.989427    9.987454   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:33:40   -12.233283  -5.23
+iter:   2 13:33:47   -12.233282  -7.12  -3.43
+iter:   3 13:33:55   -12.233281c -6.03  -3.45
+iter:   4 13:34:04   -12.233278c -7.08  -3.59
+iter:   5 13:34:10   -12.233278c -8.73c -3.74
+iter:   6 13:34:14   -12.233278c -6.64  -3.72
+iter:   7 13:34:19   -12.233277c -7.54c -4.02c
+
+Converged after 7 iterations.
+
+Dipole moment: (0.226138, 0.291242, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.296362
+Potential:       -5.154413
+External:        +0.000000
+XC:             -11.272174
+Entropy (-ST):   +0.000000
+Local:           -0.103052
+--------------------------
+Free energy:    -12.233277
+Extrapolated:   -12.233277
+
+ Band  Eigenvalues  Occupancy
+    0    -25.48022    2.00000
+    1    -12.86993    2.00000
+    2     -9.40259    2.00000
+    3     -7.14674    2.00000
+    4     -1.09630    0.00000
+    5     -0.02741    0.00000
+
+Fermi level: -4.12152
+
+Gap: 6.050 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00910    0.00371    0.00000
+  1 H     0.00009    0.02140    0.00000
+  2 O     0.01294   -0.00239    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.977907   10.004395   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.759849   10.948635   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.992852    9.993781   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:34:26   -12.233418  -4.01
+iter:   2 13:34:29   -12.233394  -5.89  -2.81
+iter:   3 13:34:38   -12.233381c -4.76  -2.83
+iter:   4 13:34:44   -12.233325c -5.80  -2.95
+iter:   5 13:34:51   -12.233328c -7.81c -3.12
+iter:   6 13:34:56   -12.233335c -5.25  -3.11
+iter:   7 13:35:02   -12.233311c -5.95  -3.20
+iter:   8 13:35:08   -12.233311c -6.92  -3.77
+iter:   9 13:35:15   -12.233311c -7.15  -4.03c
+iter:  10 13:35:19   -12.233311c -8.25c -4.39c
+
+Converged after 10 iterations.
+
+Dipole moment: (0.226287, 0.290326, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.246180
+Potential:       -5.116163
+External:        +0.000000
+XC:             -11.261590
+Entropy (-ST):   +0.000000
+Local:           -0.101737
+--------------------------
+Free energy:    -12.233311
+Extrapolated:   -12.233311
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47066    2.00000
+    1    -12.87776    2.00000
+    2     -9.38830    2.00000
+    3     -7.14388    2.00000
+    4     -1.09670    0.00000
+    5     -0.02743    0.00000
+
+Fermi level: -4.12029
+
+Gap: 6.047 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -0.06707    0.02325    0.00000
+  1 H     0.01442    0.04538    0.00000
+  2 O     0.06014   -0.05874    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.977596   10.006275   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.761659   10.949698   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.993445    9.993877   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:35:28   -12.233448  -5.11
+iter:   2 13:35:34   -12.233445  -6.89  -3.18
+iter:   3 13:35:41   -12.233433c -5.83  -3.20
+iter:   4 13:35:51   -12.233431c -7.60c -3.68
+iter:   5 13:35:59   -12.233432c -8.33c -3.71
+iter:   6 13:36:08   -12.233430c -6.67  -3.67
+iter:   7 13:36:15   -12.233430c -8.12c -4.10c
+
+Converged after 7 iterations.
+
+Dipole moment: (0.226355, 0.290811, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.259624
+Potential:       -5.127370
+External:        +0.000000
+XC:             -11.263845
+Entropy (-ST):   +0.000000
+Local:           -0.101839
+--------------------------
+Free energy:    -12.233430
+Extrapolated:   -12.233430
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47608    2.00000
+    1    -12.87071    2.00000
+    2     -9.39878    2.00000
+    3     -7.14598    2.00000
+    4     -1.09684    0.00000
+    5     -0.02744    0.00000
+
+Fermi level: -4.12141
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H    -0.02029    0.01201    0.00000
+  1 H     0.00847    0.01835    0.00000
+  2 O     0.01617   -0.01698    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                 H  H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.979254   10.011070   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.765870   10.954161   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.995593    9.997343   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:36:20   -12.233551  -4.27
+iter:   2 13:36:25   -12.233538  -6.16  -2.82
+iter:   3 13:36:29   -12.233521c -4.89  -2.84
+iter:   4 13:36:35   -12.233513c -6.26  -3.05
+iter:   5 13:36:40   -12.233525c -7.04  -3.06
+iter:   6 13:36:47   -12.233478c -5.28  -3.00
+iter:   7 13:36:53   -12.233484c -6.28  -3.46
+iter:   8 13:37:01   -12.233472c -6.14  -3.32
+iter:   9 13:37:07   -12.233472c -7.25  -3.90
+iter:  10 13:37:13   -12.233472c -8.25c -4.30c
+
+Converged after 10 iterations.
+
+Dipole moment: (0.226663, 0.291287, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.278201
+Potential:       -5.144121
+External:        +0.000000
+XC:             -11.265322
+Entropy (-ST):   +0.000000
+Local:           -0.102230
+--------------------------
+Free energy:    -12.233472
+Extrapolated:   -12.233472
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47948    2.00000
+    1    -12.86034    2.00000
+    2     -9.40963    2.00000
+    3     -7.14695    2.00000
+    4     -1.09740    0.00000
+    5     -0.02746    0.00000
+
+Fermi level: -4.12218
+
+Gap: 6.050 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00713   -0.00589    0.00000
+  1 H    -0.00454   -0.00337    0.00000
+  2 O     0.00546    0.01272    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980849   10.012756   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.767329   10.956303   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.997246    9.999512   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:37:19   -12.233489  -4.82
+iter:   2 13:37:26   -12.233486  -6.68  -3.19
+iter:   3 13:37:31   -12.233492c -5.43  -3.21
+iter:   4 13:37:36   -12.233478c -6.46  -3.24
+iter:   5 13:37:42   -12.233480c -7.69c -3.44
+iter:   6 13:37:48   -12.233473c -6.09  -3.40
+iter:   7 13:37:55   -12.233472c -7.12  -4.00c
+iter:   8 13:38:03   -12.233473c -7.79c -4.24c
+
+Converged after 8 iterations.
+
+Dipole moment: (0.226745, 0.291244, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.292948
+Potential:       -5.155529
+External:        +0.000000
+XC:             -11.268320
+Entropy (-ST):   +0.000000
+Local:           -0.102571
+--------------------------
+Free energy:    -12.233473
+Extrapolated:   -12.233473
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47731    2.00000
+    1    -12.86109    2.00000
+    2     -9.40564    2.00000
+    3     -7.14489    2.00000
+    4     -1.09685    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12087
+
+Gap: 6.048 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00731   -0.00342    0.00000
+  1 H    -0.00146   -0.00667    0.00000
+  2 O    -0.01110    0.00044    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.979995   10.011853   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766548   10.955156   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996360    9.998350   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:38:12   -12.233477  -5.46
+iter:   2 13:38:18   -12.233477  -7.35  -3.54
+iter:   3 13:38:23   -12.233476c -6.36  -3.56
+iter:   4 13:38:27   -12.233476c -7.74c -3.76
+iter:   5 13:38:33   -12.233477c -7.52c -3.82
+iter:   6 13:38:38   -12.233475c -6.67  -3.65
+iter:   7 13:38:45   -12.233475c -8.06c -4.44c
+
+Converged after 7 iterations.
+
+Dipole moment: (0.226703, 0.291238, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.285225
+Potential:       -5.151004
+External:        +0.000000
+XC:             -11.267236
+Entropy (-ST):   +0.000000
+Local:           -0.100461
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47785    2.00000
+    1    -12.86016    2.00000
+    2     -9.40735    2.00000
+    3     -7.14543    2.00000
+    4     -1.09682    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12113
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00645   -0.00475    0.00000
+  1 H    -0.00304   -0.00564    0.00000
+  2 O     0.00020    0.00959    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980404   10.012286   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766922   10.955705   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996785    9.998907   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:38:53   -12.233476  -5.86
+iter:   2 13:39:00   -12.233476  -7.75c -3.70
+iter:   3 13:39:09   -12.233477c -6.34  -3.72
+iter:   4 13:39:15   -12.233475c -7.11  -3.67
+iter:   5 13:39:24   -12.233475c -8.07c -4.01c
+
+Converged after 5 iterations.
+
+Dipole moment: (0.226665, 0.291166, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.298868
+Potential:       -5.159407
+External:        +0.000000
+XC:             -11.268558
+Entropy (-ST):   +0.000000
+Local:           -0.104377
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47720    2.00000
+    1    -12.86048    2.00000
+    2     -9.40616    2.00000
+    3     -7.14482    2.00000
+    4     -1.09679    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12080
+
+Gap: 6.048 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00741   -0.00232    0.00000
+  1 H    -0.00050   -0.00498    0.00000
+  2 O    -0.00530    0.00451    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980131   10.011997   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766672   10.955339   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996502    9.998536   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:39:32   -12.233475  -6.28
+iter:   2 13:39:37   -12.233475  -7.95c -4.01c
+iter:   3 13:39:42   -12.233475c -8.32c -4.01c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226812, 0.291357, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.273393
+Potential:       -5.142366
+External:        +0.000000
+XC:             -11.266130
+Entropy (-ST):   +0.000000
+Local:           -0.098372
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47857    2.00000
+    1    -12.86074    2.00000
+    2     -9.40762    2.00000
+    3     -7.14601    2.00000
+    4     -1.09701    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12151
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00661   -0.00691    0.00000
+  1 H    -0.00534   -0.00666    0.00000
+  2 O    -0.00623    0.00545    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980069   10.011931   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766615   10.955255   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996437    9.998451   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:39:47   -12.233475  -7.30
+iter:   2 13:39:53   -12.233475  -9.06c -4.40c
+iter:   3 13:40:00   -12.233475c -7.72c -4.43c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226698, 0.291219, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.273969
+Potential:       -5.140933
+External:        +0.000000
+XC:             -11.265383
+Entropy (-ST):   +0.000000
+Local:           -0.101128
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47915    2.00000
+    1    -12.86130    2.00000
+    2     -9.40838    2.00000
+    3     -7.14669    2.00000
+    4     -1.09706    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12187
+
+Gap: 6.050 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00802   -0.00470    0.00000
+  1 H    -0.00336   -0.00435    0.00000
+  2 O    -0.00222    0.00844    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980110   10.011975   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766653   10.955310   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996480    9.998507   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:40:11   -12.233475  -7.12
+iter:   2 13:40:19   -12.233475  -8.70c -4.19c
+iter:   3 13:40:26   -12.233475c -7.39  -4.22c
+iter:   4 13:40:32   -12.233475c -8.02c -4.25c
+
+Converged after 4 iterations.
+
+Dipole moment: (0.226699, 0.291222, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.281757
+Potential:       -5.147002
+External:        +0.000000
+XC:             -11.266457
+Entropy (-ST):   +0.000000
+Local:           -0.101772
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47848    2.00000
+    1    -12.86087    2.00000
+    2     -9.40770    2.00000
+    3     -7.14603    2.00000
+    4     -1.09698    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12151
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00753   -0.00433    0.00000
+  1 H    -0.00281   -0.00479    0.00000
+  2 O    -0.00266    0.00769    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980074   10.011937   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766620   10.955262   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996442    9.998458   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:40:38   -12.233475  -7.57c
+iter:   2 13:40:45   -12.233475  -9.23c -4.53c
+iter:   3 13:40:51   -12.233475c -7.93c -4.55c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226697, 0.291221, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.275510
+Potential:       -5.142102
+External:        +0.000000
+XC:             -11.265619
+Entropy (-ST):   +0.000000
+Local:           -0.101263
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47900    2.00000
+    1    -12.86119    2.00000
+    2     -9.40824    2.00000
+    3     -7.14654    2.00000
+    4     -1.09704    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12179
+
+Gap: 6.050 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00791   -0.00464    0.00000
+  1 H    -0.00325   -0.00445    0.00000
+  2 O    -0.00196    0.00857    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980069   10.011932   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766616   10.955256   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996438    9.998451   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:40:57   -12.233475  -7.45c
+iter:   2 13:41:04   -12.233475  -8.85c -4.18c
+iter:   3 13:41:12   -12.233475c -7.62c -4.22c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226701, 0.291225, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.276379
+Potential:       -5.142773
+External:        +0.000000
+XC:             -11.265729
+Entropy (-ST):   +0.000000
+Local:           -0.101352
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47894    2.00000
+    1    -12.86114    2.00000
+    2     -9.40817    2.00000
+    3     -7.14648    2.00000
+    4     -1.09704    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12176
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00785   -0.00465    0.00000
+  1 H    -0.00325   -0.00449    0.00000
+  2 O    -0.00238    0.00818    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980069   10.011931   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766615   10.955255   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996437    9.998451   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:41:19   -12.233475  -7.63c
+iter:   2 13:41:29   -12.233475  -9.07c -4.27c
+iter:   3 13:41:33   -12.233475c -7.80c -4.32c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226702, 0.291226, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.277282
+Potential:       -5.143513
+External:        +0.000000
+XC:             -11.265858
+Entropy (-ST):   +0.000000
+Local:           -0.101386
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47886    2.00000
+    1    -12.86108    2.00000
+    2     -9.40810    2.00000
+    3     -7.14640    2.00000
+    4     -1.09703    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12171
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00777   -0.00464    0.00000
+  1 H    -0.00321   -0.00457    0.00000
+  2 O    -0.00241    0.00812    0.00000
+
+System changes: positions 
+
+Initializing position-dependent things.
+
+Density initialized from wave functions
+             .------------------------------------------------.  
+            /|                                                |  
+           / |                                                |  
+          /  |                                                |  
+         /   |                                                |  
+        /    |                                                |  
+       /     |                                                |  
+      /      |                                                |  
+     /       |                                                |  
+    /        |                                                |  
+   /         |                                                |  
+  /          |                                                |  
+ *           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                  H H                           |  
+ |           |                 O                              |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           |                                                |  
+ |           .------------------------------------------------.  
+ |          /                                                /   
+ |         /                                                /    
+ |        /                                                /     
+ |       /                                                /      
+ |      /                                                /       
+ |     /                                                /        
+ |    /                                                /         
+ |   /                                                /          
+ |  /                                                /           
+ | /                                                /            
+ |/                                                /             
+ *------------------------------------------------*              
+
+Positions:
+   0 H     10.980069   10.011931   10.000000    ( 0.0000,  0.0000,  0.0000)
+   1 H      9.766615   10.955255   10.000000    ( 0.0000,  0.0000,  0.0000)
+   2 O      9.996437    9.998451   10.000000    ( 0.0000,  0.0000,  0.0000)
+
+Unit cell:
+           periodic     x           y           z      points  spacing
+  1. axis:    no    20.000000    0.000000    0.000000    96     0.2083
+  2. axis:    no     0.000000   20.000000    0.000000    96     0.2083
+  3. axis:    no     0.000000    0.000000   20.000000    96     0.2083
+
+  Lengths:  20.000000  20.000000  20.000000
+  Angles:   90.000000  90.000000  90.000000
+
+Effective grid spacing dv^(1/3) = 0.2083
+
+     iter     time        total  log10-change:
+                         energy  eigst   dens
+iter:   1 13:41:41   -12.233475  -7.78c
+iter:   2 13:41:47   -12.233475  -9.20c -4.35c
+iter:   3 13:41:54   -12.233475c -7.94c -4.39c
+
+Converged after 3 iterations.
+
+Dipole moment: (0.226704, 0.291229, 0.000000) |e|*Ang
+
+Energy contributions relative to reference atoms: (reference = -2068.317066)
+
+Kinetic:         +4.277938
+Potential:       -5.144063
+External:        +0.000000
+XC:             -11.265962
+Entropy (-ST):   +0.000000
+Local:           -0.101388
+--------------------------
+Free energy:    -12.233475
+Extrapolated:   -12.233475
+
+ Band  Eigenvalues  Occupancy
+    0    -25.47879    2.00000
+    1    -12.86102    2.00000
+    2     -9.40803    2.00000
+    3     -7.14633    2.00000
+    4     -1.09702    0.00000
+    5     -0.02745    0.00000
+
+Fermi level: -4.12167
+
+Gap: 6.049 eV
+Transition (v -> c):
+  (s=0, k=0, n=3, [0.00, 0.00, 0.00]) -> (s=0, k=0, n=4, [0.00, 0.00, 0.00])
+
+Forces in eV/Ang:
+  0 H     0.00770   -0.00465    0.00000
+  1 H    -0.00321   -0.00463    0.00000
+  2 O    -0.00249    0.00802    0.00000
+
+Timing:                                      incl.     excl.
+-------------------------------------------------------------------
+Density initialized from wave functions:    21.845    20.632   1.8% ||
+ Symmetrize density:                         1.213     1.213   0.1% |
+Forces:                                      8.249     8.249   0.7% |
+Hamiltonian:                                18.434     2.345   0.2% |
+ Atomic:                                     0.007     0.006   0.0% |
+  XC Correction:                             0.000     0.000   0.0% |
+ Calculate atomic Hamiltonians:              1.137     1.137   0.1% |
+ Communicate:                                0.898     0.898   0.1% |
+ Initialize Hamiltonian:                     0.001     0.001   0.0% |
+ Poisson:                                    0.270     0.270   0.0% |
+ XC 3D grid:                                13.778    13.778   1.2% |
+LCAO initialization:                         0.265     0.025   0.0% |
+ LCAO eigensolver:                           0.031     0.000   0.0% |
+  Calculate projections:                     0.000     0.000   0.0% |
+  DenseAtomicCorrection:                     0.000     0.000   0.0% |
+  Distribute overlap matrix:                 0.013     0.013   0.0% |
+  Orbital Layouts:                           0.017     0.017   0.0% |
+  Potential matrix:                          0.000     0.000   0.0% |
+ LCAO to grid:                               0.117     0.117   0.0% |
+ Set positions (LCAO WFS):                   0.092     0.089   0.0% |
+  Basic WFS set positions:                   0.000     0.000   0.0% |
+  Basis functions set positions:             0.000     0.000   0.0% |
+  P tci:                                     0.000     0.000   0.0% |
+  ST tci:                                    0.000     0.000   0.0% |
+  mktci:                                     0.001     0.001   0.0% |
+PWDescriptor:                                1.250     1.250   0.1% |
+Redistribute:                                0.015     0.015   0.0% |
+SCF-cycle:                                1069.759     0.140   0.0% |
+ Davidson:                                 809.820    39.999   3.5% ||
+  Apply H:                                 244.595   244.484  21.5% |--------|
+   HMM T:                                    0.112     0.112   0.0% |
+  Subspace diag:                           149.248     0.027   0.0% |
+   calc_h_matrix:                          144.872     0.110   0.0% |
+    Apply H:                               144.763   144.706  12.7% |----|
+     HMM T:                                  0.057     0.057   0.0% |
+   diagonalize:                              4.256     4.256   0.4% |
+   rotate_psi:                               0.093     0.093   0.0% |
+  calc. matrices:                          375.605    15.543   1.4% ||
+   Apply H:                                360.063   359.894  31.6% |------------|
+    HMM T:                                   0.169     0.169   0.0% |
+  diagonalize:                               0.134     0.134   0.0% |
+  rotate_psi:                                0.239     0.239   0.0% |
+ Density:                                  132.608     0.006   0.0% |
+  Atomic density matrices:                   0.099     0.099   0.0% |
+  Mix:                                      80.995    80.995   7.1% |--|
+  Multipole moments:                         0.889     0.889   0.1% |
+  Pseudo density:                           50.618    41.434   3.6% ||
+   Symmetrize density:                       9.185     9.185   0.8% |
+ Hamiltonian:                              126.891    11.213   1.0% |
+  Atomic:                                    0.045     0.044   0.0% |
+   XC Correction:                            0.001     0.001   0.0% |
+  Calculate atomic Hamiltonians:             7.797     7.797   0.7% |
+  Communicate:                               5.323     5.323   0.5% |
+  Poisson:                                   4.637     4.637   0.4% |
+  XC 3D grid:                               97.876    97.876   8.6% |--|
+ Orthonormalize:                             0.300     0.003   0.0% |
+  calc_s_matrix:                             0.009     0.009   0.0% |
+  inverse-cholesky:                          0.158     0.158   0.0% |
+  projections:                               0.123     0.123   0.0% |
+  rotate_psi_s:                              0.007     0.007   0.0% |
+Set symmetry:                                0.001     0.001   0.0% |
+Other:                                      17.424    17.424   1.5% ||
+-------------------------------------------------------------------
+Total:                                              1137.242 100.0%
+
+Memory usage: 544.33 MiB
+Date: Thu Jan 25 13:41:54 2024

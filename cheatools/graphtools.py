@@ -266,34 +266,21 @@ def atoms2graph(atoms, onehot_labels):
     graph = Data(x=torch_nodes, edge_index=torch_edges, onehot_labels=onehot_labels, ads=ads)
     return graph
 
-class templater():
-    def __init__(self,template,facet,adsorbates,sites,onehot_labels=None):
+class lGNNtemplater():
+    def __init__(self,facet,adsorbates,sites,onehot_labels):
         self.template, self.template_dict = template, {}
         height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
         atoms = ase.build.fcc111(onehot_labels[0] if template == 'lgnn' else 'Au', size=(3,3,5), vacuum=10, a=3.9)
-        a2g = AtomsToGraphs()
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
             temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
-            
-            if 'ocp' in template:
-                if template == 'shallow_ocp':
-                    del temp_atoms[[atom.index for atom in temp_atoms if atom.tag in [4,5]]]
-                temp_atoms = ase2ocp_tags(temp_atoms)
-                data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
-            
-            if template == 'lgnn':
-                data_object = atoms2graph(temp_atoms, onehot_labels)
-                data_object.x[:,0] = 0
+            data_object = atoms2graph(temp_atoms, onehot_labels)
+            data_object.x[:,0] = 0
 
             self.template_dict[(ads,site)] = data_object   
             
     def fill_template(self,symbols,adsorbate,site):
         cell = deepcopy(self.template_dict[(adsorbate,site)])
-        if 'ocp' in self.template:
-            cell.atomic_numbers[:len(symbols)] = torch.tensor([ase.data.atomic_numbers[s] for s in symbols])
-            #cell.sid = 0 # TODO is sids necessary?
-        elif self.template == 'lgnn':
-            for i, s in enumerate(symbols):
-                cell.x[i, cell.onehot_labels.index(s)] = 1
+        for i, s in enumerate(symbols):
+            cell.x[i, cell.onehot_labels.index(s)] = 1
         return cell

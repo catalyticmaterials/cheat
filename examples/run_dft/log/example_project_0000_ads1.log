@@ -1,0 +1,14 @@
+couldn't read file "/usr/share/Modules/libexec/modulecmd.tcl": no such file or directory
+       Step     Time          Energy         fmax
+*Force-consistent energies used in optimization.
+LBFGS:    0 20:58:55     -201.663952*       1.8360
+LBFGS:    1 21:13:17     -201.745164*       1.5749
+LBFGS:    2 21:36:47     -201.985784*       0.6391
+LBFGS:    3 21:55:15     -202.014497*       0.7695
+LBFGS:    4 22:12:29     -202.038639*       0.4715
+LBFGS:    5 22:29:44     -202.064308*       0.2022
+LBFGS:    6 22:42:01     -202.072784*       0.1919
+LBFGS:    7 22:54:35     -202.076516*       0.1447
+LBFGS:    8 23:11:22     -202.081918*       0.2869
+LBFGS:    9 23:25:04     -202.083840*       0.1060
+LBFGS:   10 23:41:51     -202.085537*       0.0651
