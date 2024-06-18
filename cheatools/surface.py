@@ -1,15 +1,6 @@
 import numpy as np
-import itertools as it
-import iteround
-import torch
-from torch_geometric.data import Data
-from torch_geometric.loader import DataLoader
-#from .dftsampling import write_hea_slab, add_ads
-from .plot import get_color, get_dark_color
-from .graphtools import templater
 import matplotlib.pyplot as plt
-import ase
-from copy import deepcopy
+from .plot import get_color, get_dark_color
 
 class SurrogateSurface():
     def __init__(self, composition, adsorbates, sites, regressor, template='ocp', facet='fcc111', size=(96,96), 
@@ -91,22 +82,12 @@ class SurrogateSurface():
                 for col in range(self.ncols):
                     coords = (row, col, 0)
                     feat_list.append(self.get_cell(coords, adsorbate, self.sites[i]))
-                    #if self.template in ['ocp','shallow_ocp']:
-                    #    feat_list.append(self.get_ocp_cell(len(feat_list), coords, adsorbate, self.sites[i]))
-                    #elif self.template == 'lgnn':
-                    #    feat_list.append(self.get_lgnn_cell(coords, adsorbate, self.sites[i]))
             
             # NB! Order has been changed to displace before scale. This is different from previous versions.
             if self.direct_e_input != None:
                 pred = (np.ones(np.prod(self.size)) * self.direct_e_input[i] + self.displace_e[i]) * self.scale_e[i]
             else:
                 pred = (self.regressor.predict(feat_list,tqdm_bool=True) + self.displace_e[i]) * self.scale_e[i]
-            #elif self.template in ['ocp','shallow_ocp']:
-            #    pred = (self.regressor.direct_prediction(feat_list,tqdm_bool=False) + self.displace_e[i]) * self.scale_e[i]
-            #elif self.template == 'lgnn':
-            #    pred_loader = DataLoader(feat_list, batch_size=len(feat_list))
-            #    pred, _ = predict(self.regressor, pred_loader, len(feat_list))
-            #    pred = (np.array(pred) + self.displace_e[i]) * self.scale_e[i]   
         
             self.grid_dict_gross[(adsorbate, self.sites[i])] = np.reshape(pred, self.size)
 
@@ -127,10 +108,6 @@ class SurrogateSurface():
         self.grid_dict_net = {}
         for key in self.grid_dict_gross.keys():
             self.grid_dict_net[key] = np.ma.masked_array(np.copy(self.grid_dict_gross[key]))
-
-        # append figure of clean surface
-        #if self.surf_images:
-        #    self.surf_image_list.append(self.plot_surface())
 
         # Occupy most stable site and block neighbors until surface is filled
         while True:
@@ -153,8 +130,6 @@ class SurrogateSurface():
                     id_coords = np.unravel_index(id, self.grid_dict_net[min_e_key].shape)
                     overlap_count = 0
                     for block_key in neighbor_dict.keys():
-                        #if block_key[0] != min_e_key[1] and block_key[1] == 1:
-                        #    overlap_count += np.count_nonzero(self.grid_dict_net[min_e_key].mask[tuple(((id_coords + neighbor_dict[block_key]) % self.size).T)])
                         if block_key[0] == min_e_key[1] and block_key[1] == 1:
                             if min_e_key[1] == 'fcc':
                                 try:
@@ -199,10 +174,6 @@ class SurrogateSurface():
             # Mark site as occupied and mask ads energy
             self.ads_dict[min_e_key][min_e_coords] = True
 
-            # append figure of added adsorbate
-            #if self.surf_images:
-            #    self.surf_image_list.append(self.plot_surface())
-
             self.block_sites(min_e_key,min_e_coords)
 
         return self
@@ -245,7 +216,7 @@ class SurrogateSurface():
     def get_cell(self, coords, adsorbate, site):
         # Get ordered list of coordinates of atoms included in graph
         if self.facet == 'fcc111':
-            t = [-1,0,1]
+            t = [-2,-1,0,1,2] if self.template == 'lgnn' else [-1,0,1]
             site_ids = np.array([(a,b,c) for c in range(self.n_layers)[::-1] for a in t for b in t])
 
         # Get ordered list of element labels of atoms in graph
@@ -254,42 +225,6 @@ class SurrogateSurface():
         cell = self.templater.fill_template(site_symbols,adsorbate,site)
         return cell
         
-    """
-    def get_ocp_cell(self, sid, coords, adsorbate, site):
-        Get the OCP-compatible graph of the requested site from the cell-templates
-
-        NB! Graphs use torch edge-templates from adjacency matrix of ASE model system.
-        Hence site_ids are listed in the order matching the edge-template and will result in
-        mismatch between node-list and edge-list if changed.
-
-        Coordinates are structured as (row,coloumn,layer) with surface layer being 0, subsurface 1 etc.
-        
-        # Get ordered list of coordinates of atoms included in graph
-        if self.facet == 'fcc111':
-            t = [-1,0,1]
-            site_ids = np.array([(a,b,c) for c in range(self.n_layers)[::-1] for a in t for b in t])
-        
-        # Get ordered list of element labels of atoms in graph
-        site_labels = self.grid[tuple(((site_ids + coords) % [*self.size, self.n_layers + 1]).T)]
-        cell = deepcopy(self.templates[(adsorbate, site)])
-        cell.atomic_numbers[:int(self.n_layers*9)] = torch.tensor([ase.data.atomic_numbers[self.metals[t]] for t in site_labels])
-        cell.sid = sid
-        cell.fid = 0
-
-        return cell
-
-    def get_lgnn_cell(self, coords, adsorbate, site):
-        # Get ordered list of coordinates of atoms included in graph
-        if self.facet == 'fcc111':
-            t = [-1,0,1]
-            site_ids = np.array([(a,b,c) for c in range(self.n_layers)[::-1] for a in t for b in t])
-        
-        site_labels = self.grid[tuple(((site_ids + coords) % [*self.size, self.n_layers + 1]).T)]
-        cell = deepcopy(self.templates[(adsorbate, site)])
-        for i, label in enumerate(site_labels):
-            cell.x[i, cell.onehot_labels.index(self.metals[label])] = 1
-        return cell        
-    """
 
     def get_neighbor_ids(self, facet, site):
         """Return neighboring coordinates for blocking or for energy contribution"""

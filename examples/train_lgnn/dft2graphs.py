@@ -1,5 +1,5 @@
 import re, glob, torch, pickle, ase
-from cheatools.graphtools import atoms2graph
+from cheatools.graphtools import atoms2graph, get_ensemble
 from tqdm import tqdm
 
 # import gasphase reference

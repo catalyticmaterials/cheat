@@ -1,6 +1,5 @@
 from matplotlib.ticker import AutoMinorLocator
 import numpy as np
-#from matplotlib.cm import get_cmap
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from ase.data import atomic_numbers
@@ -37,19 +36,6 @@ def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
         'trunc({n},{a:.2f},{b:.2f})'.format(n=cmap.name, a=minval, b=maxval),
         cmap(np.linspace(minval, maxval, n)))
     return new_cmap
-
-def find_maxmin(list):
-    all_max, all_min = None, None
-    for ens in list:
-        ens = np.array(ens)
-        if all_max != None and all_min != None:
-            if max(ens[:,-4]) > all_max:
-                all_max = max(ens[:,-4])
-            if min(ens[:,-4]) < all_min:
-                all_min = min(ens[:,-4])
-        else:
-            all_max, all_min = max(ens[:,-4]), min(ens[:,-4])
-    return all_min-0.2, all_max+0.2
 
 def plot_histogram(ensemble_array,alloy_label,sites,adsorbate,bin_width,pure_eads, min_E, max_E):
     #min_E, max_E = find_maxmin(ensemble_array)
@@ -130,109 +116,6 @@ def plot_histogram(ensemble_array,alloy_label,sites,adsorbate,bin_width,pure_ead
 
     return fig
 
-def plot_parity(OH_pred,O_pred,OH_true,O_true,string):
-    
-    start, stop = -0.5, 2.5
-
-    colors = ['royalblue', 'firebrick']
-    color_list = []
-
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-    #ax.set_xlabel(r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{ads}} - \Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{Pt}} $ [eV]',fontsize=18)
-    ax.set_xlabel(r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{ads}}$ [eV]',fontsize=22, labelpad=10)
-    #ax.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{pred}}_{\mathrm{ads}} - \Delta \mathrm{E}^{\mathrm{pred}}_{\mathrm{Pt}} \, [\mathrm{eV}]$', fontsize=18)
-    ax.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{model}}_{\mathrm{ads}}$ [eV]', fontsize=22, labelpad=-7)
-    ax.set_xlim(start, stop)
-    ax.set_ylim(start, stop)
-    
-    #if fmax == None:
-    ax.text(0.01, 0.99, string, family='monospace', fontsize=16, transform=ax.transAxes,va='top', color='k')
-    #elif frame_num == None:
-    #    ax.text(0.01, 0.98, f'GemNet-OC-large S2EF fmax = {fmax:.2f} eV/Å', family='monospace', fontsize=14, transform=ax.transAxes,verticalalignment='top', color='k')
-    #else: 
-    #    ax.text(0.01, 0.98, f'GemNet-OC-large S2EF fmax = {fmax:.2f} eV/Å at frame {frame_num}', family='monospace', fontsize=14, transform=ax.transAxes,verticalalignment='top', color='k')
-    ax.scatter(OH_true, OH_pred, s=15, c=colors[0], alpha=0.5,zorder=1)
-    ax.scatter(O_true, O_pred, s=15, c=colors[1], alpha=0.5,zorder=0)
-
-    # plot solid diagonal line
-    ax.plot([start, stop], [start, stop], 'k-', linewidth=1.0,
-            label=r'$\Delta \mathrm{E}^{\mathrm{pred}} = \Delta \mathrm{E}^{\mathrm{DFT}}$')
-
-    # plot dashed diagonal lines 0.1 eV above and below solid diagonal line
-    pm = 0.1
-    ax.plot([start, stop], [start + pm, stop + pm], 'k--', linewidth=1.0, label=r'$\pm %.2f \mathrm{eV}$' % pm)
-    ax.plot([start + pm, stop], [start, stop - pm], 'k--', linewidth=1.0)
-
-    ontop_L1loss = OH_pred - OH_true
-    ax.text(0.01, 0.95,
-            f'*OH MAE (ME):   {np.mean(np.abs(ontop_L1loss)):.3f} ({np.mean(ontop_L1loss):.3f}) eV',
-            family='monospace', fontsize=16, transform=ax.transAxes,
-            va='top', color=colors[0])
-    fcc_L1loss = O_pred - O_true
-    ax.text(0.01, 0.91,
-            f'*O MAE (ME):    {np.mean(np.abs(fcc_L1loss)):.3f} ({np.mean(fcc_L1loss):.3f}) eV',
-            family='monospace', fontsize=16, transform=ax.transAxes,
-            va='top', color=colors[1])
-    
-    total_L1loss = np.concatenate((OH_pred,O_pred)) - np.concatenate((OH_true,O_true))
-
-    ax.text(0.01, 0.87, f'total MAE (ME): {np.mean(np.abs(total_L1loss)):.3f} ({np.mean(total_L1loss):.3f}) eV',
-            family='monospace', fontsize=16,
-            transform=ax.transAxes, va='top', color='black')
-
-    axins = ax.inset_axes([0.55, 0.1, 0.4, 0.4])
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    axins.patch.set_alpha(0)
-    axins.hist(ontop_L1loss, bins=20, range=(-3 * pm, 3 * pm), color=colors[0], alpha=0.5)
-    axins.hist(fcc_L1loss, bins=20, range=(-3 * pm, 3 * pm), color=colors[1], alpha=0.5)
-    axins.axvline(0.0, linestyle='-', linewidth=0.5, color='black')
-    axins.axvline(-pm, linestyle='--', linewidth=0.5, color='black')
-    axins.axvline(pm, linestyle='--', linewidth=0.5, color='black')
-    axins.tick_params(axis='both', which='major', labelsize=14)
-    axins.get_yaxis().set_visible(False)
-    for spine in ['right', 'left', 'top']:
-        axins.spines[spine].set_visible(False)
-    
-    fig.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.95)    
-
-    return fig
-
-def plot_parity_single(true,pred,string,color,pr=[-0.5,2.5]):
-    true, pred = np.array(true), np.array(pred)
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-    ax.set_xlabel(r'$\Delta \mathrm{E}^{\mathrm{DFT}}_{\mathrm{ads}}$ [eV]',fontsize=22, labelpad=10)
-    ax.set_ylabel(r'$\Delta \mathrm{E}^{\mathrm{model}}_{\mathrm{ads}}$ [eV]', fontsize=22, labelpad=-7)
-    ax.set(xlim=(pr[0],pr[1]),ylim=(pr[0],pr[1]))
-    ax.text(0.01, 0.99, string, family='monospace', fontsize=16, transform=ax.transAxes,va='top', color='k')
-    ax.scatter(true, pred, s=15, c=color, alpha=0.5,zorder=0)
-    
-    # plot diagonal lines
-    ax.plot(pr, pr, 'k-', linewidth=1.0,label=r'$\Delta \mathrm{E}^{\mathrm{pred}} = \Delta \mathrm{E}^{\mathrm{DFT}}$')
-    pm = 0.1
-    ax.plot(pr, [pr[0] + pm, pr[1] + pm], 'k--', linewidth=1.0, label=r'$\pm %.2f \mathrm{eV}$' % pm)
-    ax.plot([pr[0] + pm, pr[1]], [pr[0], pr[1] - pm], 'k--', linewidth=1.0)
-
-    diff = pred - true
-    ax.text(0.01, 0.95,
-            f'MAE (ME):   {np.mean(np.abs(diff)):.3f} ({np.mean(diff):.3f}) eV',
-            family='monospace', fontsize=16, transform=ax.transAxes,
-            va='top', color=color)
-
-    axins = ax.inset_axes([0.55, 0.1, 0.4, 0.4])
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    axins.patch.set_alpha(0)
-    axins.hist(diff, bins=20, range=(-3 * pm, 3 * pm), color=color, alpha=0.5)
-    axins.axvline(0.0, linestyle='-', linewidth=0.5, color='black')
-    axins.axvline(-pm, linestyle='--', linewidth=0.5, color='black')
-    axins.axvline(pm, linestyle='--', linewidth=0.5, color='black')
-    axins.tick_params(axis='both', which='major', labelsize=14)
-    axins.get_yaxis().set_visible(False)
-    for spine in ['right', 'left', 'top']:
-        axins.spines[spine].set_visible(False)
-
-    fig.subplots_adjust(left=0.15, right=0.95, bottom=0.15, top=0.95)
-
-    return fig
 
 def plot_parity_array(arr,string,colors,ads,pr=[-0.5,2.5]):
     fig, ax = plt.subplots(1, 1, figsize=(8, 8))
@@ -396,30 +279,3 @@ class simplex2D():
         # Return axis abject
         return ax
  
-
-
-def curr_parity(trp, trt, tep, tet, string, limits, comp=[]):
-    fig, ax = plt.subplots(1, 1, figsize=(7, 7))
-    ax.set_xlabel(r'Exp. current density [mA/cm$^2$]',fontsize=18)
-    ax.set_ylabel(r'Pred. current density [mA/cm$^2$]', fontsize=18)
-    ax.set_xlim(limits[0], limits[1])
-    ax.set_ylim(limits[0], limits[1])
-
-    ax.scatter(np.array(trt), np.array(trp), c='grey', s=10, alpha=0.20)
-    if len(comp) == 0:
-        ax.scatter(np.array(tet), np.array(tep), c='crimson', s=10, alpha=0.80)
-    else:
-        ax.scatter(np.array(tet), np.array(tep), c=comp, cmap=cmap, s=10, alpha=0.8, vmin=0.0, vmax=0.75)
-
-    # plot solid diagonal line
-    ax.plot([limits[0], limits[1]], [limits[0], limits[1]], 'k-', linewidth=1.0)
-
-    # plot dashed diagonal lines 0.1 eV above and below solid diagonal line
-    pm = 0.1
-    ax.plot([limits[0], limits[1]], [limits[0] + pm, limits[1] + pm], 'k--', linewidth=1.0, label=r'$\pm %.2f \mathrm{eV}$' % pm)
-    ax.plot([limits[0] + pm, limits[1]], [limits[0], limits[1] - pm], 'k--', linewidth=1.0)
-
-    ax.text(0.01, 0.99, string, family='monospace', fontsize=18, transform=ax.transAxes, va='top', color='k')
-    ax.tick_params(labelsize=14)
-
-    return fig

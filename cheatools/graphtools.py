@@ -4,9 +4,8 @@ from ase.neighborlist import build_neighbor_list, natural_cutoffs
 from itertools import combinations
 from .dftsampling import add_ads
 from copy import deepcopy
-from collections import Counter
+from collections import Counter, deque, defaultdict
 from torch_geometric.data import Data
-from ocpmodels.preprocessing import AtomsToGraphs
 
 def ase2ocp_tags(atoms):
     """
@@ -231,46 +230,105 @@ def atoms2template(atoms, tag_style='ocp'):
 
     return template
 
+def BFS(edges, start_node):
+
+    #def nodes_n_edges_away(edges, start_node, n):
+    # Create an adjacency list
+    adjacency_list = defaultdict(list)
+    for u, v in edges:
+        adjacency_list[u].append(v)
+        adjacency_list[v].append(u)
+    
+    # Initialize the distances list with -1
+    distances = [-1] * np.unique(edges)
+    distances[start_node] = 0
+    
+    # Initialize BFS
+    queue = deque([(start_node, 0)])  # (current_node, current_distance)
+    visited = {start_node}
+    
+    while queue:
+        current_node, current_distance = queue.popleft()  # Dequeue the front element
+        
+        for neighbor in adjacency_list[current_node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                distances[neighbor] = current_distance + 1
+                queue.append((neighbor, current_distance + 1))  # Enqueue neighbors
+    
+    return distances 
+
 def atoms2graph(atoms, onehot_labels):
+    ads = ''.join([a.symbol for a in atoms if a.tag == 0])
     ens, _, site = get_ensemble(atoms)
     atoms = atoms2template(atoms, tag_style='ase')
     del atoms[[a.index for a in atoms if a.tag > 3]]
+    atoms_3x3 = atoms.repeat((3, 3, 1))
+    cell = atoms_3x3.get_cell()
     
-    nl = build_neighbor_list(atoms, cutoffs=natural_cutoffs(atoms, mult=1.1), self_interaction=False, bothways=True)
-    all_edges = np.array([[a.index,i] for a in atoms for i in nl.get_neighbors(a.index)[0]])
+    #cut to 5x5x3 cell
+    atoms_3x3.translate([-1.7/9 * np.sum(cell[:,0]),-2/9 * np.sum(cell[:,1]),0.0])
+    atoms_3x3.set_cell([cell[0] * 5/9, cell[1] * 5/9, cell[2]])
+    pos = atoms_3x3.get_positions()
+    cell = atoms_3x3.get_cell()
+    inverse_cell = np.linalg.inv(cell)
+    fractional_positions = np.dot(pos, inverse_cell)
+    inside = np.all((fractional_positions > -0.001) & (fractional_positions < 0.999), axis=1)
+    atoms_3x3 = atoms_3x3[inside]
+    
+    # rename ids
+    id_sort = [a.index for a in sorted(atoms_3x3, key=lambda a: (-a.tag, a.position[1], a.position[0]))]
+    atoms_3x3 = atoms_3x3[id_sort]
+    
+    # get edges 
+    nl = build_neighbor_list(atoms_3x3, cutoffs=natural_cutoffs(atoms_3x3, mult=1.1), self_interaction=False, bothways=True)
+    edges = np.array([[a.index,i] for a in atoms_3x3 for i in nl.get_neighbors(a.index)[0]])
+   
+    ads_id = [i for i in nl.get_neighbors(62)[0] if atoms_3x3[i].tag == 0]
+     
+    # breadth first search
+    edge_dists = BFS(edges,ads_id[0])        
+
+    gIds = ads_id
+    for t, n in [(0,1),(1,2),(2,2),(3,3)]:
+        gIds += [a.index for a in atoms_3x3 if a.tag == t and edge_dists[a.index] <= n and a.index not in gIds]
+    gIds = np.sort(gIds) # included nodes in graph
+ 
+    edges = edges[np.all(np.isin(edges,gIds),axis=1)] # only includes edges betw. incl. nodes
     
     if site == 'ontop':
-        aoi = [0,2,6]
+        aoi = [6,8,16]
     elif site == 'fcc':
-        aoi = [0]
+        aoi = [6,9,21]
     elif site == 'hcp':
-        aoi = [0,1,3]
+        aoi = [6,8,10,13,20,21]
     elif 'bridge' in site:
-        aoi = [0,6,7]
-
-    # onehot encoding of the node list
-    node_onehot = np.zeros((len(atoms), len(onehot_labels) + 2))
-    for a in atoms:
-        node_onehot[a.index, onehot_labels.index(a.symbol)] = 1
-        node_onehot[a.index, -2] = a.tag
-        if a.index in aoi:
-            node_onehot[a.index, -1] = 1
+        aoi = [6,9,16,17]
     
-    # find adsorbate 
-    ads = ''.join(np.array(atoms.get_chemical_symbols())[[a.index for a in atoms if a.tag == 0]])
+    # onehot encoding of the node list
+    node_onehot = np.zeros((len(gIds), len(onehot_labels) + 2))
+    for i, j in enumerate(gIds):
+        node_onehot[i, onehot_labels.index(atoms_3x3[j].symbol)] = 1
+        node_onehot[i, -2] = atoms_3x3[j].tag
+        if j in aoi:
+            node_onehot[i, -1] = 1
+    
+    # rename edges to match node list 
+    id_map = {g: i for i, g in enumerate(gIds)}
+    edges = np.array([[id_map[e[0]], id_map[e[1]]] for e in edges])
     
     # make torch data object
-    torch_edges = torch.tensor(np.transpose(all_edges), dtype=torch.long)
+    torch_edges = torch.tensor(np.transpose(edges), dtype=torch.long)
     torch_nodes = torch.tensor(node_onehot, dtype=torch.float)
 
-    graph = Data(x=torch_nodes, edge_index=torch_edges, onehot_labels=onehot_labels, ads=ads)
+    graph = Data(x=torch_nodes, edge_index=torch_edges, onehot_labels=onehot_labels, gIds=gIds, ads=ads)
     return graph
 
 class lGNNtemplater():
     def __init__(self,facet,adsorbates,sites,onehot_labels):
-        self.template, self.template_dict = template, {}
+        self.template_dict = {}
         height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
-        atoms = ase.build.fcc111(onehot_labels[0] if template == 'lgnn' else 'Au', size=(3,3,5), vacuum=10, a=3.9)
+        atoms = ase.build.fcc111(onehot_labels[0], size=(3,3,5), vacuum=10, a=3.9)
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
             temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
@@ -281,6 +339,10 @@ class lGNNtemplater():
             
     def fill_template(self,symbols,adsorbate,site):
         cell = deepcopy(self.template_dict[(adsorbate,site)])
-        for i, s in enumerate(symbols):
+        for i, j in enumerate(cell.gIds):
+            if j > 74:
+                continue
+            s = symbols[j]
             cell.x[i, cell.onehot_labels.index(s)] = 1
+            
         return cell
