@@ -1,11 +1,11 @@
 README.md
 setup.py
 cheatools/__init__.py
-cheatools/batchpredict.py
 cheatools/bayesian.py
 cheatools/dftsampling.py
 cheatools/graphtools.py
 cheatools/lgnn.py
+cheatools/ocp_utils.py
 cheatools/plot.py
 cheatools/surface.py
 cheatools/utils.py

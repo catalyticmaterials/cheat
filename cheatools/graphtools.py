@@ -21,7 +21,7 @@ def ase2ocp_tags(atoms):
 def get_ensemble(atoms):
     """
     Get ensemble (surface elements bound to adsorbate) as well as site for fcc(111) surfaces.
-    ---
+    ------
     Only implemented for monodentate adsorbates on fcc(111) surfaces. 
     Will categorize sites in ontop, bridge_{0,1,2}, fcc, or hcp.  
 
@@ -109,7 +109,7 @@ def get_ensemble(atoms):
 def atoms2template(atoms, tag_style='ocp'):
     """
     Transforms atoms object to template (set structure for each adsorbate/site combination)
-    ---
+    -------
     Only implemented for 3x3x5 atom-sized fcc(111) objects. Incompatible with any other size/surface.  
     Templates are structured based on a 3x3x5 atom-sized fcc(111) surface with lattice parameter (a) 3.9 and 10Å vacuum added above and below.     
     Bonds lengths for sites are {ontop:2.0, bridge:1.8, fcc:1.3, hcp:1.5}

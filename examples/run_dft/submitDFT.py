@@ -74,7 +74,8 @@ for i in np.arange(start_id,end_id+1):
 
     # initiate slab
     atoms = make_slab(facet, composition, size, lattice, vacuum, fix_bottom, skin, spin_polarized)
-
+    print(atoms.info.get('adsorbate_info', {}))
+    stop
     # write to preview db
     while True:
         try:
