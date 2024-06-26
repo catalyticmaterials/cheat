@@ -23,7 +23,7 @@ composition = {'Ag': 0.2,           # alloy composition given as dictionary with
                'Ru': 0.05,
               }
 dirichlet = False                   # use uniform Dirichlet sampling and override composition [True,False]
-lattice = 'surface_adjusted'        # surface adjusted lattice or weighted mean of composition ['surface_adjusted','mean']
+surf_adj_lat = True                 # Use surface adjusted lattice instead of the weighted mean of composition [True,False]
 vacuum = 10                         # vacuum added above and below slab in Å
 fix_bottom = 2                      # number of bottom layers to fix
 distort_limit = None                # set distortion limit of the relaxed slab e.g. 1.1 = 10%
@@ -73,9 +73,8 @@ for i in np.arange(start_id,end_id+1):
         composition = dict(zip(composition.keys(),rnd_comp))
 
     # initiate slab
-    atoms = make_slab(facet, composition, size, lattice, vacuum, fix_bottom, skin, spin_polarized)
-    print(atoms.info.get('adsorbate_info', {}))
-    stop
+    atoms = make_slab(facet, composition, size, surf_adj_lat, vacuum, fix_bottom, skin, spin_polarized)
+
     # write to preview db
     while True:
         try:
@@ -114,7 +113,7 @@ for i in np.arange(start_id,end_id+1):
     # initiate SLURM submission if "submit" flag has been given
     try:
         if sys.argv[1] == 'submit':
-            SLURM_script(f'{filename}_slab', **SLURM_kwargs, dependency=None, array_len=None)
+            SLURM_script(f'{filename}_slab', SLURM_kwargs, dependency=None, array_len=None)
             os.system(f"(cd sl/ && sbatch {filename + '_slab.sl'})")
             job_id = None
             print('Fetching SLURM jobid of slab optimization. Please wait...')

@@ -3,7 +3,7 @@ from ase.build import fcc100, fcc110, fcc111, bcc100, bcc110, bcc111, hcp0001, a
 from ase.constraints import FixAtoms
 from .utils import get_lattice, get_magmom, get_ads
 
-def make_slab(facet, composition, size, lattice = 'surface_adjusted', vacuum = 10, fix_bottom = 2, skin=None, spin_polarized=False):
+def make_slab(facet, composition, size, surf_adj_lat = True, vacuum = 10, fix_bottom = 2, skin=None, spin_polarized=False):
     """
     Generates a randomized slab with a specified facet and composition.
     -------
@@ -39,8 +39,7 @@ def make_slab(facet, composition, size, lattice = 'surface_adjusted', vacuum = 1
             atoms[j].symbol = skin
 
     # adjust x,y dimension of cell if surface adjusted lattice is chosen
-    if lattice == 'surface_adjusted':
-        temp = []
+    if surf_adj_lat == True:
         lat_scale = np.mean([get_lattice(a.symbol) for a in atoms if a.tag == 1]) / weighted_lat
         cell = atoms.get_cell()
         atoms.set_cell([cell[0]*lat_scale,cell[1]*lat_scale,cell[2]], scale_atoms=True)
@@ -286,7 +285,7 @@ def get_site_ids(facet, site, size):
     return ads_id_sets
 
 
-def SLURM_script(filename, partition, nodes, ntasks, ntasks_per_core, mem_per_cpu, constraint, nice, exclude, dependency, array_len=None):
+def SLURM_script(filename, slurm_kwargs, dependency, array_len=None):
     """
     Writes submission sbatch script for SLURM. 
     -------
@@ -297,17 +296,10 @@ def SLURM_script(filename, partition, nodes, ntasks, ntasks_per_core, mem_per_cp
     with open('sl/' + filename + '.sl', 'w') as f:
         f.write("#!/bin/bash\n"\
                 "\n"\
-                f"#SBATCH --job-name={filename}\n"\
-                f"#SBATCH --partition={partition}\n" \
-                f"#SBATCH --nodes={nodes}\n" \
-                f"#SBATCH --ntasks={ntasks}\n" \
-                f"#SBATCH --ntasks-per-core={ntasks_per_core}\n" \
-                f"#SBATCH --mem-per-cpu={mem_per_cpu}\n" \
-                f"#SBATCH --constraint={constraint}\n" \
-                f"#SBATCH --nice={nice}\n")
-
-        if exclude != None:
-            f.write(f"#SBATCH --exclude={exclude}\n")
+                f"#SBATCH --job-name={filename}\n")
+        
+        for k, v in slurm_kwargs.items():
+             f.write(f"#SBATCH --{k}={v}\n")
 
         if dependency != None:
             f.write(f"#SBATCH --dependency=afterok:{dependency}\n")
