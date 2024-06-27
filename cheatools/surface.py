@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from .plot import get_color, get_dark_color
+from .plot import get_color
 
 class SurrogateSurface():
     def __init__(self, composition, adsorbates, sites, regressor, template='ocp', facet='fcc111', size=(96,96), 
