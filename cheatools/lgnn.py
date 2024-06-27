@@ -118,18 +118,14 @@ class lGNN(torch.nn.Module):
             Adsorbate type
         """
         self.eval()
-        pred = []
-        target = []
-        site = []
-        ads = []
+        pred, target, ads = [], [], []
 
         for data in loader:
             pred += self(data).reshape([batch_size]).tolist()
             target += data.y.tolist()
             ads += data.ads
 
-        L1Loss = abs(np.array(pred) - np.array(target)).mean()
-        return L1Loss, pred, target, ads
+        return pred, target, ads
 
     def predict(self, graphs, tqdm_bool=True):
         """

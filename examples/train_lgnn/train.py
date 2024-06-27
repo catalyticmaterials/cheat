@@ -1,7 +1,7 @@
 import pickle, torch
 import numpy as np
-from torch_geometric.data import DataLoader
 import matplotlib.pyplot as plt
+from torch_geometric.data import DataLoader
 from cheatools.lgnn import lGNN
 from copy import deepcopy
 
@@ -10,7 +10,7 @@ for s in ['train','val']:
     with open(f'graphs/{s}.graphs', 'rb') as input:
         globals()[f'{s}_graphs'] = pickle.load(input)
 
-filename = 'lGNN'
+filename = 'lGNN' # name of the model for version control
 torch.manual_seed(42)
 
 # set Dataloader batch size, learning rate and max epochs
@@ -43,10 +43,11 @@ model_states = []
 
 # epoch loop
 for epoch in range(max_epochs):
-    # train and validate for this epoch
+    # train and validation for this epoch
     train_loss.append(model.train4epoch(train_loader, batch_size, opt))
-    val_err, _, _, _ = model.test(val_loader, len(val_graphs))
-    val_loss.append(val_err)
+    pred, target, _ = model.test(val_loader, len(val_graphs))
+    val_mae = abs(np.array(pred) - np.array(target)).mean()
+    val_loss.append(val_mae)
     model_states.append(deepcopy(model.state_dict()))
 
     # evaluate rolling mean of validation error and check for early stopping
@@ -56,7 +57,7 @@ for epoch in range(max_epochs):
         min_roll_val = np.min(roll_val[:-patience+1])
         improv = (roll_val[-1] - min_roll_val) / min_roll_val
 
-        if improv > - 0.01:
+        if improv > - 0.01: # if lower improvement threshold is desired adjust this value
             print('Early stopping invoked.')
             best_epoch = np.argmin(val_loss)
             best_state = model_states[best_epoch]
@@ -69,7 +70,7 @@ for epoch in range(max_epochs):
 # save final validation error.
 print(f'Finished training sequence. Best epoch was {best_epoch} with val. L1Loss {np.min(val_loss):.3f} eV')
 
-# add arch and onehot labels for future reference
+# add arch and onehot labels to trained state for downpipe reference
 best_state['onehot_labels'] = train_graphs[0]['onehot_labels']
 best_state['arch'] = arch
 

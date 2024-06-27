@@ -1,5 +1,5 @@
-import re, glob, torch, pickle, ase
-from cheatools.graphtools import atoms2graph, get_ensemble
+import re, glob, pickle, ase
+from cheatools.graphtools import atoms2graph
 from tqdm import tqdm
 
 # import gasphase reference
@@ -32,9 +32,8 @@ for s in ['train','val','test']:
             ads = ''.join([a.symbol for a in atoms if a.tag == 0])
             e = ads_e - slab_e - ref_dict[ads] # adsorbtion energy
             
-            # get graph
-            g = atoms2graph(atoms,onehot_labels)
-            g.y= e
+            g = atoms2graph(atoms,onehot_labels) # get graph
+            g.y= e # label with adsorption energy
             graph_list.append(g)
 
     with open(f'graphs/{s}.graphs', 'wb') as output:

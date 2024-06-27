@@ -1,13 +1,13 @@
 import sys, pickle
-from utils.plot import plot_parity_array
+from cheatools.plot import plot_parity_array
 from copy import deepcopy
 
-# load results file
-result_file = sys.argv[1]
-
+# dictionaries to store true and predicted values for each adsorbate
 true_dict = {ads: [] for ads in ['O','OH']}
 pred_dict = deepcopy(true_dict)
 
+# load results file
+result_file = sys.argv[1]
 with open(f'{result_file}', 'rb') as input:
     results = pickle.load(input)
 

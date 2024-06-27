@@ -1,4 +1,4 @@
-Setting up DFT geometry optimizations
+#### Setting up DFT geometry optimizations
 ---------------------
 This folder contains an example of how to submit a batch of DFT optimizations of solid-solution slabs with randomized atomic structures. Each slab (identified by slabId) will be relaxed to the specified force threshold and then adsorbates can automatically be added to any number of binding sites on the surface and optimized. Thus, each slab can serve as basis for probing a large number of unique binding sites.
 

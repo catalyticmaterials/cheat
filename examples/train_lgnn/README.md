@@ -1,59 +1,34 @@
-Construction of features for regression
+#### Traning and testing the lean graph neural network (lGNN)
 ---------------------
-After obtaining a joined ASE database use *construct_feats.py* to prepare all slabs and corresponing adsorbates as features for regression of adsorption energies. Currently, two types of features are available:
+This folder contains an example of how to train and test the [lGNN model](https://doi.org/10.1002/advs.202003357).
 
-*Zone features* applies a template of counting the number of elements in each zone of equivalent atomic positions as described in previous [publications](https://doi.org/10.1002/anie.202108116). Per default, this includes the nearest neighbors of the binding site and select next-nearest neighbors deemed important to the adsorption energy. This feature scheme requires a separate regression models since the feature vector will vary in length for different sites. These features are saved as a numpy-array with each row representing a feature with the corresponding adsorption energies in the last column.
+*dft2graphs.py* will pull the supplied trajectory files in the *gpaw* folder and perform graph feature construction to form train, validation and test sets from the relaxed slabs with adsorbates. Adsorbtion energies, $\Delta E_{ads} $ are calculated as:
+$$\Delta E_{ads} = E_{slab+ads} - E_{slab} - E_{ads}$$
+where $E_{slab+ads}$ and $E_{slab}$ are the slab with and without adsorbate respectively and $E_{ads}$ is the gas-phase reference energy of the adsorbate.
 
-*Graph features* converts the structures to graphs consisting of a list of node features and a sparse edge matrix and per default all next-nearest neightbors are included. The element of each node/atom is one-hot encoded and the atomic layer is noted (0 for adsorbates, 1 for surface-layer, 2 for subsurface-layer etc.). Addtionally, a feature called *aoi* tracks important atomic positions with favourable [long-ranged interactions](https://doi.org/10.1002/advs.202003357). All edge pair are These features are saved as a list of PyTorch Geometric Data-objects from which following information can be accessed: 
+The graph includes the adsorbate and the nearest neighboring atoms to the adsorbing atom(s) (ensemble) as well as the next nearest neighbors in the third surface layer.
+
+The graph node features are onehot encoded to denote element. In addition, the layer tag and an AtomOfInterest feature tracking important atomic positions with favourable [long-ranged interactions](https://doi.org/10.1002/advs.202003357) are included. As no positional information is included in the nodes and because the edges only denote connectivity, the resulting graphs retains equivariant properties.
+
+The graphs are PyTorch Geometric data-objects from which following information can be accessed: 
 'x': Node features
 'y': Adsorbtion energy
-'edge_index': Sparse edge matrix
-'site': Adsorbtion site
+'edge_index': Edge pairs
+'onehot_labels': Element list used for onehot encoding (does not include tag or AoI feature)
 'ads': Adsorbate
-'ens': Element composition of binding site
+'gIds': "graph Ids" used for translating a 5x5x3 sized surface to a graph (used in conjunction with templates and the surrogate surface. See the *surface_simulation* folder for further info)
 
-Reference energies are loaded from individual databases and all adsorbtion energies are normalized relative to adsorption on pure Pt(111).
+The lGNN model is trained by running train.py where you will also find a few adjustable parameters regarding the GNN architecture and training. The architecture will be saved in the *.state*-file. Therefore, after training, the model can be loaded with
 ```python
-ref_dict = {'ontop_OH':ase.db.connect('../data/3x3x5_pt111_ontop_OH.db').get().energy,
-			'fcc_O':ase.db.connect('../data/3x3x5_pt111_fcc_O.db').get().energy,
-			'slab':ase.db.connect('../data/3x3x5_pt111_slab.db').get().energy
-			 }
+with open(f'{filename}.state', 'rb') as input:
+	model_state = pickle.load(input)
+model = lGNN(trained_state=model_state)
 ```
 
-List which sites/adsorbate combinations should be included. A list of elements are also needed.
+The lGNN class supports two methods: *model.predict(graphlist)* will return the predicted adsorbtion energies from a list of graphs. *model.test(data_loader,batch_size)* will return additional information
 ```python
-project_name = 'agirpdptru'
-
-site_list = ['ontop','fcc']
-ads_list = ['OH','O']
-
-surface_elements = ['Ag','Ir','Pd','Pt','Ru']
-adsorbate_elements = ['O','H']
+pred, true, ads = model.test(data_loader, batch_size)
 ```
+with *pred* and *true* being the predicted and true energies, respectively, and *ads* denoting the adsorbate for easy categorization.
 
-Zone feature construction will result in a set of features for each sites/adsorbate combination. Per default, any samples with forces larger than 0.1 eV/Å is not included.
-```python
-for i in range(len(site_list)):
-
-	## load joined ASE datebase
-	db = ase.db.connect(f'../data/{project_name}.db')
-
-	## filename used for pickling
-	filename = f'{project_name}_{site_list[i]}_{ads_list[i]}'
-
-	## Construct zoned features and pickle
-	print(f'Performing zonefeat construction of {project_name}_{site_list[i]}_{ads_list[i]}')
-	samples = db_to_zonedfeats(surface_elements, site_list[i], ads_list[i], 0.1, db, ref_dict)
-
-	with open(filename + '.zonefeats', 'wb') as output:
-		pickle.dump(samples, output)
-```
-
-Graph feature construction will make a joined set of features with all available samples.
-```python
-## Construct graphs and pickle
-print(f'Performing graph construction of {project_name}')
-samples = db_to_graphs(surface_elements, adsorbate_elements, 2, 0.1, db, ref_dict)
-with open(f'{project_name}.graphs', 'wb') as output:
-	pickle.dump(samples, output)
-```
+Running *test.py* will create a *.results* file. Use it as argument to *plot_parity.py* to obtain a parity plot of the test results.
