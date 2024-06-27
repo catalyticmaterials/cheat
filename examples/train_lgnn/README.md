@@ -1,8 +1,8 @@
 #### Traning and testing the lean graph neural network (lGNN)
----------------------
+
 This folder contains an example of how to train and test the [lGNN model](https://doi.org/10.1002/advs.202003357).
 
-*dft2graphs.py* will pull the supplied trajectory files in the *gpaw* folder and perform graph feature construction to form train, validation and test sets from the relaxed slabs with adsorbates. Adsorbtion energies, $\Delta E_{ads} $ are calculated as:
+*dft2graphs.py* will pull the supplied trajectory files in the *gpaw* folder and perform graph feature construction to form train, validation and test sets from the relaxed slabs with adsorbates. Adsorbtion energies, $$\Delta E_{ads}$$ are calculated as:
 $$\Delta E_{ads} = E_{slab+ads} - E_{slab} - E_{ads}$$
 where $E_{slab+ads}$ and $E_{slab}$ are the slab with and without adsorbate respectively and $E_{ads}$ is the gas-phase reference energy of the adsorbate.
 
