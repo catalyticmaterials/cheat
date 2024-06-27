@@ -120,7 +120,7 @@ def atoms2template(atoms, tag_style='ocp'):
         Template object  
     """
     # get ensemble ids and site to assert rolls and rotations
-    ens, ids, site = get_ensemble(atoms)
+    _, ids, site = get_ensemble(atoms)
     
     # get adsorbate to add to template
     if np.any(np.isin([3,4,5], atoms.get_tags())):
@@ -231,36 +231,61 @@ def atoms2template(atoms, tag_style='ocp'):
     return template
 
 def BFS(edges, start_node):
-
-    #def nodes_n_edges_away(edges, start_node, n):
-    # Create an adjacency list
+    """
+    Breadth-first search to find the distances between all nodes and the specified start node
+    ------
+    Returns
+    -------
+    list
+        Distances from the start node to all other nodes in number of edges
+    """
+    # create an adjacency list
     adjacency_list = defaultdict(list)
     for u, v in edges:
         adjacency_list[u].append(v)
         adjacency_list[v].append(u)
     
-    # Initialize the distances list with -1
+    # initialize the distances list with -1
     distances = [-1] * np.unique(edges)
     distances[start_node] = 0
     
-    # Initialize BFS
+    # initialize BFS
     queue = deque([(start_node, 0)])  # (current_node, current_distance)
     visited = {start_node}
     
     while queue:
-        current_node, current_distance = queue.popleft()  # Dequeue the front element
+        current_node, current_distance = queue.popleft()  # dequeue the front element
         
         for neighbor in adjacency_list[current_node]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 distances[neighbor] = current_distance + 1
-                queue.append((neighbor, current_distance + 1))  # Enqueue neighbors
+                queue.append((neighbor, current_distance + 1))  # enqueue neighbors
     
     return distances 
 
 def atoms2graph(atoms, onehot_labels):
+    """
+    Converts atoms object to torch data object in the lGNN graph format
+    ------
+    This function initially converts the atoms object to the appropriate template and then scales it up to a 5x5x3 cell.
+    Then a graph is extracted containing atoms up to the N nearest neighbors to the bonded adsorbate atoms with N being:
+    1 for adsorbate atoms, 2 for surface atoms, 2 for subsurface atoms, and 3 for third layer atoms.
+    The nodes are one-hot encoded according to the labels plus the tag and the AtomOfInterest tag -> See https://doi.org/10.1002/advs.202003357
+    The edges are featureless and only contain the node indices.
+    
+    For downpipe reference the onehot_labels of the elements are stored in the data object.
+    In addition the ids of the nodes (referred to a 5x5x3 cell) is stored. This is used to fill the template with the correct symbols
+    when cutting out a 5x5x3 cell from the surrogate surface.
+    Adsorbate is also stored for easy categorization when testing.
+    
+    Returns
+    -------
+    Pytorch data object
+    """
+    # get template and scale up cell
     ads = ''.join([a.symbol for a in atoms if a.tag == 0])
-    ens, _, site = get_ensemble(atoms)
+    _, _, site = get_ensemble(atoms)
     atoms = atoms2template(atoms, tag_style='ase')
     del atoms[[a.index for a in atoms if a.tag > 3]]
     atoms_3x3 = atoms.repeat((3, 3, 1))
@@ -290,12 +315,13 @@ def atoms2graph(atoms, onehot_labels):
     edge_dists = BFS(edges,ads_id[0])        
 
     gIds = ads_id
-    for t, n in [(0,1),(1,2),(2,2),(3,3)]:
+    for t, n in [(0,1),(1,2),(2,2),(3,3)]: # if adsorbate contains more than 2 atoms adjust this line
         gIds += [a.index for a in atoms_3x3 if a.tag == t and edge_dists[a.index] <= n and a.index not in gIds]
     gIds = np.sort(gIds) # included nodes in graph
  
     edges = edges[np.all(np.isin(edges,gIds),axis=1)] # only includes edges betw. incl. nodes
     
+    # manually set atoms of interest
     if site == 'ontop':
         aoi = [6,8,16]
     elif site == 'fcc':
@@ -325,10 +351,19 @@ def atoms2graph(atoms, onehot_labels):
     return graph
 
 class lGNNtemplater():
+    """
+    Template class for the surrogate surface used with the lGNN model
+    """
     def __init__(self,facet,adsorbates,sites,onehot_labels):
+        """
+        Fetches the templates for the specified site/adsorbate combinations.
+        """
+        # initialize template dictionary and parent slab
         self.template_dict = {}
         height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
         atoms = ase.build.fcc111(onehot_labels[0], size=(3,3,5), vacuum=10, a=3.9)
+
+        # loop through site/adsorbate combinations
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
             temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
@@ -338,6 +373,9 @@ class lGNNtemplater():
             self.template_dict[(ads,site)] = data_object   
             
     def fill_template(self,symbols,adsorbate,site):
+        """
+        Fills the template with the specified symbols (from 5x5x3 cell)
+        """
         cell = deepcopy(self.template_dict[(adsorbate,site)])
         for i, j in enumerate(cell.gIds):
             if j > 74:

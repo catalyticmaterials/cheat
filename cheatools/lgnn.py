@@ -7,6 +7,11 @@ from torch.nn import Linear
 from tqdm import tqdm
 
 class lGNN(torch.nn.Module):
+    """
+    Lean Graph Neural Network (lGNN) -> see https://doi.org/10.1007/s44210-022-00006-4
+    -------
+    If architecture is not supplied and trained state is, the architecture is loaded from the trained state.
+    """
     def __init__(self,arch=None, trained_state=None):
         super(lGNN, self).__init__() 
         device = torch.device('cpu')
@@ -27,43 +32,52 @@ class lGNN(torch.nn.Module):
              for i in range(arch['n_hidden_layers']):
                 self.fc_list.append(Linear(arch['conv_dim'], arch['conv_dim']))
     
-        ## Final output layer?
+        ## Final output layer
         self.lin_out = Linear(arch['conv_dim'], self.out_dim)
         
         device = torch.device('cpu')
         self.to(device)
+
+        # if trained state is provided fetch onehot labels (required in surface.py)
         if trained_state != None:
             self.onehot_labels = trained_state['onehot_labels']
             del trained_state['onehot_labels']
             self.load_state_dict(trained_state)
 
     def forward(self, data):
-            out = data.x
+        """
+        Forward pass of the model.
+        """
+        out = data.x
 
-            # Gated Graph Convolutions
-            out = self.conv(out, data.edge_index)
+        # Gated Graph Convolutions
+        out = self.conv(out, data.edge_index)
 
-            ## Global attention pooling
-            out = self.att.forward(out, data.batch)
+        ## Global attention pooling
+        out = self.att.forward(out, data.batch)
 
-            ## Hidden layers
-            for i in range(0, len(self.fc_list)):
-                out = self.fc_list[i](out)
-                out = getattr(torch.nn.functional, self.act)(out)
+        ## Hidden layers
+        for i in range(0, len(self.fc_list)):
+            out = self.fc_list[i](out)
+            out = getattr(torch.nn.functional, self.act)(out)
 
-            # Output layer
-            out = self.lin_out(out)
+        # Output layer
+        out = self.lin_out(out)
 
-            if out.shape[1] == 1:
-                return out.view(-1)
-            else:
-                return out
+        if out.shape[1] == 1:
+            return out.view(-1)
+        else:
+            return out
 
     def train4epoch(self, loader, batch_size, optimizer):
+        """
+        Train the model for a single epoch.
+        ------
+        Model weights are updated according to the mean squared error but the mean absolute error is returned.
+        """
+
         self.train()
 
-        loss_all = 0
-        count = 0
         pred, target = [], []
 
         for data in loader:
@@ -73,11 +87,8 @@ class lGNN(torch.nn.Module):
             # predict
             predicted = self(data)
 
-            # compute loss
+            # compute mean squared error
             loss = torch.nn.MSELoss()(predicted.reshape([batch_size]), data.y)
-
-            loss_all += loss
-            count += 1
 
             # update step
             loss.backward()
@@ -86,11 +97,26 @@ class lGNN(torch.nn.Module):
             pred += predicted.reshape([batch_size]).tolist()
             target += data.y.tolist()
 
+        # return mean absolute error
         L1Loss = np.mean(abs(np.array(pred) - np.array(target)))
 
         return L1Loss 
 
     def test(self, loader, batch_size):
+        """
+        Predict on provided dataloader.
+        
+        Returns
+        ------
+        L1Loss
+            Mean absolute error
+        pred
+            Predicted values
+        target
+            True values
+        ads
+            Adsorbate type
+        """
         self.eval()
         pred = []
         target = []
@@ -106,6 +132,9 @@ class lGNN(torch.nn.Module):
         return L1Loss, pred, target, ads
 
     def predict(self, graphs, tqdm_bool=True):
+        """
+        Predict on provided list of graphs.
+        """
         self.eval()
         loader = DataLoader(graphs, batch_size=256)
         pred = []
