@@ -4,31 +4,26 @@ CHEAT is a suite of modules for inference of adsorption energies and modeling ca
 If this repository is utilized please cite: <br />
 Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
 
-It is the hope of the authors that this repository will be used, copied and modified by groups interested in doing computational studies on high-entropy alloys.
+#### Installation
+The required packages can be installed into a conda environment running:
+```terminal
+conda env create -f env.yml
+```
+however if you intend to use inference models from the Open Catalyst Project follow the install guide [here](https://fair-chem.github.io/core/install.html).
 
-#### Required packages
-* [ase](https://wiki.fysik.dtu.dk/ase/index.html) 
-* [gpaw](https://wiki.fysik.dtu.dk/gpaw/)
-* [scikit-learn](https://scikit-learn.org/stable/)
-* [torch](https://pypi.org/project/torch/)
-* [torch-geometric](https://pypi.org/project/torch-geometric/)
-* [torch-sparse](https://pypi.org/project/torch-sparse/)
-* [torch-scatter](https://pypi.org/project/torch-scatter/)
+After environment creatio navigate to this folder and install *cheatools*:
+```terminal
+pip install -e .
+```
 
-The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
+#### Examples
+The *examples* folder contains working examples of 
+All modules contain further explanation and instructions within each subdirectory. Data have been provided so that each module contains a working example.
 
-## CHEAT modules
-All modules contain further explanation and instructions within each subdirectory. Data have been provides so that each module contains a working example.
+The [run_dft](examples/run_dft) demonstrates querying DFT calculations used to train the inference algorithms. This aids in sampling multiple binding sites on the same slab to minimize compute per adsorption energy optained.
 
-The [data](data) module assists setting up DFT calculations. Optimized geometries are stored in ASE databases and can subsequently be joined into a single database to construct regression features.
+The [train_lgnn](examples/train_lgnn) reduces the optimized geometries from the DFT calculations to graph features and subsequently trains a lean graph neural network (lGNN) to perform adsorption energy inference.
 
-The [features](features) modules will reduce optimized geometries to features suitable for regression of adsorption energies. Currently two types of feature schemes are available: a zone-reduced schemed based on equivalent atomic positions relative to the adsorption site and a graph-based feature scheme.
+The [surface_simulation](examples/surface_simulation) emulates a solid-solution alloy surface via a grid-based approach. This surrogate surface is used in conjunction with the lGNN to infer the distribution of adsorption energies on the surface. Additionally, competitive co-adsorption of different species can be included for certain sites.
 
-The [regression](regression) modules trains the corrensponding regression model, Piecewise Linear regression (PWL) or Graph Convolutional Neural Network (GCN), depending on the chosen feature scheme and benchmarks adsorption energy prediction accuracy.
-
-The [surface](surface) module simulates a high-entropy alloy surface of a given size, predicts the available adsorption energies and simulates adsorbate coverage including competitive co-adsorption of \*O and \*OH. Based on established theory a catalytic activity can be estimated.
-
-The [search](search) module apply the above step in a Bayesian optimization procedure to maximize the catalytic activity within the given composition space.
-
-## Data
-All DFT calculations required to reproduce the results of the paper is available [here](https://nano.ku.dk/english/research/theoretical-electrocatalysis/katladb/ab-initio-to-activity/)
+The bayesian_optimization(Coming Soon!) applies the above step in a Bayesian optimization procedure to maximize a catalytic activity by sampling surfaces within a specified composition space.
