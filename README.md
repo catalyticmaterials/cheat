@@ -1,9 +1,5 @@
 # Computational High-Entropy Alloy Tools
-CHEAT is a set of Python modules for regression of adsorption energies and modeling catalysis on high-entropy alloys.
-This modeling procedure is described in detail here:
-
-"Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity." <br />
-DOI: https://doi.org/10.26434/chemrxiv-2022-vvrrf-v2
+CHEAT is a suite of modules for inference of adsorption energies and modeling catalytic reactions on high-entropy and solid-solution alloys. This workflow was originally published in [*High Entropy Alloys & Materials*](https://doi.org/10.1007/s44210-022-00006-4) and the original version of this repository can be found in the v1.0-legacy branch.
 
 If this repository is utilized please cite: <br />
 Clausen, C. M., Nielsen, M. L. S., Pedersen, J. K., & Rossmeisl, J. (2022). Ab Initio to activity: Machine learning assisted optimization of high-entropy alloy catalytic activity.
@@ -18,7 +14,6 @@ It is the hope of the authors that this repository will be used, copied and modi
 * [torch-geometric](https://pypi.org/project/torch-geometric/)
 * [torch-sparse](https://pypi.org/project/torch-sparse/)
 * [torch-scatter](https://pypi.org/project/torch-scatter/)
-* [iteround](https://pypi.org/project/iteround/)
 
 The data acquisition module utilizes [SLURM](https://slurm.schedmd.com) for computational workload management but this can be omitted.
 

@@ -3,13 +3,46 @@ import matplotlib.pyplot as plt
 from .plot import get_color
 
 class SurrogateSurface():
+    """
+    A class representing a surrogate surface for adsorption energy regression.
+    ------
+    The surrogate surface is represented as a an array of element identities which represents a perfect fcc grid.
+    The number of atomic layers is determined depending on the template used for feature generation.
+    Currently, the class supports templates for the lGNN model and OCP IS2RE models.
+
+    The atoms are randomly assigned to the grid according to the composition of the surface.
+    Subsequently, for the chosen site/adsorbate combinations, the adsorption energies of all binding sites on the surface are inferred
+    using the .get_gross_energies() method. For ontop and fcc sites interadsorbate blocking is implemented via .get_net_energies().
+
+    Methods:
+        get_gross_energies(): Inference of adsorption energies of all possible surface sites of the chosen types.
+        get_net_energies(): Determine net adsorption energies after mutual blocking of neighboring sites.
+        plot_surface(): Plot the surface with/without adsorbates.
+
+    """
+
     def __init__(self, composition, adsorbates, sites, regressor, template='ocp', facet='fcc111', size=(96,96), 
                  displace_e=None, scale_e=None, direct_e_input=None):
+        """
+        Initializes a SurrogateSurface object with the given parameters.
+
+        Args:
+            composition (list or str): The composition of the surface.
+            adsorbates (list): The list of adsorbates.
+            sites (list): The list of sites.
+            regressor (object): The regressor object used for adsorption energy prediction.
+            template (str, optional): The graph template to use for feature generation. Defaults to 'ocp'.
+            facet (str, optional): The surface facet. Defaults to 'fcc111'.
+            size (tuple, optional): The size of the surface grid. Defaults to (96, 96).
+            displace_e (numpy array, optional): The displacement energies for each adsorbate. Defaults to None.
+            scale_e (numpy array, optional): The scaling factors for each adsorbate. Defaults to None.
+            direct_e_input (numpy array, optional): The direct energy inputs for each adsorbate. Defaults to None.
+        """
         
         if not isinstance(composition,list):
             composition = [composition] 
 
-        # Graph templates
+        # fetch graph templates depending on the chosen inference algorithm
         self.template = template
         if template == 'lgnn':
             for comp in composition:

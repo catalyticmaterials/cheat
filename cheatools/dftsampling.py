@@ -191,93 +191,93 @@ def get_site_ids(facet, site, size):
 
     # ontop sites
     if site == 'ontop':
-        for id in np.arange(np.product(size))[-np.product(size[:2]):]:
+        for id in np.arange(np.prod(size))[-np.prod(size[:2]):]:
             ads_id_sets.append([id])
 
     # horizontal bridge sites
     elif site == 'bridge':
-        for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+        for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
             if (i+1) % size[0] == 0:
-                ads_id_sets.append([id,id+1-size[0]+2*np.product(size)])
+                ads_id_sets.append([id,id+1-size[0]+2*np.prod(size)])
             else:
                 ads_id_sets.append([id, id + 1])
 
     # hollow sites
     elif site == 'hollow':
         if facet in ['bcc111','bcc110']:
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i + 1) > size[0] * (size[1] - 1) and (i + 1) % size[0] == 0:
                     ads_id_sets.append(
-                        [id, id + 1 - size[0] + 2 * np.product(size), id + np.product(size) - size[0] * (size[1] - 1)])
+                        [id, id + 1 - size[0] + 2 * np.prod(size), id + np.prod(size) - size[0] * (size[1] - 1)])
 
                 elif (i + 1) > size[0] * (size[1] - 1):
-                    ads_id_sets.append([id, id + 1, id + np.product(size) - size[0] * (size[1] - 1)])
+                    ads_id_sets.append([id, id + 1, id + np.prod(size) - size[0] * (size[1] - 1)])
 
                 elif (i + 1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id + size[0]])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.prod(size), id + size[0]])
                 else:
                     ads_id_sets.append([id, id + 1, id + size[0]])
 
         if facet in ['fcc100','fcc110','bcc100']:
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i + 1) > size[0] * (size[1] - 1) and (i + 1) % size[0] == 0:
                     ads_id_sets.append(
-                        [id, id + 1 - size[0] + 2 * np.product(size), id + np.product(size) - size[0] * (size[1] - 1), id + 3 * np.product(size) - np.product(size[:2]) + 1])
+                        [id, id + 1 - size[0] + 2 * np.prod(size), id + np.prod(size) - size[0] * (size[1] - 1), id + 3 * np.prod(size) - np.prod(size[:2]) + 1])
 
                 elif (i + 1) > size[0] * (size[1] - 1):
-                    ads_id_sets.append([id, id + 1, id + np.product(size) - size[0] * (size[1] - 1), id + np.product(size) - size[0] * (size[1] - 1) + 1])
+                    ads_id_sets.append([id, id + 1, id + np.prod(size) - size[0] * (size[1] - 1), id + np.prod(size) - size[0] * (size[1] - 1) + 1])
 
                 elif (i + 1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id + size[0], id + 2 * np.product(size) + 1])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.prod(size), id + size[0], id + 2 * np.prod(size) + 1])
                 else:
                     ads_id_sets.append([id, id + 1, id + size[0], id + size[0] + 1])
 
     # short bridge sites
     elif site  == 'shortbridge':
         if facet == 'fcc110':
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i+1) > size[0]*(size[1]-1):
-                    ads_id_sets.append([id, id - size[0] + np.product(size)])
+                    ads_id_sets.append([id, id - size[0] + np.prod(size)])
                 else:
                     ads_id_sets.append([id, id + size[0]])
 
     # long bridge sites
     elif site == 'longbridge':
         if facet == 'fcc110':
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i + 1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size)])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.prod(size)])
                 else:
                     ads_id_sets.append([id, id + 1])
 
     # fcc sites
     elif site == 'fcc':
         if facet in ['fcc111','hcp0001']:
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i+1) > size[0]*(size[1]-1) and (i+1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id + np.product(size) - size[0]*(size[1]-1)])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.prod(size), id + np.prod(size) - size[0]*(size[1]-1)])
 
                 elif (i+1) > size[0]*(size[1]-1):
-                    ads_id_sets.append([id, id + 1, id + np.product(size) - size[0]*(size[1]-1)])
+                    ads_id_sets.append([id, id + 1, id + np.prod(size) - size[0]*(size[1]-1)])
 
                 elif (i+1) % size[0] == 0:
-                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.product(size), id+size[0]])
+                    ads_id_sets.append([id, id + 1 - size[0] + 2 * np.prod(size), id+size[0]])
                 else:
                     ads_id_sets.append([id, id + 1, id+size[0]])
 
     # hcp sites
     elif site == 'hcp':
         if facet in ['fcc111','hcp0001']:
-            for i, id in enumerate(np.arange(np.product(size))[-np.product(size[:2]):]):
+            for i, id in enumerate(np.arange(np.prod(size))[-np.prod(size[:2]):]):
                 if (i + 1) > size[0] * (size[1] - 1) and (i + 1) % size[0] == 0:
                     ads_id_sets.append(
-                        [id + 1 - size[0] + 2 * np.product(size), id + np.product(size) - size[0] * (size[1] - 1), id + 3 * np.product(size) - np.product(size[:2]) + 1])
+                        [id + 1 - size[0] + 2 * np.prod(size), id + np.prod(size) - size[0] * (size[1] - 1), id + 3 * np.prod(size) - np.prod(size[:2]) + 1])
 
                 elif (i + 1) > size[0] * (size[1] - 1):
-                    ads_id_sets.append([id + 1, id + np.product(size) - size[0] * (size[1] - 1), id + np.product(size) - size[0] * (size[1] - 1) + 1])
+                    ads_id_sets.append([id + 1, id + np.prod(size) - size[0] * (size[1] - 1), id + np.prod(size) - size[0] * (size[1] - 1) + 1])
 
                 elif (i + 1) % size[0] == 0:
-                    ads_id_sets.append([id + 1 - size[0] + 2 * np.product(size), id + size[0], id + 1 + 2 * np.product(size)])
+                    ads_id_sets.append([id + 1 - size[0] + 2 * np.prod(size), id + size[0], id + 1 + 2 * np.prod(size)])
 
                 else:
                     ads_id_sets.append([id + 1, id + size[0], id + size[0] + 1])
