@@ -18,7 +18,7 @@ pip install -e .
 
 #### Examples
 The *examples* folder contains working examples of 
-All modules contain further explanation and instructions within each subdirectory. Data have been provided so that each module contains a working example.
+All modules contain further explanation and instructions within each subdirectory.
 
 [run_dft](examples/run_dft) demonstrates querying DFT calculations used to train the inference algorithms. This aids in sampling multiple binding sites on the same slab to minimize compute per adsorption energy optained.
 
