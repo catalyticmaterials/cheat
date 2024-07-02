@@ -181,56 +181,64 @@ def opt_acquisition(X_known, gpr, elements, acq_func='EI', xi=0.01, n_iter_max=1
     else:
         raise NotImplementedError(f"The acquisition function '{acq_func}' has not been implemented")
 
+    # Get random compositions and evaluate the acquisition function
     random_samples = []
     for i in range(n_random):
         temp = random_comp(elements)
         random_samples.append(list(temp.values()))
     random_samples = np.array(random_samples)
 
-    # Calculate the acquisition function for each sample
-    acq_vals = acquisition(random_samples, X_known, gpr, xi)
+    acq_rnd = acquisition(random_samples, X_known, gpr, xi)
 
-    # Get the index of the largest acquisition function
-    #ids_acq_sorted = np.argsort(acq_vals)[::-1]
-    idx_max = np.argmax(acq_vals)
+    # sort the random samples by the acquisition function
+    ids_acq_sorted = np.argsort(acq_rnd)[::-1]
 
-    # Get the molar fraction with the largest acquisition value
-    f_max = random_samples[idx_max]
-    #f_max = random_samples[ids_acq_sorted[0]]
-    acq_max = np.max(acq_vals)
+    # loop starting from the highest acquisition value and locally optimize the acquisition function
+    # if the found local optimum is already known, continue with the next best random sample
+    for idx_max in ids_acq_sorted:
+        f_max = random_samples[idx_max] # best molar fraction
+        acq_max = acq_rnd[idx_max] # best acquisition value
 
-    # Optimize the aquisition function starting from this molar fraction
-    n_iter = 0
-    while True:
-        if n_iter == n_iter_max:
-            raise ValueError(f'No maximum has been found after {n_iter} iterations,\
-							 so convergence is unlikely to happen.')
+        # Optimize the aquisition function starting from this molar fraction
+        n_iter = 0
+        while True:
+            if n_iter == n_iter_max:
+                raise ValueError(f'No maximum has been found after {n_iter} iterations,\
+				    			 so convergence is unlikely to happen.')
 
-        # Get molar fractions around the found maximum in the given step size
-        fs_around = get_molar_fractions_around(f_max, step_size=step_size)
+            # Get molar fractions around the found maximum in the given step size
+            fs_around = get_molar_fractions_around(f_max, step_size=step_size)
 
-        # Get acquisition values
-        acq_vals = acquisition(fs_around, X_known, gpr, xi)
+            # Get acquisition values
+            acq_local= acquisition(fs_around, X_known, gpr, xi)
 
-        # Get the largest acquisition value
-        acq_max_around = np.max(acq_vals)
+            # Get the largest acquisition value
+            acq_local_max = np.max(acq_local)
 
-        # If the new aquisition value is higher, then repeat for that molar fraction
-        if acq_max_around > acq_max and np.max(fs_around[np.argmax(acq_vals)]) <= 0.9:
+            # If the new aquisition value is higher, then repeat for that molar fraction
+            if acq_local_max > acq_max: # and np.max(fs_around[np.argmax(acq_vals)]) <= 0.9:
 
-            # Get the index of largest acquisition value
-            idx_max = np.argmax(acq_vals)
+                # Get the index of largest acquisition value
+                idx_local = np.argmax(acq_local)
 
-            # Get molar fraction
-            f_max = fs_around[idx_max]
-            
-            # Set the new acquisition maximum
-            acq_max = acq_max_around
+                # Get molar fraction
+                f_max = fs_around[idx_local]
+                
+                # Set the new acquisition maximum
+                acq_max = acq_local_max
 
-        # If the acquisition function did now improve around the molar fraction,
-        # then return the found molar fraction
+                n_iter += 1
+
+            # If the acquisition function did now improve around the molar fraction,
+            # then return the found molar fraction
+            else:
+                break
+        
+        # if found optimum is already known -> continue with the next best random sample
+        if np.any(np.all(X_known == f_max, axis=1)):
+            continue
+        # otherwise return the found optimum
         else:
             return f_max
 
-        n_iter += 1
 
