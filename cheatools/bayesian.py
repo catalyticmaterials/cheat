@@ -1,8 +1,8 @@
-import numpy as np
-from scipy.stats import norm
 import scipy
+import numpy as np
 import itertools as it
-import iteround
+from .utils import saferound
+from scipy.stats import norm
 from copy import deepcopy
 
 def expected_improvement(X, X_known, gpr, xi=0.01):
@@ -34,24 +34,18 @@ def expected_improvement(X, X_known, gpr, xi=0.01):
 
     return EI
 
-def append_to_file(filename, comp, activity):
-    'Append molar fractions and its activity to file'
-    with open(filename, 'a') as file_:
-        #file_.write(','.join(map('{:.5f}'.format, [f[m] for m in metals])) + ',' + '{:.7f}\n'.format(activity))
-        file_.write(' '.join(f"{k}({v:.2f})" for k, v in comp.items()) + '     A = {:.3f}\n'.format(activity))
-
-def random_comp(elements, max=0.8):
-    m = 1.00
+def random_comp(elements, max=1.0):
+    """Get random dirichlet distributed composition from list of elements"""
+    m = 1.01
     while m >= max:
-        temp = np.random.choice(range(100),len(elements))
-        temp = np.array(temp)/np.sum(temp)
-        temp = iteround.saferound(temp, 2)
-        m = np.max(temp)
-    comp = dict(zip(elements, temp))
+        rnd = np.random.dirichlet(np.ones(len(elements)), 1)[0]
+        m = np.max(rnd)
+    rnd = saferound(rnd, decimals=2)
+    comp = dict(zip(elements, rnd))
     return comp
 
 def get_molar_fractions_around(f, step_size, total=1., eps=1e-10):
-    'Get all molar fractions with the given step size around the given molar fraction'
+    """Get all molar fractions with the given step size around the given molar fraction"""
     fs = []
     n_elems = len(f)
     for pair, ids in zip(it.permutations(f, 2), it.permutations(range(n_elems), 2)):
@@ -75,7 +69,7 @@ def get_molar_fractions_around(f, step_size, total=1., eps=1e-10):
             assert np.isclose(sum(f_new), 1.), "Molar fractions do not sum to unity : {}. Sum : {:.4f}".format(f_new,
                                                                                                                sum(
                                                                                                                    f_new))
-            fs.append(f_new)
+            fs.append(saferound(f_new))
 
     return np.array(fs)
 
@@ -186,68 +180,65 @@ def opt_acquisition(X_known, gpr, elements, acq_func='EI', xi=0.01, n_iter_max=1
         acquisition = expected_improvement
     else:
         raise NotImplementedError(f"The acquisition function '{acq_func}' has not been implemented")
-    """
-    # Get ´n_random´ molar fractions
-    if element_indices is None:
-        random_samples = get_random_molar_fractions(n_random, n_elems=n_metals)
-    else:
-        random_samples = np.zeros((n_random, n_metals))
-        random_samples[:, element_indices] = get_random_molar_fractions(n_random, n_elems=len(element_indices))
-    """
+
+    # Get random compositions and evaluate the acquisition function
     random_samples = []
     for i in range(n_random):
         temp = random_comp(elements)
         random_samples.append(list(temp.values()))
     random_samples = np.array(random_samples)
 
-    # Calculate the acquisition function for each sample
-    acq_vals = acquisition(random_samples, X_known, gpr, xi)
+    acq_rnd = acquisition(random_samples, X_known, gpr, xi)
 
-    # Get the index of the largest acquisition function
-    idx_max = np.argmax(acq_vals)
+    # sort the random samples by the acquisition function
+    ids_acq_sorted = np.argsort(acq_rnd)[::-1]
 
-    # Get the molar fraction with the largest acquisition value
-    f_max = random_samples[idx_max]
-    acq_max = np.max(acq_vals)
-    #acq_max = acquisition(random_samples[idx_max].reshape(1, -1), X_known, gpr, xi)
+    # loop starting from the highest acquisition value and locally optimize the acquisition function
+    # if the found local optimum is already known, continue with the next best random sample
+    for idx_max in ids_acq_sorted:
+        f_max = random_samples[idx_max] # best molar fraction
+        acq_max = acq_rnd[idx_max] # best acquisition value
 
-    # Optimize the aquisition function starting from this molar fraction
-    n_iter = 0
-    while True:
-        if n_iter == n_iter_max:
-            raise ValueError(f'No maximum has been found after {n_iter} iterations,\
-							 so convergence is unlikely to happen.')
+        # Optimize the aquisition function starting from this molar fraction
+        n_iter = 0
+        while True:
+            if n_iter == n_iter_max:
+                raise ValueError(f'No maximum has been found after {n_iter} iterations,\
+				    			 so convergence is unlikely to happen.')
 
-        # Get molar fractions around the found maximum in the given step size
-        #if element_indices is None:
-        fs_around = get_molar_fractions_around(f_max, step_size=step_size)
-        #else:
-         #   fs_around_ = get_molar_fractions_around(f_max[element_indices], step_size=step_size)
-         #   fs_around = np.zeros((len(fs_around_), n_metals))
-         #   fs_around[:, element_indices] = fs_around_
+            # Get molar fractions around the found maximum in the given step size
+            fs_around = get_molar_fractions_around(f_max, step_size=step_size)
 
-        # Get acquisition values
-        acq_vals = acquisition(fs_around, X_known, gpr, xi)
+            # Get acquisition values
+            acq_local= acquisition(fs_around, X_known, gpr, xi)
 
-        # Get the largest acquisition value
-        acq_max_around = np.max(acq_vals)
+            # Get the largest acquisition value
+            acq_local_max = np.max(acq_local)
 
-        # If the new aquisition value is higher, then repeat for that molar fraction
-        if acq_max_around > acq_max: # and np.max(fs_around[np.argmax(acq_vals)]) <= 0.8 :
+            # If the new aquisition value is higher, then repeat for that molar fraction
+            if acq_local_max > acq_max: # and np.max(fs_around[np.argmax(acq_vals)]) <= 0.9:
 
-            # Get the index of largest acquisition value
-            idx_max = np.argmax(acq_vals)
+                # Get the index of largest acquisition value
+                idx_local = np.argmax(acq_local)
 
-            # Get molar fraction
-            f_max = fs_around[idx_max]
+                # Get molar fraction
+                f_max = fs_around[idx_local]
+                
+                # Set the new acquisition maximum
+                acq_max = acq_local_max
 
-            # Set the new acquisition maximum
-            acq_max = acq_max_around
+                n_iter += 1
 
-        # If the acquisition function did now improve around the molar fraction,
-        # then return the found molar fraction
+            # If the acquisition function did now improve around the molar fraction,
+            # then return the found molar fraction
+            else:
+                break
+        
+        # if found optimum is already known -> continue with the next best random sample
+        if np.any(np.all(X_known == f_max, axis=1)):
+            continue
+        # otherwise return the found optimum
         else:
             return f_max
 
-        n_iter += 1
 

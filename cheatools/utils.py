@@ -80,4 +80,17 @@ def get_ads(ads):
             'N2_standing':Atoms('NN', ([0, 0, 0], [0, 0, 1.13])),
             'N2_lying':Atoms('NN', ([0, 0, 0], [1.13, 0, 0])),
             'NO':Atoms('NO', ([0, 0, 0], [0, 0, 1.14]))
-           }[ads] 
+           }[ads]
+
+def saferound(x, decimals=2):
+    """Numpy implementation of saferound function from https://stackoverflow.com/a/74044227"""
+    x = x * 10**decimals
+    N = np.round(np.sum(x)).astype(int) # true sum
+    y = x.astype(int)
+    M = np.sum(y) # rounded sum
+    K = N - M # difference
+    z = y-x # difference between rounded and true values
+    if K!=0: 
+        idx = np.argpartition(z,K)[:K] # indices of the largest differences
+        y[idx] += 1 # add 1 to the largest differences
+    return y / float(10**decimals)
