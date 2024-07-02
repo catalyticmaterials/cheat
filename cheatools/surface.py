@@ -57,7 +57,7 @@ class SurrogateSurface():
             self.templater = OCPtemplater(facet,adsorbates,sites)
         
         # Metal parameters
-        self.metals = list(set([k for k in comp.keys() for comp in composition]))
+        self.metals = list(set([k for comp in composition for k in comp.keys()]))
         self.n_metals = len(self.metals)
 
         # Adsorbates parameters
