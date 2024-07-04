@@ -21,7 +21,7 @@ def comp2act(comp):
     """Wrapper function for running a surrogate surface to predict ORR activity of a given alloy composition"""
 
     # run surrogate surface
-    surface = SurrogateSurface(comp, adsorbates, sites, regressor, template='lgnn', size=(48,48), displace_e=displace_e, scale_e=scale_e)
+    surface = SurrogateSurface(comp, adsorbates, sites, regressor, template='lgnn', size=(96,96), displace_e=displace_e, scale_e=scale_e)
     surface.get_net_energies()
 
     activity = get_activity(surface) # get ORR activity 

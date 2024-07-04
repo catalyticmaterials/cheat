@@ -25,6 +25,8 @@ from ocpmodels.datasets import data_list_collater
 from ocpmodels.preprocessing import AtomsToGraphs
 import ase.build
 from .dftsampling import add_ads
+from .graphtools import ase2ocp_tags
+from copy import deepcopy
 
 class OCPtemplater():
     def __init__(self,facet,adsorbates,sites,n_layers=5):
@@ -35,10 +37,8 @@ class OCPtemplater():
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
             temp_atoms = add_ads(copy.deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
-            if template == 'shallow_ocp':
-                del temp_atoms[[atom.index for atom in temp_atoms if atom.tag > n_layers]]
-                temp_atoms = ase2ocp_tags(temp_atoms)
-                data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
+            temp_atoms = ase2ocp_tags(temp_atoms)
+            data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
 
             self.template_dict[(ads,site)] = data_object
 
