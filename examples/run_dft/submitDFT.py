@@ -54,7 +54,7 @@ SLURM_kwargs = {'partition': 'katla_day',
 				'mem_per_cpu': '2G',
 				'constraint': '[v1|v2|v3|v4|v5]',
 				'nice': 0,
-				'exclude': None}
+			   }
 
 # Make folders for output
 for f in ['sl','py','traj','txt','err','log']:
@@ -125,7 +125,7 @@ for i in np.arange(start_id,end_id+1):
                     pass
 		
             # adsorbate calculations will be submitted as an SLURM array with dependency on the slab relaxation
-            SLURM_script(f'{filename}_ads', **SLURM_kwargs, dependency=job_id, array_len=arrayId_counter)
+            SLURM_script(f'{filename}_ads', SLURM_kwargs, dependency=job_id, array_len=arrayId_counter)
             os.system(f"(cd sl/ && sbatch {filename}_ads.sl)")
     
     except IndexError:
