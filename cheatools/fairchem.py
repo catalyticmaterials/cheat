@@ -5,27 +5,17 @@ Source code relating to OCP/FAIR-chem is licensed under the MIT license found in
 LICENSE file in https://github.com/FAIR-Chem/fairchem/tree/main with copyright (c) Meta, Inc. and its affiliates.
 """
 
-import copy, logging, os, torch, yaml
-from collections import defaultdict
+import copy, logging, torch, ase.build
 import numpy as np
-from ase.calculators.singlepoint import SinglePointCalculator
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from typing import Dict, Optional
-import ase.build
 from .dftsampling import add_ads
 from .graphtools import ase2ocp_tags
 from copy import deepcopy
 from fairchem.core.common import distutils
 from fairchem.core.common.registry import registry
-from fairchem.core.common.utils import (
-    load_config,
-    setup_imports,
-    setup_logging,
-    update_config,
-)
-from fairchem.core.datasets import data_list_collater
-from fairchem.core.models.model_registry import model_name_to_local_file
+from fairchem.core.common.utils import load_config, setup_imports, update_config
 from fairchem.core.preprocessing import AtomsToGraphs
 
 class OCPtemplater():
@@ -65,9 +55,7 @@ class GraphsListDataset(Dataset):
         graph = self.graphs_list[idx]
         return graph
 
-class BatchOCPPredictor():
-    implemented_properties = ["energy", "forces"]
-
+class OCPbatchpredictor():
     def __init__(
         self,
         config_yml: Optional[str] = None,
@@ -78,19 +66,13 @@ class BatchOCPPredictor():
         seed: Optional[int] = None,
     ) -> None:
         """
-        OCP-ASE Calculator
+        Batch prediction class for fairchem IS2RE models
 
         Args:
             config_yml (str):
                 Path to yaml config or could be a dictionary.
             checkpoint_path (str):
                 Path to trained checkpoint.
-            trainer (str):
-                OCP trainer to be used. "forces" for S2EF, "energy" for IS2RE.
-            cutoff (int):
-                Cutoff radius to be used for data preprocessing.
-            max_neighbors (int):
-                Maximum amount of neighbors to store for a given atom.
             cpu (bool):
                 Whether to load and run the model on CPU. Set `False` for GPU.
         """
@@ -184,7 +166,6 @@ class BatchOCPPredictor():
 
         self.batch_size = batch_size
 
-
     def make_dataloader(self, graphs_list):
         """
         Make the dataloader used to feed graphs into the OCP model.
@@ -208,7 +189,6 @@ class BatchOCPPredictor():
 
         return data_loader
 
-    
     def load_checkpoint(
         self, checkpoint_path: str, checkpoint: Dict = {}
     ) -> None:
