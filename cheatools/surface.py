@@ -53,7 +53,8 @@ class SurrogateSurface():
             self.templater = lGNNtemplater(facet,adsorbates,sites,regressor.onehot_labels)
        
         elif template == 'ocp':
-            from .ocp_utils import OCPtemplater 
+            #from .ocp_utils import OCPtemplater 
+            from .fairchem import OCPtemplater
             self.templater = OCPtemplater(facet,adsorbates,sites)
         
         # Metal parameters
