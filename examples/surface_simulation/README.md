@@ -11,3 +11,11 @@ sites = ['ontop','fcc']
 dft_values = [dft_OH,dft_O]
 surface = SurrogateSurface(composition, adsorbates, sites,..., direct_e_input=dft_values)
 ```
+
+To simulate scenarios with an overlayer or skin of a certain element a separate alloy composition can be given for each layer in the surrogate surface with a list of dictionaries:
+```python
+composition = [{'Pt':1.0},              # Surface layer -> Pure Platinum
+               {'Pt':0.75, 'Ru':0.25}   # Subsurface layer -> Some Ruthenium depletion
+               {'Pt':0.5, 'Ru':0.5}     # Third layer -> Bulk alloy composition
+              ]
+```

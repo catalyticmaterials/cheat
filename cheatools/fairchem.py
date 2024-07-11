@@ -5,28 +5,18 @@ Source code relating to OCP/FAIR-chem is licensed under the MIT license found in
 LICENSE file in https://github.com/FAIR-Chem/fairchem/tree/main with copyright (c) Meta, Inc. and its affiliates.
 """
 
-import copy, logging, os, torch, ocpmodels, yaml
-from collections import defaultdict
+import copy, logging, torch, ase.build
 import numpy as np
-from ase.calculators.singlepoint import SinglePointCalculator
 from torch.utils.data import Dataset
 from tqdm import tqdm
 from typing import Dict, Optional
-from ocpmodels.common import distutils
-from ocpmodels.common.registry import registry
-from ocpmodels.common.relaxation import ml_relaxation
-from ocpmodels.common.utils import (
-    load_config,
-    setup_imports,
-    setup_logging,
-    update_config,
-)
-from ocpmodels.datasets import data_list_collater
-from ocpmodels.preprocessing import AtomsToGraphs
-import ase.build
 from .dftsampling import add_ads
 from .graphtools import ase2ocp_tags
 from copy import deepcopy
+from fairchem.core.common import distutils
+from fairchem.core.common.registry import registry
+from fairchem.core.common.utils import load_config, setup_imports, update_config
+from fairchem.core.preprocessing import AtomsToGraphs
 
 class OCPtemplater():
     def __init__(self,facet,adsorbates,sites,n_layers=5):
@@ -45,12 +35,11 @@ class OCPtemplater():
     def fill_template(self,symbols,adsorbate,site):
         cell = deepcopy(self.template_dict[(adsorbate,site)])
         cell.atomic_numbers[:len(symbols)] = torch.tensor([ase.data.atomic_numbers[s] for s in symbols])
-        #cell.sid = 0 # TODO is sids necessary?
         return cell
 
 class GraphsListDataset(Dataset):
     """
-    Make a list of graphs to feed into ocp dataloader object
+    Make a list of graphs to feed into OCP dataloader
 
     Extends:
         torch.utils.data.Dataset: a torch Dataset
@@ -66,40 +55,28 @@ class GraphsListDataset(Dataset):
         graph = self.graphs_list[idx]
         return graph
 
-class BatchOCPPredictor():
-    implemented_properties = ["energy", "forces"]
-
+class OCPbatchpredictor():
     def __init__(
         self,
         config_yml: Optional[str] = None,
         checkpoint_path: Optional[str] = None,
         batch_size: Optional[int] = 1,
         trainer: Optional[str] = None,
-        cutoff: int = 6,
-        max_neighbors: int = 50,
         cpu: bool = True,
         seed: Optional[int] = None,
     ) -> None:
         """
-        OCP-ASE Calculator
+        Batch prediction class for fairchem IS2RE models
 
         Args:
             config_yml (str):
                 Path to yaml config or could be a dictionary.
             checkpoint_path (str):
                 Path to trained checkpoint.
-            trainer (str):
-                OCP trainer to be used. "forces" for S2EF, "energy" for IS2RE.
-            cutoff (int):
-                Cutoff radius to be used for data preprocessing.
-            max_neighbors (int):
-                Maximum amount of neighbors to store for a given atom.
             cpu (bool):
                 Whether to load and run the model on CPU. Set `False` for GPU.
         """
         setup_imports()
-        setup_logging()
-        #Calculator.__init__(self)
 
         # Either the config path or the checkpoint path needs to be provided
         assert config_yml or checkpoint_path is not None
@@ -159,17 +136,16 @@ class BatchOCPPredictor():
         del config["dataset"]["src"]
 
         self.trainer = registry.get_trainer_class(config["trainer"])(
-            task=config["task"],
+            task=config.get("task", {}),
             model=config["model"],
             dataset=[config["dataset"]],
             outputs=config["outputs"],
-            loss_fns=config["loss_fns"],
-            eval_metrics=config["eval_metrics"],
+            loss_functions=config["loss_functions"],
+            evaluation_metrics=config["evaluation_metrics"],
             optimizer=config["optim"],
             identifier="",
             slurm=config.get("slurm", {}),
             local_rank=config.get("local_rank", 0),
-            #is_debug=config.get("is_debug", False),
             is_debug=config.get("is_debug", True),
             cpu=cpu,
             amp=config.get("amp", False),
@@ -188,18 +164,7 @@ class BatchOCPPredictor():
         else:
             self.trainer.set_seed(seed)
 
-        #self.a2g = AtomsToGraphs(
-        #    max_neigh=max_neighbors,
-        #    radius=cutoff,
-        #    r_energy=False,
-        #    r_forces=False,
-        #    r_distances=False,
-        #    r_edges=False,
-        #    r_pbc=True,
-        #)
-        
         self.batch_size = batch_size
-
 
     def make_dataloader(self, graphs_list):
         """
@@ -224,7 +189,6 @@ class BatchOCPPredictor():
 
         return data_loader
 
-    
     def load_checkpoint(
         self, checkpoint_path: str, checkpoint: Dict = {}
     ) -> None:
@@ -269,12 +233,3 @@ class BatchOCPPredictor():
         
         return predictions
         
-        #data_loader = self.make_dataloader(graphs_list)
-
-        ## Batch inference
-        #predictions = self.trainer.predict(
-        #    data_loader, per_image=True, disable_tqdm= not tqdm_bool
-        #)
-
-        #return predictions["energy"]
-
