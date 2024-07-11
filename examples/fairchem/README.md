@@ -14,5 +14,5 @@ python main.py --mode train --identifier AI2PR-dft-IS2RE31M --config-yml cheat/e
 
 Be mindful that this should be done on a GPU supported machine. For convenience, an already finetuned checkpoint file can be fetched in the [checkpoints folder](checkpoints). Run *test.py* to create a .results file and use it as argument to *plot_parity.py* to obtain a parity plot of the test results.
 
-Finally *simulate_surface.py* showcases the surrogate surface simulation identical to the one found in [surface_simulation](examples/surface_simulation) but employs the finetuned EquiformerV2 model to infer the adsorption energies of the surface.
+Finally *simulate_surface.py* showcases the surrogate surface simulation identical to the one found in [surface_simulation](../surface_simulation) but employs the finetuned EquiformerV2 model to infer the adsorption energies of the surface.
 
