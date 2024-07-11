@@ -1,4 +1,4 @@
-## Open Catalyst Project / FAIR Chemistry integration
+#### Open Catalyst Project / FAIR Chemistry integration
 
 This folder contains an example of how to finetune a machine learning potential from [FAIR Chemistry](https://github.com/FAIR-Chem/fairchem) to perform direct adsorption energy inference or "Initial Structure to Relaxed Energy" (IS2RE) on the provided High-Entropy Alloy dataset. Additionally, it showcases the implementation of the model in the surrogate surface simulation.
 
