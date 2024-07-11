@@ -14,9 +14,9 @@ pip install -e .
 ```
 
 #### Examples
-The *examples* folder contains working examples of different applications with further explanation and instructions within each subdirectory. Start by unzipping the files in the [gpaw](examples/gpaw) folder. These contain pre-calculated DFT trajectories of *OH and *O on Ag-Ir-Pd-Pt-Ru high-entropy alloy surfaces and will form the basis for these examples
+The *examples* folder contains working examples of different applications with further explanation and instructions within each subdirectory. Start by unzipping the files in the [gpaw](examples/gpaw) folder. These contain pre-calculated DFT trajectories (GPAW 22.1.0) of *OH and *O on Ag-Ir-Pd-Pt-Ru high-entropy alloy surfaces which will form the basis for these examples.
 
-[run_dft](examples/run_dft) demonstrates querying your own DFT calculations used to train the inference algorithms. This aids in sampling multiple binding sites on the same slab to minimize compute per adsorption energy optained. Note that this requires some additional setup to conform to whatever high-performance cluster you are using.
+[run_dft](examples/run_dft) demonstrates querying your own DFT calculations used to train the inference algorithms. This aids in sampling multiple binding sites on the same slab to minimize compute per adsorption energy optained. Note that this requires [installing GPAW](https://wiki.fysik.dtu.dk/gpaw/install.html) and some additional setup to conform to whatever high-performance cluster you are using.
 
 [train_lgnn](examples/train_lgnn) reduces the optimized geometries from the DFT calculations to graph features and subsequently trains a lean graph neural network (lGNN) to perform adsorption energy inference.
 
