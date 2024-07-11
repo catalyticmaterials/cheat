@@ -1,11 +1,11 @@
 import ase.db, pickle
 import numpy as np
 from cheatools.surface import SurrogateSurface
-from cheatools.lgnn import lGNN
+from cheatools.fairchem import OCPbatchpredictor
 
-# load trained lGNN model
-with open(f'../train_lgnn/lGNN.state', 'rb') as input:
-    regressor = lGNN(trained_state=pickle.load(input))
+# load OCP batch predictor
+checkpoint = f"checkpoints/AI2PR-dft-IS2RE31M.pt"
+regressor = OCPbatchpredictor(checkpoint_path=checkpoint, batch_size=16, cpu=False, seed=42)
 
 # set random seed and surface composition
 np.random.seed(42)
@@ -24,7 +24,7 @@ displace_e = [-pt_OH,-pt_O]
 scale_e = [1, 0.5]
 
 # initialize surface and get net adsorption
-surface = SurrogateSurface(composition, adsorbates, sites, regressor, template='lgnn', size=(12,12), displace_e=displace_e, scale_e=scale_e, direct_e_input=None)
+surface = SurrogateSurface(composition, adsorbates, sites, regressor, template='ocp', size=(12,12), displace_e=displace_e, scale_e=scale_e, direct_e_input=None)
 surface.get_net_energies() # if interadsorbate blocking should not be performed call .get_gross_energies() instead
 
 # gross adsorption energies can be accessed here:

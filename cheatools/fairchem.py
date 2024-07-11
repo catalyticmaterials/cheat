@@ -39,7 +39,7 @@ class OCPtemplater():
 
 class GraphsListDataset(Dataset):
     """
-    Make a list of graphs to feed into ocp dataloader object
+    Make a list of graphs to feed into OCP dataloader
 
     Extends:
         torch.utils.data.Dataset: a torch Dataset
@@ -127,7 +127,7 @@ class OCPbatchpredictor():
             del config["task"]["relax_dataset"]
 
         # Calculate the edge indices on the fly
-        config["model"]["otf_graph"] = False
+        config["model"]["otf_graph"] = True
 
         # Save config so obj can be transported over network (pkl)
         config = update_config(config)
