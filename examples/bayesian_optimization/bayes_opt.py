@@ -77,7 +77,7 @@ fs, acts = [], []
 
 # Sample random points to make initial GPR fit
 for i in range(n_random):
-    temp = random_comp(elements, max=0.9) # impose maximum molar fraction to avoid sampling pure elements
+    temp = random_comp(elements)
     fs.append(list(temp.values()))
     acts.append(comp2act(temp))
     
