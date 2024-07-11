@@ -2,7 +2,7 @@
 
 This folder contains an example of how to finetune a machine learning potential from [FAIR Chemistry](https://github.com/FAIR-Chem/fairchem) to perform direct adsorption energy inference or "Initial Structure to Relaxed Energy" (IS2RE) on the provided High-Entropy Alloy dataset. Additionally, it showcases the implementation of the model in the surrogate surface simulation.
 
-To run the contents of this folder, you should follow [fairchem's installation instructions](https://fair-chem.github.io/core/install.html) to set up a conda environment and subsequently install the fairchem-core package. Next install *cheatools* from the [main folder](main).
+To run the contents of this folder, you should follow [fairchem's installation instructions](https://fair-chem.github.io/core/install.html) to set up a conda environment and subsequently install the fairchem-core package. Next install *cheatools* from the [main folder](../../).
 
 This example uses Lightning Memory-Mapped Databases (LMDBs) as sources for the training, validation and testing of the inference model. To create these run *dft2lmdbs.py* which reduces the relaxed atomic structures to template structures as described in [Clausen et al. *J. Phys. Chem. C* 2024](https://doi.org/10.1021/acs.jpcc.4c01704) and save them to LMDBs.
 
