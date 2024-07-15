@@ -268,7 +268,7 @@ def atoms2graph(atoms, onehot_labels):
     """
     Converts atoms object to torch data object in the lGNN graph format
     ------
-    This function initially converts the atoms object to the appropriate template and then scales it up to a 5x5x3 cell.
+    This function initially converts the 3x3 atom-sized atoms object to the appropriate template and then scales it up to a 5x5x3 cell.
     Then a graph is extracted containing atoms up to the N nearest neighbors to the bonded adsorbate atoms with N being:
     1 for adsorbate atoms, 2 for surface atoms, 2 for subsurface atoms, and 3 for third layer atoms.
     The nodes are one-hot encoded according to the labels plus the tag and the AtomOfInterest tag -> See https://doi.org/10.1002/advs.202003357
@@ -300,6 +300,16 @@ def atoms2graph(atoms, onehot_labels):
     fractional_positions = np.dot(pos, inverse_cell)
     inside = np.all((fractional_positions > -0.001) & (fractional_positions < 0.999), axis=1)
     atoms_3x3 = atoms_3x3[inside]
+    
+    # catching stray adsorbate atoms -> only keep N ads atoms closest to the center with N = number of atoms in adsobate 
+    if len([a for a in atoms_3x3 if a.tag == 0]) > len(ads):
+        positions = atoms_3x3.get_positions()
+        surface_center = np.mean(positions[[a.index for a in atoms_3x3 if a.tag == 1]],axis=0)
+        ads_ids = np.array([a.index for a in atoms_3x3 if a.tag == 0])
+        ads_positions = positions[ads_ids]
+        dists = np.sqrt(np.sum((ads_positions-surface_center)**2,axis=1))
+        ranked = ads_ids[np.argsort(dists)[::-1]]
+        del atoms_3x3[ranked[:(len(ranked)-len(ads))]]
     
     # rename ids
     id_sort = [a.index for a in sorted(atoms_3x3, key=lambda a: (-a.tag, a.position[1], a.position[0]))]
