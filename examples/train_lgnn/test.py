@@ -2,22 +2,20 @@ import pickle
 from torch_geometric.loader import DataLoader
 from cheatools.lgnn import lGNN
 
-# load test set
-for s in ['test']:
-    with open(f'graphs/{s}.graphs', 'rb') as input:
-        globals()[f'{s}_graphs'] = pickle.load(input)
-
 filename = 'lGNN' # name of model
 
 # load trained state
 with open(f'{filename}.state', 'rb') as input:
     regressor = lGNN(trained_state=pickle.load(input))
 
-# predict on test set and save to results file
+# load and predict on test set, then save to results file
 for s in ['test']:
-    test_loader = DataLoader(globals()[f'{s}_graphs'], batch_size=len(globals()[f'{s}_graphs']), drop_last=True, shuffle=False)
+    with open(f'graphs/{s}.graphs', 'rb') as input:
+        test_set = pickle.load(input)
 
-    pred, true, ads = regressor.test(test_loader, len(globals()[f'{s}_graphs']))
+    test_loader = DataLoader(test_set, batch_size=len(test_set), drop_last=True, shuffle=False)
+
+    pred, true, ads = regressor.test(test_loader, len(test_set))
 
     results_dict = {'true':true,'pred':pred,'ads':ads}
     with open(f'results/{filename}_{s}.results', 'wb') as output:

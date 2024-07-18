@@ -1,0 +1,86 @@
+amp: false
+checkpoint: checkpoints/AI2PR-dft-S2EF153M.pt
+dataset:
+  relax:
+    format: ase_db
+    src: ./initial_structures.db
+gp_gpus: null
+gpus: 1
+logger: tensorboard
+loss_functions:
+- energy:
+    coefficient: 4
+    fn: mae
+- forces:
+    coefficient: 100
+    fn: l2mae
+model:
+  alpha_drop: 0.1
+  attn_activation: silu
+  attn_alpha_channels: 64
+  attn_hidden_channels: 64
+  attn_value_channels: 16
+  distance_function: gaussian
+  drop_path_rate: 0.1
+  edge_channels: 128
+  ffn_activation: silu
+  ffn_hidden_channels: 128
+  grid_resolution: 18
+  lmax_list:
+  - 6
+  max_neighbors: 20
+  max_num_elements: 90
+  max_radius: 12.0
+  mmax_list:
+  - 3
+  name: equiformer_v2
+  norm_type: layer_norm_sh
+  num_distance_basis: 512
+  num_heads: 8
+  num_layers: 20
+  num_sphere_samples: 128
+  otf_graph: true
+  proj_drop: 0.0
+  regress_forces: true
+  sphere_channels: 128
+  use_atom_edge_embedding: true
+  use_gate_act: false
+  use_grid_mlp: true
+  use_pbc: true
+  use_s2_act_attn: false
+  weight_init: uniform
+noddp: false
+optim:
+  batch_size: 4
+  clip_grad_norm: 100
+  ema_decay: 0.999
+  eval_batch_size: 4
+  load_balancing: atoms
+  lr_initial: 0.0002
+  max_epochs: 25
+  num_workers: 8
+  optimizer: AdamW
+  optimizer_params:
+    weight_decay: 0.001
+  scheduler: ReduceLROnPlateau
+outputs:
+  energy:
+    level: system
+    shape: 1
+  forces:
+    eval_on_free_atoms: true
+    irrep_dim: 1
+    level: atom
+    train_on_free_atoms: true
+task:
+  relax_opt:
+    alpha: 70.0
+    damping: 1.0
+    maxstep: 0.04
+    memory: 50
+    traj_dir: relaxed_trajectories/
+  relaxation_fmax: 0.1
+  relaxation_steps: 50
+  save_full_traj: false
+  write_pos: 'True'
+trainer: ocp
