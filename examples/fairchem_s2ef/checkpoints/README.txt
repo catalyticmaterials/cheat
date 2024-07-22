@@ -1,6 +1,6 @@
 To fetch an already finetuned checkpoint for the EquiformerV2 model run in this folder:
 
-curl TBD -o AI2PR-dft-S2EF153M.pt
+curl https://sid.erda.dk/share_redirect/ELG0kwTzYG -o AI2PR-dft-S2EF153M.pt
 
 The original pre-trained checkpoint from which the finetuning was performed can be fetched with:
 

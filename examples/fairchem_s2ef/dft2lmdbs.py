@@ -13,7 +13,7 @@ a2g = AtomsToGraphs() # OCP graph maker
 for s in ['train','val','test']:
     # initialize LMDB
     db = lmdb.open(
-        path=f'lmdbs/{s}.lmdb',
+        path=f'lmdbs/{s}_test.lmdb',
         map_size=1099511627776 * 2,
         subdir=False,
         meminit=False,

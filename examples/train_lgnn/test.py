@@ -1,6 +1,7 @@
 import pickle
 from torch_geometric.loader import DataLoader
 from cheatools.lgnn import lGNN
+from cheatools.plot import plot_parity
 
 filename = 'lGNN' # name of model
 
@@ -8,16 +9,28 @@ filename = 'lGNN' # name of model
 with open(f'{filename}.state', 'rb') as input:
     regressor = lGNN(trained_state=pickle.load(input))
 
-# load and predict on test set, then save to results file
+# loop over multiple test sets if necessary
 for s in ['test']:
+    # load and predict on test set
     with open(f'graphs/{s}.graphs', 'rb') as input:
         test_set = pickle.load(input)
-
     test_loader = DataLoader(test_set, batch_size=len(test_set), drop_last=True, shuffle=False)
-
     pred, true, ads = regressor.test(test_loader, len(test_set))
 
-    results_dict = {'true':true,'pred':pred,'ads':ads}
-    with open(f'results/{filename}_{s}.results', 'wb') as output:
-        pickle.dump(results_dict, output)
+    # dictionaries to store true and predicted values for each adsorbate
+    true_dict = {ads: [] for ads in ['O','OH']}
+    pred_dict = {ads: [] for ads in ['O','OH']}
+
+    # sort predictions according to adsorbate
+    for i, p in enumerate(pred):
+        true_dict[ads[i]].append(test[i])
+        pred_dict[ads[i]].append(pred[i])    
+
+    # plot parity plot
+    colors = ['firebrick','steelblue']
+    arr = zip(true_dict.values(),pred_dict.values())
+    header = r'LeanGNN IS2RE'
+
+    fig = plot_parity(true_dict, pred_dict, colors, header, [-0.75,2.25])
+    fig.savefig(f'parity/{s}.png')
 
