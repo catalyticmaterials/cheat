@@ -1,4 +1,4 @@
-#### Traning and testing the lean graph neural network (lGNN)
+#### Training and testing the lean graph neural network (lGNN)
 
 This folder contains an example of how to train and test the [lGNN model](https://doi.org/10.1002/advs.202003357).
 
