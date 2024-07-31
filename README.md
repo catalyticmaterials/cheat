@@ -35,3 +35,5 @@ The *examples* folder contains working examples of different applications with f
 
 [fairchem_s2ef](examples/fairchem_s2ef) demonstrates how to finetune a machine learning potential from FAIR Chemistry, providing a much(!) faster alternative to a DFT calculator.
 
+[plots](examples/plots) contains examples of a few plotting functions that can be handy to visualize results in high-dimensional composition space.
+

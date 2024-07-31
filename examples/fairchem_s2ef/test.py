@@ -4,7 +4,7 @@ from fairchem.core.datasets import LmdbDataset
 
 # load OCP batch predictor
 checkpoint = f"checkpoints/AI2PR-dft-S2EF153M.pt"
-model = OCPbatchpredictor(checkpoint_path=checkpoint, batch_size=6, cpu=False, seed=42)
+model = OCPbatchpredictor(checkpoint_path=checkpoint, batch_size=6, cpu=True, seed=42)
 
 # loop over multiple test sets if necessary
 for s in ['test']:

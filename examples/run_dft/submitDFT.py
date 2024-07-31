@@ -4,8 +4,6 @@ from time import sleep
 from ase.db import connect
 from cheatools.dftsampling import make_slab, relax_slab, relax_ads, SLURM_script
 
-### see readme.txt for documentation of flags and parameters
-
 ### Filename
 project_name = 'example_project'
 
@@ -50,8 +48,8 @@ GPAW_kwargs = {'mode':"PW(400)",
 SLURM_kwargs = {'partition': 'katla_day',
 				'nodes': '1-1',
 				'ntasks': 24,
-				'ntasks_per_core': 2,
-				'mem_per_cpu': '2G',
+				'ntasks-per-core': 2,
+				'mem-per-cpu': '2G',
 				'constraint': '[v1|v2|v3|v4|v5]',
 				'nice': 0,
 			   }
