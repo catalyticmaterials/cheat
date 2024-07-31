@@ -3,7 +3,7 @@ trainer: ocp
 dataset:
   train:
     format: lmdb
-    src: /groups/kemi/clausen/cheat/examples/fairchem/lmdbs/train.lmdb
+    src: lmdbs/train.lmdb
     key_mapping:
       y_relaxed: energy
     transforms:
@@ -13,10 +13,10 @@ dataset:
           stdev: 2.887317180633545
   val:
     format: lmdb
-    src: /groups/kemi/clausen/cheat/examples/fairchem/lmdbs/val.lmdb
+    src: lmdbs/val.lmdb # alter this to fit your absolute path
 
 logger: wandb # connect user on https://wandb.ai to monitor finetuning progress
-#gpus: 1
+
 outputs:
   energy:
     shape: 1
@@ -33,8 +33,6 @@ evaluation_metrics:
       - mse
       - energy_within_threshold
   primary_metric: energy_mae
-
-#hide_eval_progressbar: False
 
 model:
   name: equiformer_v2
@@ -81,7 +79,6 @@ model:
 optim:
   batch_size:                   16        # 6
   eval_batch_size:              8        # 6
-  #eval_every: 80                         # if not defined defaults to epoch
   load_balancing: atoms
   num_workers: 8
   lr_initial:                   0.0002    # [0.0002, 0.0004], eSCN uses 0.0008 for batch size 96

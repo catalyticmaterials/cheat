@@ -1,9 +1,11 @@
-#### Traning and testing the lean graph neural network (lGNN)
+#### Training and testing the lean graph neural network (lGNN)
 
 This folder contains an example of how to train and test the [lGNN model](https://doi.org/10.1002/advs.202003357).
 
-*dft2graphs.py* will pull the supplied trajectory files in the *gpaw* folder and perform graph feature construction to form train, validation and test sets from the relaxed slabs with adsorbates. Adsorbtion energies, $$\Delta E_{ads}$$ are calculated as:
+`dft2graphs.py` will pull the supplied trajectory files in the *gpaw* folder and perform graph feature construction to form train, validation and test sets from the relaxed slabs with adsorbates. Adsorbtion energies, $\Delta E_{ads}$ are calculated as:
+
 $$\Delta E_{ads} = E_{slab+ads} - E_{slab} - E_{ads}$$
+
 where $E_{slab+ads}$ and $E_{slab}$ are the slab with and without adsorbate respectively and $E_{ads}$ is the gas-phase reference energy of the adsorbate.
 
 The graph includes the adsorbate and the nearest neighboring atoms to the adsorbing atom(s) (ensemble) as well as the next nearest neighbors in the third surface layer.
@@ -25,10 +27,10 @@ with open(f'{filename}.state', 'rb') as input:
 model = lGNN(trained_state=model_state)
 ```
 
-The lGNN class supports two methods: *model.predict(graphlist)* will return the predicted adsorbtion energies from a list of graphs. *model.test(data_loader,batch_size)* will return additional information
+The lGNN class supports two methods: `model.predict(graphlist)` will return the predicted adsorbtion energies from a list of graphs. `model.test(data_loader,batch_size)` will return additional information
 ```python
 pred, true, ads = model.test(data_loader, batch_size)
 ```
 with *pred* and *true* being the predicted and true energies, respectively, and *ads* denoting the adsorbate for easy categorization.
 
-Running *test.py* will create a *.results* file. Use it as argument to *plot_parity.py* to obtain a parity plot of the test results.
+Running `test.py` will create a *.results* file. Use it as argument to `plot_parity.py` to obtain a parity plot of the test results.

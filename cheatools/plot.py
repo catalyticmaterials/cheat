@@ -198,7 +198,8 @@ class simplex3D():
             midpoint = np.mean([self.verts[j] for j in [[1, 2], [0, 2], [0, 1], [0, 1, 2]][i]], axis=0) # Calculate the midpoint of each edge
             offset_vector = (coord - midpoint) / np.linalg.norm(coord - midpoint) # Calculate the vector from the midpoint to the vertex and normalize it
             new_coord = coord + 0.075 * offset_vector # Adjust label position by adding the offset
-            ax.text(new_coord[0], new_coord[1], new_coord[2], labels[i], size=16, va='center', ha='center')
+            if labels != None:
+                ax.text(new_coord[0], new_coord[1], new_coord[2], labels[i], size=16, va='center', ha='center')
 
         return fig
     
