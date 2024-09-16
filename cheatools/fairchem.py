@@ -5,11 +5,12 @@ Source code relating to OCP/FAIR-chem is licensed under the MIT license found in
 LICENSE file in https://github.com/FAIR-Chem/fairchem/tree/main with copyright (c) Meta, Inc. and its affiliates.
 """
 
-import copy, logging, torch, ase.build
+import copy, logging, torch, ase.build, os, subprocess
 import numpy as np
 from torch.utils.data import Dataset
 from tqdm import tqdm
-from typing import Dict, Optional
+from typing import Dict, Optional, NamedTuple
+from numpy.typing import ArrayLike
 from .dftsampling import add_ads
 from .graphtools import ase2ocp_tags
 from copy import deepcopy
@@ -29,13 +30,16 @@ class OCPtemplater():
             temp_atoms = add_ads(copy.deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
             temp_atoms = ase2ocp_tags(temp_atoms)
             data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
-
+            
             self.template_dict[(ads,site)] = data_object
 
     def fill_template(self,symbols,adsorbate,site):
         cell = deepcopy(self.template_dict[(adsorbate,site)])
         cell.atomic_numbers[:len(symbols)] = torch.tensor([ase.data.atomic_numbers[s] for s in symbols])
         return cell
+
+class DatasetMetadata(NamedTuple):
+    natoms: ArrayLike | None = None
 
 class GraphsListDataset(Dataset):
     """
@@ -47,13 +51,27 @@ class GraphsListDataset(Dataset):
 
     def __init__(self, graphs_list):
         self.graphs_list = graphs_list
-
+        self._metadata = DatasetMetadata([g.natoms for g in graphs_list])  
+    
     def __len__(self):
         return len(self.graphs_list)
 
     def __getitem__(self, idx):
         graph = self.graphs_list[idx]
         return graph
+
+    def metadata_hasattr(self, attr) -> bool:
+        if self._metadata is None:
+            return False
+        return hasattr(self._metadata, attr)
+
+    def get_metadata(self, attr, idx):
+        if self._metadata is not None:
+            metadata_attr = getattr(self._metadata, attr)
+            if isinstance(idx, list):
+                return [metadata_attr[_idx] for _idx in idx]
+            return metadata_attr[idx]
+        return None
 
 class OCPbatchpredictor():
     def __init__(
@@ -134,7 +152,7 @@ class OCPbatchpredictor():
         self.config = copy.deepcopy(config)
         self.config["checkpoint"] = checkpoint_path
         del config["dataset"]["src"]
-
+        
         self.trainer = registry.get_trainer_class(config["trainer"])(
             task=config.get("task", {}),
             model=config["model"],
@@ -178,7 +196,7 @@ class OCPbatchpredictor():
         """
         # Make a dataset
         graphs_list_dataset = GraphsListDataset(graphs_list)
-
+        
         # Make a loader
         data_loader = self.trainer.get_dataloader(
             graphs_list_dataset,
@@ -218,7 +236,7 @@ class OCPbatchpredictor():
         """
         data_loader = self.make_dataloader(graphs_list)
         predictions = np.array([])
-        rank = distutils.get_rank() 
+        rank = distutils.get_rank()
         for i, batch in tqdm(
             enumerate(data_loader),
             total=len(data_loader),

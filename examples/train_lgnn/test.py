@@ -23,7 +23,7 @@ for s in ['test']:
 
     # sort predictions according to adsorbate
     for i, p in enumerate(pred):
-        true_dict[ads[i]].append(test[i])
+        true_dict[ads[i]].append(true[i])
         pred_dict[ads[i]].append(pred[i])    
 
     # plot parity plot
@@ -32,5 +32,5 @@ for s in ['test']:
     header = r'LeanGNN IS2RE'
 
     fig = plot_parity(true_dict, pred_dict, colors, header, [-0.75,2.25])
-    fig.savefig(f'parity/{s}.png')
+    fig.savefig(f'parity/{filename}_{s}.png')
 
