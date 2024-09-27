@@ -69,12 +69,15 @@ def get_magmom(symbol):
 
 def get_ads(ads):
     """
-    Get adsorbate geometry 
+    Get adsorbate geometry
     """
     return {'O':Atoms('O', ([0, 0, 0],)),
             'H':Atoms('H', ([0, 0, 0],)),
             'N':Atoms('N', ([0, 0, 0],)),
             'C':Atoms('C', ([0, 0, 0],)),
+            'CH':Atoms('CH', ([0, 0, 0],[0,0,1.1])),
+            'CH2':Atoms('CH2', ([0, 0, 0],[-0.90,0,0.63],[0.90,0,0.63])),
+            'CH3':Atoms('CH3', ([0, 0, 0],[-0.90,0.52,0.36],[0.90,0.52,0.36],[0,-1.04,0.36])),
             'CO':Atoms('CO', ([0, 0, 0], [0, 0, 1.16])),
             'OH':Atoms('OH', ([0, 0, 0], [0.65, 0.65, 0.40])),
             'N2_standing':Atoms('NN', ([0, 0, 0], [0, 0, 1.13])),

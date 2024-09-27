@@ -59,7 +59,7 @@ class GraphsListDataset(Dataset):
     def __getitem__(self, idx):
         graph = self.graphs_list[idx]
         return graph
-
+    
     def metadata_hasattr(self, attr) -> bool:
         if self._metadata is None:
             return False
@@ -145,14 +145,14 @@ class OCPbatchpredictor():
             del config["task"]["relax_dataset"]
 
         # Calculate the edge indices on the fly
-        config["model"]["otf_graph"] = True
+        config["model"]["otf_graph"] = False
 
         # Save config so obj can be transported over network (pkl)
         config = update_config(config)
         self.config = copy.deepcopy(config)
         self.config["checkpoint"] = checkpoint_path
         del config["dataset"]["src"]
-        
+
         self.trainer = registry.get_trainer_class(config["trainer"])(
             task=config.get("task", {}),
             model=config["model"],

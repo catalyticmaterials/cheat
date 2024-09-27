@@ -34,7 +34,7 @@ def get_ensemble(atoms):
     string
         Site category  
     """
-    
+     
     atoms = deepcopy(atoms)  # copy to not change tags on original atoms object 
     if np.any(np.isin([3,4,5], atoms.get_tags())):  # the following operations uses the ocp tag format
         atoms = ase2ocp_tags(atoms)
@@ -90,15 +90,14 @@ def get_ensemble(atoms):
         neighbor_arr = []
         subsurface = np.array([a.index for a in atoms if a.tag == 0])
         for i in closest_ens:
-            close_subsurface = np.argsort(atoms.get_distances(i,subsurface,mic=True))[:3] # minimum image convention to avoid pbc problems
+            close_subsurface = [index for index, d in enumerate(atoms.get_distances(i,subsurface,mic=False)) if d < natural_cutoffs(atoms, mult=2.2)[i]] #minimum image convention causes problems with shared neighbors in 2x2 cells
             neighbor_arr.append(subsurface[close_subsurface])
-        neighbor_arr = np.array(neighbor_arr)
-        # if ensemble atoms share a subsurface neighbor, the site is hcp 
+        
+        # if ensemble atoms share a subsurface neighbor e.g. count == 3, the site is hcp 
         site = 'fcc'
-        for i in np.unique(neighbor_arr):
-            if np.all(np.any(neighbor_arr == i, axis=1)):
-                site = 'hcp'
-                break
+        unique, counts = np.unique(np.concatenate(neighbor_arr),return_counts=True)
+        if np.any(counts > 2):
+            site = 'hcp'
     
     # get elements of ensemble
     ensemble = np.array(atoms.get_chemical_symbols())[closest_ens]     
