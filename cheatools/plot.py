@@ -29,6 +29,20 @@ def truncate_colormap(cmap, minval=0.0, maxval=1.0, n=100):
         cmap(np.linspace(minval, maxval, n))) # sampling the new colormap at n points between minval and maxval
     return new_cmap
 
+def format_ax(ax, xticks=None, yticks=None, xticklabels=None, yticklabels=None,
+              xlabel=None, ylabel=None, title=None,
+              xlim=None, ylim=None, tickfontsize=12, labelfontsize=16, titlefontsize=20, labelpad=0, titlepad=0):
+    
+    ax_kwargs = {k: v for k, v in locals().items() if k != 'ax' and 'fontsize' not in k and 'pad' not in k and v is not None}
+    ax.set(**ax_kwargs)
+    ax.tick_params(axis='both', labelsize=tickfontsize)
+    ax.xaxis.label.set_size(labelfontsize)
+    ax.yaxis.label.set_size(labelfontsize)
+    ax.xaxis.labelpad = labelpad
+    ax.yaxis.labelpad = labelpad
+    if title:
+        ax.set_title(title, fontsize=titlefontsize, pad=titlepad)
+    
 def plot_parity(true_dict, pred_dict, colors, header, limit=[-0.5,2.5]):
     """ 
     Parity plot function for multiple adsorbates
