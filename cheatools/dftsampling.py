@@ -285,7 +285,7 @@ def get_site_ids(facet, site, size):
     return ads_id_sets
 
 
-def SLURM_script(filename, slurm_kwargs, dependency, array_len=None):
+def SLURM_script(filename, slurm_kwargs, dependency, jobarray=None):
     """
     Writes submission sbatch script for SLURM. 
     -------
@@ -304,8 +304,8 @@ def SLURM_script(filename, slurm_kwargs, dependency, array_len=None):
         if dependency != None:
             f.write(f"#SBATCH --dependency=afterok:{dependency}\n")
         
-        if array_len != None:
-            f.write(f"#SBATCH --array=0-{array_len-1}\n" \
+        if jobarray != None:
+            f.write(f"#SBATCH --array={jobarray[0]}-{jobarray[1]}\n" \
                     f"#SBATCH --error='../err/{filename}%a.err'\n" \
                     f"#SBATCH --output='../log/{filename}%a.log'\n")
         else:
@@ -331,7 +331,7 @@ def SLURM_script(filename, slurm_kwargs, dependency, array_len=None):
                  "fi\n" \
                )
 
-        if array_len != None:
+        if jobarray != None:
             f.write(f"mpirun gpaw python ../py/{filename}$SLURM_ARRAY_TASK_ID.py")
 
         else:

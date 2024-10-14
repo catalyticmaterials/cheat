@@ -111,12 +111,12 @@ for i in np.arange(start_id,end_id+1):
     # initiate SLURM submission if "submit" flag has been given
     try:
         if sys.argv[1] == 'submit':
-            SLURM_script(f'{filename}_slab', SLURM_kwargs, dependency=None, array_len=None)
+            SLURM_script(f'{filename}_slab', SLURM_kwargs, dependency=None, jobarray=None)
             out = subprocess.run(f'cd sl/ && sbatch {filename}_slab.sl' , shell=True, check=True, capture_output=True)
             job_id = re.findall(r'\d+', out.stdout.decode('utf-8'))[0]
             
             # adsorbate calculations will be submitted as an SLURM array with dependency on the slab relaxation
-            SLURM_script(f'{filename}_ads', SLURM_kwargs, dependency=job_id, array_len=arrayId_counter)
+            SLURM_script(f'{filename}_ads', SLURM_kwargs, dependency=job_id, jobarray=[0,arrayId_counter])
             out = subprocess.run(f'cd sl/ && sbatch {filename}_ads.sl' , shell=True, check=True, capture_output=True)
             print(f'Submitted jobs for slabId {i}')
     
