@@ -51,7 +51,7 @@ class GraphsListDataset(Dataset):
 
     def __init__(self, graphs_list):
         self.graphs_list = graphs_list
-        self._metadata = DatasetMetadata([g.natoms for g in graphs_list])  
+        #self._metadata = DatasetMetadata([g.natoms for g in graphs_list])  
     
     def __len__(self):
         return len(self.graphs_list)
@@ -60,18 +60,18 @@ class GraphsListDataset(Dataset):
         graph = self.graphs_list[idx]
         return graph
     
-    def metadata_hasattr(self, attr) -> bool:
-        if self._metadata is None:
-            return False
-        return hasattr(self._metadata, attr)
+    #def metadata_hasattr(self, attr) -> bool:
+    #    if self._metadata is None:
+    #        return False
+    #    return hasattr(self._metadata, attr)
 
-    def get_metadata(self, attr, idx):
-        if self._metadata is not None:
-            metadata_attr = getattr(self._metadata, attr)
-            if isinstance(idx, list):
-                return [metadata_attr[_idx] for _idx in idx]
-            return metadata_attr[idx]
-        return None
+    #def get_metadata(self, attr, idx):
+    #    if self._metadata is not None:
+    #        metadata_attr = getattr(self._metadata, attr)
+    #        if isinstance(idx, list):
+    #            return [metadata_attr[_idx] for _idx in idx]
+    #        return metadata_attr[idx]
+    #    return None
 
 class OCPbatchpredictor():
     def __init__(
@@ -129,7 +129,7 @@ class OCPbatchpredictor():
                 checkpoint_path, map_location=torch.device("cpu")
             )
             config = checkpoint["config"]
-
+        
         if trainer is not None:
             config["trainer"] = trainer
         else:
@@ -145,14 +145,14 @@ class OCPbatchpredictor():
             del config["task"]["relax_dataset"]
 
         # Calculate the edge indices on the fly
-        config["model"]["otf_graph"] = False
+        config["model"]["otf_graph"] = True  # Will cause weird inference if set to False
 
         # Save config so obj can be transported over network (pkl)
         config = update_config(config)
         self.config = copy.deepcopy(config)
         self.config["checkpoint"] = checkpoint_path
         del config["dataset"]["src"]
-
+        
         self.trainer = registry.get_trainer_class(config["trainer"])(
             task=config.get("task", {}),
             model=config["model"],
