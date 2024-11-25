@@ -15,6 +15,7 @@ from .dftsampling import add_ads
 from .graphtools import ase2ocp_tags
 from copy import deepcopy
 from fairchem.core.common import distutils
+from fairchem.core.common.flags import flags
 from fairchem.core.common.registry import registry
 from fairchem.core.common.utils import load_config, setup_imports, update_config
 from fairchem.core.preprocessing import AtomsToGraphs
@@ -60,19 +61,6 @@ class GraphsListDataset(Dataset):
         graph = self.graphs_list[idx]
         return graph
     
-    #def metadata_hasattr(self, attr) -> bool:
-    #    if self._metadata is None:
-    #        return False
-    #    return hasattr(self._metadata, attr)
-
-    #def get_metadata(self, attr, idx):
-    #    if self._metadata is not None:
-    #        metadata_attr = getattr(self._metadata, attr)
-    #        if isinstance(idx, list):
-    #            return [metadata_attr[_idx] for _idx in idx]
-    #        return metadata_attr[idx]
-    #    return None
-
 class OCPbatchpredictor():
     def __init__(
         self,

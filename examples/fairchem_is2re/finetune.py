@@ -10,6 +10,6 @@ checkpoint_path = 'checkpoints/eq2_31M_ec4_allmd.pt'
 # path to config file
 config_path = 'configs/equiformer_v2_N@8_L@4_M@2_31M.yml'
 
-# initialize relaxations
+# initialize fine-tuning
 os.system(f'python {fairchem_main()} --mode train --identifier {identifier} --config-yml {config_path} --checkpoint {checkpoint_path}')
 

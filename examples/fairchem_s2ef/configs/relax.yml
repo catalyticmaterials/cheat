@@ -3,16 +3,16 @@ checkpoint: checkpoints/AI2PR-dft-S2EF153M.pt
 dataset:
   relax:
     format: ase_db
-    src: ./initial_structures.db
+    src: initial_structures.db
 gp_gpus: null
 gpus: 1
 logger: tensorboard
 loss_functions:
 - energy:
-    coefficient: 4
+    coefficient: 1
     fn: mae
 - forces:
-    coefficient: 100
+    coefficient: 25
     fn: l2mae
 model:
   alpha_drop: 0.1
@@ -54,7 +54,7 @@ optim:
   batch_size: 4
   clip_grad_norm: 100
   ema_decay: 0.999
-  eval_batch_size: 4
+  eval_batch_size: 6
   load_balancing: atoms
   lr_initial: 0.0002
   max_epochs: 25
@@ -72,6 +72,7 @@ outputs:
     irrep_dim: 1
     level: atom
     train_on_free_atoms: true
+relax_dataset: {}
 task:
   relax_opt:
     alpha: 70.0
