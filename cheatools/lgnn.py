@@ -123,7 +123,10 @@ class lGNN(torch.nn.Module):
         for data in loader:
             pred += self(data).reshape([batch_size]).tolist()
             target += data.y.tolist()
-            ads += data.ads
+            try:
+                ads += data.ads
+            except AttributeError:
+                ads += 'N/A'
 
         return pred, target, ads
 

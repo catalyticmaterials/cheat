@@ -129,10 +129,10 @@ def relax_ads(filename, slabId, adsId, facet, size, site, adsorbate, initial_bon
         # add adsorbate to slab taking into account the possibility of multiple binding sites
         if isinstance(adsId, list):
             file.write(f"for i in {adsId}:\n"\
-                       f"    atoms = add_ads(atoms, '{facet}', {size}, '{site}', '{adsorbate}', {initial_bond_length}, i)\n"\
+                       f"    add_ads(atoms, '{facet}', {size}, '{site}', '{adsorbate}', {initial_bond_length}, i)\n"\
                       )
         elif isinstance(adsId, int):
-            file.write(f"atoms = add_ads(atoms, '{facet}', {size}, '{site}', '{adsorbate}', {initial_bond_length}, {adsId})\n"\
+            file.write(f"add_ads(atoms, '{facet}', {size}, '{site}', '{adsorbate}', {initial_bond_length}, {adsId})\n"\
                       )
 
         # set up GPAW calculator and run relaxation
@@ -172,8 +172,6 @@ def add_ads(atoms, facet, size, site, adsorbate, initial_bond_length, adsId):
     # add adsorbate to binding site
     ads_object = get_ads(adsorbate)
     add_adsorbate(atoms,ads_object,initial_bond_length,position=(x_pos,y_pos))
-
-    return atoms
 
 def get_site_ids(facet, site, size):
     """

@@ -96,7 +96,7 @@ class SurrogateSurface():
             
         self.grid = np.reshape(metal_ids, (*size, self.n_layers))
 
-    def get_gross_energies(self):
+    def get_gross_energies(self, tqdm=False):
         """Regression of adsorption energies of all possible surface sites of the chosen types."""
 
         # Prep dicts for gross ads. energy grids and adsorption bool grid
@@ -120,7 +120,7 @@ class SurrogateSurface():
             if self.direct_e_input != None:
                 pred = (np.ones(np.prod(self.size)) * self.direct_e_input[i] + self.displace_e[i]) * self.scale_e[i]
             else:
-                pred = (self.regressor.predict(feat_list,tqdm_bool=True) + self.displace_e[i]) * self.scale_e[i]
+                pred = (self.regressor.predict(feat_list,tqdm_bool=tqdm) + self.displace_e[i]) * self.scale_e[i]
         
             self.grid_dict_gross[(adsorbate, self.sites[i])] = np.reshape(pred, self.size)
 

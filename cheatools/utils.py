@@ -67,6 +67,27 @@ def get_magmom(symbol):
             "Ni": 0.6512631627385174
            }[symbol]
 
+def get_adslabel(atoms):
+    """
+    Abbreviate adsorbate atoms to label
+    """
+    ads_tag = 0 if np.any(np.isin([3,4,5],atoms.get_tags())) else 2
+    ads_atoms = [a.symbol for a in atoms if a.tag == ads_tag]
+    if len(ads_atoms) > 1:
+        ads_label, current_symbol, count = [], ads_atoms[0], 1
+        for symbol in ads_atoms[1:]:
+            if symbol == current_symbol:
+                count += 1
+            else:
+                ads_label.append(f"{current_symbol}{count if count > 1 else ''}")
+                current_symbol = symbol
+                count = 1
+
+        ads_label.append(f"{current_symbol}{count if count > 1 else ''}")
+        return "".join(ads_label)
+    else:
+        return ads_atoms[0]
+
 def get_ads(ads):
     """
     Get adsorbate geometry

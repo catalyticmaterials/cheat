@@ -1,11 +1,14 @@
 import torch, ase.build
 import numpy as np
-from ase.neighborlist import build_neighbor_list, natural_cutoffs
+from ase.neighborlist import build_neighbor_list, natural_cutoffs, neighbor_list, NeighborList
 from itertools import combinations
 from .dftsampling import add_ads
 from copy import deepcopy
 from collections import Counter, deque, defaultdict
 from torch_geometric.data import Data
+from .utils import get_adslabel
+from ase.visualize import view
+from ase.data import atomic_numbers, covalent_radii
 
 def ase2ocp_tags(atoms):
     """
@@ -47,28 +50,30 @@ def get_ensemble(atoms):
     atoms.translate([adjust[0],adjust[1],0])
     atoms.wrap() 
     
-    # build neighborlist to assert bonds - uses 110% natural cutoffs to ensure connectivity in distorted structures
-    nl = build_neighbor_list(atoms, cutoffs=natural_cutoffs(atoms, mult=1.1), self_interaction=False, bothways=True)
-    ads_neighbors = np.array([i for i in nl.get_neighbors(ads_ids[0])[0] if i not in ads_ids])  # ids connected to the first adsorbate atom 
+    # build neighborlist to assert bonds - uses 110% natural cutoffs (+0.3Å skin) to ensure connectivity in distorted structures
+    nl = build_neighbor_list(atoms, cutoffs=natural_cutoffs(atoms, mult=1.1), self_interaction=False, bothways=True) # skin=0.3 Å is default
+    
+    
+    ads_neighbors = np.array([i for i in nl.get_neighbors(ads_ids[0])[0] if i not in ads_ids])
     if len(ads_neighbors) == 0:
         raise Exception("Adsorbate has no neighboring atoms.")  
-
+    
     # we consider the three nearest atoms to be the potential ensemble  
     dist = atoms.get_distances(ads_ids[0],ads_neighbors)
     ens_ids = ads_neighbors[np.argsort(dist)][:3]
     
     # all possible ensembles given the three nearest atoms 
     ens = [[i] for i in ens_ids]+[[*i] for i in list(combinations(ens_ids, 2))]+[list(ens_ids)]
-    
-    # assert distances to all ensemble midpoint e.g. mean position of two atoms for bridge site etc. 
+     
+    # assert horizontal distances to all ensemble midpoint e.g. mean position of two atoms for bridge site etc. 
     pos = atoms.get_positions()
     dist = []
     for e in ens:        
         mean = np.mean(pos[e],axis=0)
-        delta = pos[ads_ids[0]] - mean
+        delta = pos[ads_ids[0]][:2] - mean[:2]
         dist.append(np.sqrt(np.sum(delta**2)))  
     closest_ens = ens[np.argsort(dist)[0]]
-
+    
     # categorize ensemble
     if len(closest_ens) == 1:
         site = 'ontop'
@@ -84,21 +89,13 @@ def get_ensemble(atoms):
         delta = delta/np.sqrt(np.sum(delta**2))  # normalize to unit vector
         direction_id = int(np.floor(np.argmin(np.sum(np.abs(delta - directions),axis=1))/2))  # closest direction is chosen
         site = f'bridge_{direction_id}'
-      
-    elif len(closest_ens) == 3:
-        # get three closest subsurface neighbors of the ensemble atoms
-        neighbor_arr = []
-        subsurface = np.array([a.index for a in atoms if a.tag == 0])
-        for i in closest_ens:
-            close_subsurface = [index for index, d in enumerate(atoms.get_distances(i,subsurface,mic=False)) if d < natural_cutoffs(atoms, mult=2.2)[i]] #minimum image convention causes problems with shared neighbors in 2x2 cells
-            neighbor_arr.append(subsurface[close_subsurface])
-        
-        # if ensemble atoms share a subsurface neighbor e.g. count == 3, the site is hcp 
-        site = 'fcc'
-        unique, counts = np.unique(np.concatenate(neighbor_arr),return_counts=True)
-        if np.any(counts > 2):
-            site = 'hcp'
     
+    elif len(closest_ens) == 3:
+        # top-heavy triangle determined by y-coordinate is categorized as hcp and vice versa for fcc - NB! This assumes geometries as made by ASEs default surface functions
+        meanY = np.mean(pos[closest_ens,1])
+        diff = pos[closest_ens,1]-meanY
+        site = 'hcp' if (diff > 0).sum() == 2 else 'fcc'
+
     # get elements of ensemble
     ensemble = np.array(atoms.get_chemical_symbols())[closest_ens]     
     ensemble = dict(Counter(ensemble))
@@ -122,41 +119,29 @@ def atoms2template(atoms, tag_style='ocp'):
     _, ids, site = get_ensemble(atoms)
     
     # get adsorbate to add to template
-    if np.any(np.isin([3,4,5], atoms.get_tags())):
-        ads_ids = [a.index for a in atoms if a.tag == 0]
-    else:
-        ads_ids = [a.index for a in atoms if a.tag == 2]
-    ads = ''.join(np.array(atoms.get_chemical_symbols())[ads_ids])
-    
+    ads = get_adslabel(atoms)    
+
     # ontop roll/rotate scheme
     if site == 'ontop':
-        roll_1 = 1 if ids[0] < 39 else -1 if ids[0] > 41 else 0
-        roll_2 = 1 if ids[0] in [36,39,42] else -1 if ids[0] in [38,41,44] else 0
+        ll = ids[0]
         rotate_scheme = 0
     
     # bridge roll/rotate schemes (depending on direction)
     elif site[:-2] == 'bridge':
         rotate_scheme = int(site[-1])
-        if np.all(np.isin([42,38],ids)): # upper corners
-            ll = 42
             
-        elif np.any(np.isin([36,39,42],ids)) and np.any(np.isin([38,41,44],ids)): # right side
+        if np.any(np.isin([36,39,42],ids)) and np.any(np.isin([38,41,44],ids)): # right side
             if rotate_scheme == 2:
                 ll = np.min([id for id in ids if id in [36,39,42]])
             else: 
                 ll = np.min([id for id in ids if id in [38,41,44]])
             
         elif np.any(np.isin([42,43,44],ids)) and np.any(np.isin([36,37,38],ids)): # upper side
-            if rotate_scheme == 1:
-                ll = np.min([id for id in ids if id in [42,43,44]])
-            else:
-                ll = np.min([id for id in ids if id in [36,37,38]])
-
+            ll = np.min([id for id in ids if id in [42,43,44]])
+        
         else:
             ll = np.min(ids)
-        roll_1 = 1 if ll < 39 else -1 if ll > 41 else 0
-        roll_2 = 1 if ll in [36,39,42] else -1 if ll in [38,41,44] else 0
-    
+
     # fcc roll/rotate scheme
     elif site == 'fcc': 
         if np.all(np.isin([44,42,38],ids)):
@@ -168,14 +153,12 @@ def atoms2template(atoms, tag_style='ocp'):
         else:
             ll = np.min(ids)
 
-        roll_1 = 1 if ll < 39 else -1 if ll > 41 else 0
-        roll_2 = 1 if ll in [36,39,42] else -1 if ll in [38,41,44] else 0
         rotate_scheme = 0
     
     # hcp roll/rotate scheme
-    elif site == 'hcp': 
-        if np.all(np.isin([44,42,38],ids)):
-            ll = 44
+    elif site == 'hcp':
+        if np.all(np.isin([36,38,42],ids)):
+            ll = 42
         elif np.any(np.isin([36,39,42],ids)) and np.any(np.isin([38,41,44],ids)): 
             ll = np.min([id for id in ids if id in [36,39,42]])
         elif np.any(np.isin([42,43,44],ids)) and np.any(np.isin([36,37,38],ids)):
@@ -183,15 +166,15 @@ def atoms2template(atoms, tag_style='ocp'):
         else:
             ll = np.min(ids)
 
-        roll_1 = 1 if ll < 39 else -1 if ll > 41 else 0
-        roll_2 = 1 if ll in [36,39,42] else -1 if ll in [38,41,44] else 0
         rotate_scheme = 0
     
     # roll template ids
-    tpl = np.arange(45).reshape((5,3,3))    
+    roll_1 = 1 if ll < 39 else -1 if ll > 41 else 0
+    roll_2 = 1 if ll in [36,39,42] else -1 if ll in [38,41,44] else 0
+    tpl = np.arange(45).reshape((5,3,3))
     tpl = np.roll(tpl,roll_1,1)
     tpl = np.roll(tpl,roll_2,2)
-
+    
     # if necessary rotate and roll template ids
     if rotate_scheme == 1:
         tpl = np.rot90(tpl, k=-1, axes=(1, 2))
@@ -219,12 +202,10 @@ def atoms2template(atoms, tag_style='ocp'):
     site = 'bridge' if site[:-2] == 'bridge' else site
     ads_id = 3 if site == 'hcp' else 4
     height = {'ontop':2.0,'bridge':1.8,'fcc':1.3,'hcp':1.5}
-    new_atoms = add_ads(template, 'fcc111', (3,3,5), site, ads, height[site], ads_id)
+    add_ads(template, 'fcc111', (3,3,5), site, ads, height[site], ads_id)
     
     # adjust tag style
-    if tag_style == 'ase':
-        atoms.set_tags([i+1 for i in range(5)[::-1] for j in range(9)] + [0] * len(ads))
-    elif tag_style == 'ocp':
+    if tag_style == 'ocp':
         template = ase2ocp_tags(template)
 
     return template
@@ -283,7 +264,7 @@ def atoms2graph(atoms, onehot_labels):
     Pytorch data object
     """
     # get template and scale up cell
-    ads = ''.join([a.symbol for a in atoms if a.tag == 0])
+    ads = get_adslabel(atoms)
     _, _, site = get_ensemble(atoms)
     atoms = atoms2template(atoms, tag_style='ase')
     del atoms[[a.index for a in atoms if a.tag > 3]]
@@ -375,7 +356,8 @@ class lGNNtemplater():
         # loop through site/adsorbate combinations
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
-            temp_atoms = add_ads(deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
+            temp_atoms = deepcopy(atoms)
+            add_ads(temp_atoms, 'fcc111', (3,3,5), site, ads, height[site], ads_id)
             data_object = atoms2graph(temp_atoms, onehot_labels)
             data_object.x[:,0] = 0
 

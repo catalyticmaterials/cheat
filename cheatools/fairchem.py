@@ -234,7 +234,7 @@ class OCPbatchpredictor():
         ):
              
             # Batch inference
-            p = self.trainer.predict(batch, per_image=False, disable_tqdm=True)
+            p = self.trainer.predict(batch, per_image=False, disable_tqdm= not tqdm_bool)
             predictions = np.append(predictions,p['energy'].cpu().detach().numpy())
         
         return predictions

@@ -1,4 +1,4 @@
-import sys, os, subprocess
+import sys, os, subprocess, re
 import numpy as np
 from time import sleep
 from ase.db import connect
