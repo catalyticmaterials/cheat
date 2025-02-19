@@ -28,7 +28,8 @@ class OCPtemplater():
         a2g = AtomsToGraphs()
         for ads, site in zip(adsorbates,sites):
             ads_id = 3 if site == 'hcp' else 4
-            temp_atoms = add_ads(copy.deepcopy(atoms), 'fcc111', (3,3,5), site, ads, height[site], ads_id)
+            temp_atoms = copy.deepcopy(atoms)
+            add_ads(temp_atoms, 'fcc111', (3,3,5), site, ads, height[site], ads_id)
             temp_atoms = ase2ocp_tags(temp_atoms)
             data_object = a2g.convert_all([temp_atoms], disable_tqdm=True)[0]
             
