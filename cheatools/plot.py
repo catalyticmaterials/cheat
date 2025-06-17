@@ -90,13 +90,13 @@ def plot_parity(true_dict, pred_dict, colors, header, limit=[-0.5,2.5]):
 
         # add MAE and ME for adsorbate
         ax.text(0.01, 0.95-0.04*(i+1),
-            f'{ads:3}: {np.mean(np.abs(diff)):.3f} ({np.mean(diff):.3f}) eV',
+            f'{ads:3}: {np.mean(np.abs(diff)):.3f} ({np.mean(diff):+.3f}) eV',
             family='monospace', fontsize=16, transform=ax.transAxes,
             va='top', color=colors[i])
 
     # add total MAE and ME
     ax.text(0.01, 0.95,
-            f'Total MAE (ME): {np.mean(np.abs(tot_diff)):.3f} ({np.mean(tot_diff):.3f}) eV',
+            f'Total MAE (ME): {np.mean(np.abs(tot_diff)):.3f} ({np.mean(tot_diff):+.3f}) eV',
             family='monospace', fontsize=16, transform=ax.transAxes,
             va='top', color='k')
 
