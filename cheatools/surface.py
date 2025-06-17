@@ -58,6 +58,7 @@ class SurrogateSurface():
         
         # Metal parameters
         self.metals = list(set([k for comp in composition for k in comp.keys()]))
+        self.metals.sort()
         self.n_metals = len(self.metals)
 
         # Adsorbates parameters
